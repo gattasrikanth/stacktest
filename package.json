@@ -8,7 +8,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint \"packages/**/src/**/*.ts\"",
-    "format": "prettier --write \"packages/**/src/**/*.ts\" \"docs/**/*.md\""
+    "format": "prettier --write \"packages/**/src/**/*.ts\" \"docs/**/*.md\"",
+    "docs:dev": "pnpm --dir website start",
+    "docs:build": "pnpm --dir website build",
+    "docs:generate": "node scripts/generate-docs.js",
+    "docs:check": "pnpm docs:generate && git diff --exit-code website/docs/cli website/docs/schema website/docs/api && pnpm docs:build"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
@@ -17,6 +21,8 @@
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "tsup": "^8.0.2",
+    "typedoc": "^0.28.19",
+    "typedoc-plugin-markdown": "^4.12.0",
     "typescript": "^5.4.5",
     "vitest": "^1.5.0"
   }

@@ -261,21 +261,27 @@ Each task entry should include:
 Status: In progress / Complete / Blocked
 
 Code changes:
+
 - ...
 
 Docs reviewed:
+
 - ...
 
 Docs updated:
+
 - ...
 
 Tests run:
+
 - ...
 
 Commits made:
+
 - ...
 
 Known gaps:
+
 - ...
 ```
 
@@ -283,9 +289,11 @@ If no documentation update was required, the agent must explicitly record the re
 
 ```md
 Docs updated:
+
 - None
 
 Reason:
+
 - Internal refactor only. No behavior, configuration, API, schema, UI, setup, deployment, or testing instructions changed.
 ```
 

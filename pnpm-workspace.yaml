@@ -1,4 +1,7 @@
 packages:
   - 'packages/*'
+  - 'website'
 allowBuilds:
   esbuild: true
+  "@swc/core": true
+  "core-js": true
