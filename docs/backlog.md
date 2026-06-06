@@ -113,10 +113,10 @@ _Detailed Plan_: [docs/phases/phase-06-advanced-aws.md](file:///Users/srikanth/D
 
 | Issue ID | Task Name                                                                                                                                           | Recommended Agent Role | Target Commit Prefix                 | Status   |
 | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :----------------------------------- | :------- |
-| **#6.1** | [Implement AWS IAM Role Assumption](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md)                   | Safety                 | `feat(provider-aws-cloudformation):` | [ ] Todo |
-| **#6.2** | [Implement SSM and Secrets Manager Dynamic Resolvers](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md) | Implementation         | `feat(core):`                        | [ ] Todo |
-| **#6.3** | [Support Region-Specific Parameter Overrides](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md)         | Architect              | `feat(core):`                        | [ ] Todo |
-| **#6.4** | [Add `--retain-on-failure` Option to Orchestration and CLI](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md) | Implementation         | `feat(cli):`                         | [ ] Todo |
+| **#6.1** | [Implement AWS IAM Role Assumption](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md)                   | Safety                 | `feat(provider-aws-cloudformation):` | [x] Done |
+| **#6.2** | [Implement SSM and Secrets Manager Dynamic Resolvers](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md) | Implementation         | `feat(core):`                        | [x] Done |
+| **#6.3** | [Support Region-Specific Parameter Overrides](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md)         | Architect              | `feat(core):`                        | [x] Done |
+| **#6.4** | [Add `--retain-on-failure` Option to Orchestration and CLI](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md) | Implementation         | `feat(cli):`                         | [x] Done |
 
 ---
 
