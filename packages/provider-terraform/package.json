@@ -1,20 +1,21 @@
 {
-  "name": "@stacktest/cli",
+  "name": "@stacktest/provider-terraform",
   "version": "0.1.0",
-  "description": "StackTest command line interface",
+  "description": "Terraform provider for StackTest",
   "type": "module",
   "main": "./dist/index.js",
-  "bin": {
-    "stacktest": "./dist/index.js"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts",
     "dev": "tsup src/index.ts --format esm --dts --watch"
   },
   "dependencies": {
-    "@stacktest/core": "workspace:*",
-    "@stacktest/provider-aws-cloudformation": "workspace:*",
-    "@stacktest/provider-terraform": "workspace:*"
+    "@stacktest/core": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2"
