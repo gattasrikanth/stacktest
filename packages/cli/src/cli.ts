@@ -7,9 +7,11 @@ import {
   ReportGenerator,
 } from "@stacktest/core";
 import { AwsCloudFormationProvider } from "@stacktest/provider-aws-cloudformation";
+import { TerraformProvider } from "@stacktest/provider-terraform";
 
-// Auto-register AWS provider for CLI executions
+// Auto-register default providers for CLI executions
 ProviderRegistry.register(new AwsCloudFormationProvider());
+ProviderRegistry.register(new TerraformProvider());
 
 export function handleArgs(
   args: string[],
