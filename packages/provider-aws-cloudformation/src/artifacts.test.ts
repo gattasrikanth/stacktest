@@ -1,9 +1,19 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { mockClient } from "aws-sdk-client-mock";
-import { S3Client, CreateBucketCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  CreateBucketCommand,
+  PutObjectCommand,
+  PutBucketTaggingCommand,
+  GetBucketTaggingCommand,
+  ListObjectsV2Command,
+  DeleteObjectsCommand,
+  DeleteBucketCommand,
+} from "@aws-sdk/client-s3";
 import * as fs from "fs";
 import * as path from "path";
 import { S3ArtifactManager, generateSafeBucketName } from "./artifacts.js";
+import { type DeploymentPlan } from "@stacktest/core";
 
 const s3Mock = mockClient(S3Client);
 const TEMP_DIR = path.resolve(
@@ -49,6 +59,33 @@ describe("S3ArtifactManager Client Operations", () => {
     expect(calls[0].args[0].input.Bucket).toBe("my-bucket");
   });
 
+  it("should tag bucket when plan is provided to ensureBucketExists", async () => {
+    s3Mock.on(CreateBucketCommand).resolves({});
+    s3Mock.on(PutBucketTaggingCommand).resolves({});
+
+    const plan: DeploymentPlan = {
+      projectName: "myproj",
+      testName: "mytest",
+      providerName: "aws-cloudformation",
+      region: "us-east-1",
+      runId: "run123",
+      deploymentName: "myproj-mytest-us-east-1-run123",
+      template: "dummy.yaml",
+      parameters: {},
+    };
+
+    const manager = new S3ArtifactManager("us-east-1");
+    await manager.ensureBucketExists("tagged-bucket", plan);
+
+    const tagCalls = s3Mock.commandCalls(PutBucketTaggingCommand);
+    expect(tagCalls).toHaveLength(1);
+    expect(tagCalls[0].args[0].input.Bucket).toBe("tagged-bucket");
+    expect(tagCalls[0].args[0].input.Tagging?.TagSet).toContainEqual({
+      Key: "stacktest-project",
+      Value: "myproj",
+    });
+  });
+
   it("should upload template content successfully and return HTTPS url", async () => {
     s3Mock.on(PutObjectCommand).resolves({});
 
@@ -64,5 +101,61 @@ describe("S3ArtifactManager Client Operations", () => {
     expect(calls).toHaveLength(1);
     expect(calls[0].args[0].input.Bucket).toBe("my-bucket");
     expect(calls[0].args[0].input.Key).toBe("st-run/sqs.yaml");
+  });
+
+  it("should successfully delete bucket after verifying tags and emptying objects", async () => {
+    s3Mock.on(GetBucketTaggingCommand).resolves({
+      TagSet: [
+        { Key: "stacktest-project", Value: "myproj" },
+        { Key: "stacktest-run-id", Value: "run123" },
+        { Key: "stacktest-test-name", Value: "mytest" },
+      ],
+    });
+    s3Mock.on(ListObjectsV2Command).resolves({
+      Contents: [{ Key: "templates/dummy.yaml" }],
+    });
+    s3Mock.on(DeleteObjectsCommand).resolves({});
+    s3Mock.on(DeleteBucketCommand).resolves({});
+
+    const plan: DeploymentPlan = {
+      projectName: "myproj",
+      testName: "mytest",
+      providerName: "aws-cloudformation",
+      region: "us-east-1",
+      runId: "run123",
+      deploymentName: "myproj-mytest-us-east-1-run123",
+      template: "dummy.yaml",
+      parameters: {},
+    };
+
+    const manager = new S3ArtifactManager("us-east-1");
+    await expect(manager.deleteBucket("tagged-bucket", plan)).resolves.toBeUndefined();
+
+    expect(s3Mock.commandCalls(GetBucketTaggingCommand)).toHaveLength(1);
+    expect(s3Mock.commandCalls(ListObjectsV2Command)).toHaveLength(1);
+    expect(s3Mock.commandCalls(DeleteObjectsCommand)).toHaveLength(1);
+    expect(s3Mock.commandCalls(DeleteBucketCommand)).toHaveLength(1);
+  });
+
+  it("should fail bucket deletion if tags are missing or mismatched", async () => {
+    s3Mock.on(GetBucketTaggingCommand).resolves({
+      TagSet: [{ Key: "stacktest-project", Value: "mismatched" }],
+    });
+
+    const plan: DeploymentPlan = {
+      projectName: "myproj",
+      testName: "mytest",
+      providerName: "aws-cloudformation",
+      region: "us-east-1",
+      runId: "run123",
+      deploymentName: "myproj-mytest-us-east-1-run123",
+      template: "dummy.yaml",
+      parameters: {},
+    };
+
+    const manager = new S3ArtifactManager("us-east-1");
+    await expect(manager.deleteBucket("tagged-bucket", plan)).rejects.toThrow(
+      /missing required StackTest ownership tags/i,
+    );
   });
 });
