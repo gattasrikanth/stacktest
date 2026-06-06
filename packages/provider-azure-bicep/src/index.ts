@@ -25,8 +25,8 @@ export function generateSafeDeploymentName(name: string): string {
   return sanitized.slice(0, 64);
 }
 
-function formatAzureParameters(parameters: Record<string, any>): string {
-  const formatted: Record<string, { value: any }> = {};
+function formatAzureParameters(parameters: Record<string, unknown>): string {
+  const formatted: Record<string, { value: unknown }> = {};
   for (const [key, val] of Object.entries(parameters)) {
     formatted[key] = { value: val };
   }
@@ -156,7 +156,9 @@ export class AzureBicepProvider implements DeploymentProvider {
     try {
       // Safety guardrail check: Ensure resource group name starts with "st-"
       if (!rgName.startsWith("st-")) {
-        throw new Error(`Safety Guardrail: Resource group name "${rgName}" does not start with "st-" prefix.`);
+        throw new Error(
+          `Safety Guardrail: Resource group name "${rgName}" does not start with "st-" prefix.`,
+        );
       }
 
       // Delete the Resource Group and all contained resources
