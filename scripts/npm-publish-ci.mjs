@@ -2,8 +2,11 @@ import { execSync } from 'child_process';
 import path from 'path';
 import fs from 'fs';
 import { getPublishablePackages } from './npm-package-order.mjs';
+import { fileURLToPath } from 'url';
 
-const workspaceRoot = '/Users/srikanth/Desktop/Personal/Github/stacktest';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const workspaceRoot = path.resolve(__dirname, '..');
 const artifactsDir = path.resolve(workspaceRoot, '.artifacts/npm');
 fs.mkdirSync(artifactsDir, { recursive: true });
 
