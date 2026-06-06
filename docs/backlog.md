@@ -120,8 +120,24 @@ _Detailed Plan_: [docs/phases/phase-06-advanced-aws.md](file:///Users/srikanth/D
 
 ---
 
+## Phase 07: Terraform Provider Integration
+
+**Goal**: Design and implement the HashiCorp Terraform provider (`@stacktest/provider-terraform`) as the second concrete deployment backend to validate the framework's decoupled, provider-agnostic core.  
+_Detailed Plan_: [docs/phases/phase-07-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)
+
+| Issue ID | Task Name                                                                                                                                              | Recommended Agent Role | Target Commit Prefix                 | Status   |
+| :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :----------------------------------- | :------- |
+| **#7.1** | [Initialize `provider-terraform` Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)           | Architect              | `chore:`                             | [x] Done |
+| **#7.2** | [Implement Terraform Workspace and Init Manager](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)    | Implementation         | `feat(provider-terraform):`          | [x] Done |
+| **#7.3** | [Implement Terraform Apply (Deploy) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)       | Implementation         | `feat(provider-terraform):`          | [x] Done |
+| **#7.4** | [Implement Terraform Destroy Executor with Safety Guardrails](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md) | Safety                 | `feat(provider-terraform):`          | [x] Done |
+| **#7.5** | [Add Mock and Unit Tests for Terraform Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)    | Test                   | `test(provider-terraform):`          | [x] Done |
+| **#7.6** | [Add Opt-In Integration Tests for Terraform Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md) | Test                   | `test(provider-terraform):`          | [x] Done |
+
+---
+
 ## Future Execution Phases (Post-MVP)
 
-### Phase 07: Future Providers
+### Phase 08: Future Providers (CDK, Azure Bicep, Pulumi, Kubernetes)
 
-- **Goal**: Add support for additional infrastructure backends such as Google Cloud Platform (GCP Deployment Manager / Cloud Run), HashiCorp Terraform, Azure Resource Manager (ARM), and Kubernetes.
+- **Goal**: Add support for additional infrastructure backends such as AWS CDK synthesized templates, Azure Resource Manager (ARM/Bicep), Pulumi, and Kubernetes manifests / Helm charts.
