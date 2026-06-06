@@ -141,19 +141,35 @@ _Detailed Plan_: [docs/phases/phase-07-future-providers.md](file:///Users/srikan
 **Goal**: Design and implement the AWS CDK provider (`@stacktest/provider-aws-cdk`) as the third concrete deployment backend to support testing CDK applications.  
 _Detailed Plan_: [docs/phases/phase-08-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)
 
-| Issue ID | Task Name                                                                                                                                              | Recommended Agent Role | Target Commit Prefix                 | Status   |
-| :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :----------------------------------- | :------- |
-| **#8.1** | [Initialize `provider-aws-cdk` Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)               | Architect              | `chore:`                             | [x] Done |
-| **#8.2** | [Implement CDK Synth Manager](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)                       | Implementation         | `feat(provider-aws-cdk):`            | [x] Done |
-| **#8.3** | [Implement CDK Deploy (Wrapper) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)           | Implementation         | `feat(provider-aws-cdk):`            | [x] Done |
-| **#8.4** | [Implement CDK Destroy (Wrapper) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)          | Safety                 | `feat(provider-aws-cdk):`            | [x] Done |
-| **#8.5** | [Add Mock and Unit Tests for CDK Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)          | Test                   | `test(provider-aws-cdk):`            | [x] Done |
-| **#8.6** | [Add Opt-In Integration Tests for CDK Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)     | Test                   | `test(provider-aws-cdk):`            | [x] Done |
+| Issue ID | Task Name                                                                                                                                          | Recommended Agent Role | Target Commit Prefix      | Status   |
+| :------- | :------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------------ | :------- |
+| **#8.1** | [Initialize `provider-aws-cdk` Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)         | Architect              | `chore:`                  | [x] Done |
+| **#8.2** | [Implement CDK Synth Manager](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)                   | Implementation         | `feat(provider-aws-cdk):` | [x] Done |
+| **#8.3** | [Implement CDK Deploy (Wrapper) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)       | Implementation         | `feat(provider-aws-cdk):` | [x] Done |
+| **#8.4** | [Implement CDK Destroy (Wrapper) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)      | Safety                 | `feat(provider-aws-cdk):` | [x] Done |
+| **#8.5** | [Add Mock and Unit Tests for CDK Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)      | Test                   | `test(provider-aws-cdk):` | [x] Done |
+| **#8.6** | [Add Opt-In Integration Tests for CDK Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md) | Test                   | `test(provider-aws-cdk):` | [x] Done |
+
+---
+
+## Phase 09: Kubernetes Provider Integration
+
+**Goal**: Design and implement the Kubernetes provider (`@stacktest/provider-kubernetes`) as the fourth concrete deployment backend.  
+_Detailed Plan_: [docs/phases/phase-09-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)
+
+| Issue ID | Task Name                                                                                                                                                    | Recommended Agent Role | Target Commit Prefix                 | Status   |
+| :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :----------------------------------- | :------- |
+| **#9.1** | [Initialize `provider-kubernetes` Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)                | Architect              | `chore:`                             | [x] Done |
+| **#9.2** | [Implement Kubernetes Namespace Manager](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)                 | Safety                 | `feat(provider-kubernetes):`         | [x] Done |
+| **#9.3** | [Implement Kubernetes Apply (Deploy) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)             | Implementation         | `feat(provider-kubernetes):`         | [x] Done |
+| **#9.4** | [Implement Kubernetes Delete Executor with Safety Guardrails](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md) | Safety                 | `feat(provider-kubernetes):`         | [x] Done |
+| **#9.5** | [Add Mock and Unit Tests for Kubernetes Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)          | Test                   | `test(provider-kubernetes):`         | [x] Done |
+| **#9.6** | [Add Opt-In Integration Tests for Kubernetes Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)     | Test                   | `test(provider-kubernetes):`         | [x] Done |
 
 ---
 
 ## Future Execution Phases (Post-MVP)
 
-### Phase 09: Future Providers (Azure Bicep, Pulumi, Kubernetes)
+### Phase 10: Future Providers (Azure Bicep, Pulumi)
 
-- **Goal**: Add support for additional infrastructure backends such as Azure Resource Manager (ARM/Bicep), Pulumi, and Kubernetes manifests / Helm charts.
+- **Goal**: Add support for additional infrastructure backends such as Azure Resource Manager (ARM/Bicep) and Pulumi.

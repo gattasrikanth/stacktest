@@ -9,11 +9,13 @@ import {
 import { AwsCloudFormationProvider } from "@stacktest/provider-aws-cloudformation";
 import { TerraformProvider } from "@stacktest/provider-terraform";
 import { AwsCdkProvider } from "@stacktest/provider-aws-cdk";
+import { KubernetesProvider } from "@stacktest/provider-kubernetes";
 
 // Auto-register default providers for CLI executions
 ProviderRegistry.register(new AwsCloudFormationProvider());
 ProviderRegistry.register(new TerraformProvider());
 ProviderRegistry.register(new AwsCdkProvider());
+ProviderRegistry.register(new KubernetesProvider());
 
 export function handleArgs(
   args: string[],
