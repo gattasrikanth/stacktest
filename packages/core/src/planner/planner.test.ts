@@ -91,4 +91,49 @@ describe("TestPlanner", () => {
     expect(plans).toHaveLength(1);
     expect(plans[0].region).toBe("us-east-1");
   });
+
+  it("should merge parameters with region-specific overrides correctly", () => {
+    const config: StackTestConfig = {
+      project: { name: "demo" },
+      providers: {
+        fake: { regions: ["us-east-1"], customConfigKey: "my-value" },
+      },
+      tests: {
+        basic: {
+          provider: "fake",
+          template: "template.yaml",
+          parameters: {
+            Env: "prod",
+            QueueName: "default-queue",
+          },
+          regions: [
+            "us-east-1",
+            {
+              region: "us-west-2",
+              parameters: {
+                QueueName: "west-queue",
+              },
+            },
+          ],
+        },
+      },
+    };
+
+    const planner = new TestPlanner(config);
+    const plans = planner.generatePlan("test-run");
+
+    expect(plans).toHaveLength(2);
+
+    // us-east-1 has default parameters
+    expect(plans[0].region).toBe("us-east-1");
+    expect(plans[0].parameters.Env).toBe("prod");
+    expect(plans[0].parameters.QueueName).toBe("default-queue");
+    expect(plans[0].providerConfig?.customConfigKey).toBe("my-value");
+
+    // us-west-2 has overridden QueueName parameter
+    expect(plans[1].region).toBe("us-west-2");
+    expect(plans[1].parameters.Env).toBe("prod");
+    expect(plans[1].parameters.QueueName).toBe("west-queue");
+    expect(plans[1].providerConfig?.customConfigKey).toBe("my-value");
+  });
 });

@@ -23,7 +23,17 @@ export const TestConfigSchema = z.object({
   provider: z.string().min(1, "Provider name cannot be empty"),
   template: z.string().min(1, "Template path cannot be empty"),
   parameters: z.record(z.union([z.string(), z.number(), z.boolean(), z.null()])).optional(),
-  regions: z.array(z.string().min(1)).optional(),
+  regions: z
+    .array(
+      z.union([
+        z.string().min(1),
+        z.object({
+          region: z.string().min(1, "Region name cannot be empty"),
+          parameters: z.record(z.union([z.string(), z.number(), z.boolean(), z.null()])).optional(),
+        }),
+      ]),
+    )
+    .optional(),
 });
 
 export const StackTestConfigSchema = z

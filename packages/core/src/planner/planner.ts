@@ -10,6 +10,7 @@ export interface DeploymentPlan {
   deploymentName: string;
   template: string;
   parameters: Record<string, string | number | boolean | null>;
+  providerConfig?: Record<string, any>;
 }
 
 export function generateRunId(): string {
@@ -60,18 +61,32 @@ export class TestPlanner {
         regions = providerConfig?.regions || ["us-east-1"];
       }
 
-      for (const region of regions) {
-        const deploymentName = generateSafeDeploymentName(projectName, testName, region, runId);
+      for (const r of regions) {
+        let regionName: string;
+        let regionParams: Record<string, string | number | boolean | null> = {};
+
+        if (typeof r === "string") {
+          regionName = r;
+        } else {
+          regionName = r.region;
+          regionParams = r.parameters || {};
+        }
+
+        const deploymentName = generateSafeDeploymentName(projectName, testName, regionName, runId);
 
         plans.push({
           projectName,
           testName,
           providerName,
-          region,
+          region: regionName,
           runId,
           deploymentName,
           template: testConfig.template,
-          parameters: testConfig.parameters || {},
+          parameters: {
+            ...(testConfig.parameters || {}),
+            ...regionParams,
+          },
+          providerConfig: providerConfig || {},
         });
       }
     }

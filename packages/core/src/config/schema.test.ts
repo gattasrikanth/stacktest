@@ -28,6 +28,40 @@ describe("StackTest Config Schema Validation", () => {
     expect(result.success).toBe(true);
   });
 
+  it("should validate a configuration with region overrides successfully", () => {
+    const validConfig = {
+      project: {
+        name: "demo-project",
+      },
+      providers: {
+        "aws-cloudformation": {
+          regions: ["us-east-1"],
+        },
+      },
+      tests: {
+        basic: {
+          provider: "aws-cloudformation",
+          template: "templates/sqs.yaml",
+          parameters: {
+            QueueName: "default-queue",
+          },
+          regions: [
+            "us-east-1",
+            {
+              region: "us-west-2",
+              parameters: {
+                QueueName: "west-queue",
+              },
+            },
+          ],
+        },
+      },
+    };
+
+    const result = StackTestConfigSchema.safeParse(validConfig);
+    expect(result.success).toBe(true);
+  });
+
   it("should reject invalid project names", () => {
     const invalidConfigs = [
       { name: "Demo-Project" }, // uppercase letters
