@@ -1,0 +1,19 @@
+{
+  "name": "stacktest-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Provider-agnostic infrastructure testing framework",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint \"packages/**/src/**/*.ts\"",
+    "format": "prettier --write \"packages/**/src/**/*.ts\" \"docs/**/*.md\""
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5",
+    "tsup": "^8.0.2",
+    "vitest": "^1.5.0"
+  }
+}
