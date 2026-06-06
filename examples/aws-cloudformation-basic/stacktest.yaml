@@ -1,0 +1,12 @@
+project:
+  name: aws-basic-sandbox
+
+providers:
+  aws-cloudformation:
+    regions:
+      - us-east-1
+
+tests:
+  sqs-queue:
+    provider: aws-cloudformation
+    template: templates/sqs-queue.yaml

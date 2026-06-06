@@ -1,0 +1,7 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'StackTest Sandbox - SQS Queue'
+Resources:
+  SandboxQueue:
+    Type: 'AWS::SQS::Queue'
+    Properties:
+      QueueName: !Sub 'st-sandbox-${AWS::Region}-${AWS::StackName}'

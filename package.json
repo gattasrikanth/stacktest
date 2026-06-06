@@ -14,7 +14,11 @@
     "docs:generate": "node scripts/generate-docs.js",
     "docs:check": "pnpm docs:generate && git diff --exit-code website/docs/cli website/docs/schema website/docs/api && pnpm docs:build",
     "pack:dry-run": "node scripts/npm-pack-dry-run.mjs",
-    "publish:local:first-release": "node scripts/npm-publish-local.mjs"
+    "publish:local:first-release": "node scripts/npm-publish-local.mjs",
+    "sandbox:lint": "node packages/cli/dist/index.js lint --config examples/aws-cloudformation-basic/stacktest.yaml",
+    "sandbox:plan": "node packages/cli/dist/index.js plan --config examples/aws-cloudformation-basic/stacktest.yaml",
+    "sandbox:run": "node packages/cli/dist/index.js run --config examples/aws-cloudformation-basic/stacktest.yaml",
+    "sandbox:run-no-cleanup": "node packages/cli/dist/index.js run --config examples/aws-cloudformation-basic/stacktest.yaml --skip-cleanup"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
