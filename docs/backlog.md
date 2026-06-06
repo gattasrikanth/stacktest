@@ -23,11 +23,11 @@ _Detailed Plan_: [docs/phases/phase-00-foundation.md](file:///Users/srikanth/Des
 
 | Issue ID | Task Name                                                                                                                                           | Recommended Agent Role | Target Commit Prefix | Status   |
 | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------- | :------- |
-| **#0.1** | [Initialize Monorepo Project Structure](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-00-foundation.md)                | Architect              | `chore:`             | [ ] Todo |
-| **#0.2** | [Add Repository Governance and Contributor Guidelines](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-00-foundation.md) | Documentation          | `docs:`              | [ ] Todo |
-| **#0.3** | [Setup Linter, Formatter, and Unit Testing Tools](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-00-foundation.md)      | Test                   | `chore:`             | [ ] Todo |
-| **#0.4** | [Implement CLI Skeleton with Version Query Command](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-00-foundation.md)    | Implementation         | `feat(cli):`         | [ ] Todo |
-| **#0.5** | [Setup GitHub Actions CI Workflow](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-00-foundation.md)                     | Documentation          | `chore:`             | [ ] Todo |
+| **#0.1** | [Initialize Monorepo Project Structure](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-00-foundation.md)                | Architect              | `chore:`             | [x] Done |
+| **#0.2** | [Add Repository Governance and Contributor Guidelines](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-00-foundation.md) | Documentation          | `docs:`              | [x] Done |
+| **#0.3** | [Setup Linter, Formatter, and Unit Testing Tools](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-00-foundation.md)      | Test                   | `chore:`             | [x] Done |
+| **#0.4** | [Implement CLI Skeleton with Version Query Command](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-00-foundation.md)    | Implementation         | `feat(cli):`         | [x] Done |
+| **#0.5** | [Setup GitHub Actions CI Workflow](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-00-foundation.md)                     | Documentation          | `chore:`             | [x] Done |
 
 ---
 
@@ -38,11 +38,11 @@ _Detailed Plan_: [docs/phases/phase-01-config-and-planning.md](file:///Users/sri
 
 | Issue ID | Task Name                                                                                                                                          | Recommended Agent Role | Target Commit Prefix | Status   |
 | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------- | :------- |
-| **#1.1** | [Define Configuration Schema Models](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-01-config-and-planning.md)         | Architect              | `feat(core):`        | [ ] Todo |
-| **#1.2** | [Implement Config Loader and YAML Validator](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-01-config-and-planning.md) | Implementation         | `feat(core):`        | [ ] Todo |
-| **#1.3** | [Add `stacktest lint` Command to CLI](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-01-config-and-planning.md)        | Implementation         | `feat(cli):`         | [ ] Todo |
-| **#1.4** | [Implement Deterministic Planning Engine](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-01-config-and-planning.md)    | Architect              | `feat(core):`        | [ ] Todo |
-| **#1.5** | [Add `stacktest plan` Command to CLI](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-01-config-and-planning.md)        | Implementation         | `feat(cli):`         | [ ] Todo |
+| **#1.1** | [Define Configuration Schema Models](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-01-config-and-planning.md)         | Architect              | `feat(core):`        | [x] Done |
+| **#1.2** | [Implement Config Loader and YAML Validator](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-01-config-and-planning.md) | Implementation         | `feat(core):`        | [x] Done |
+| **#1.3** | [Add `stacktest lint` Command to CLI](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-01-config-and-planning.md)        | Implementation         | `feat(cli):`         | [x] Done |
+| **#1.4** | [Implement Deterministic Planning Engine](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-01-config-and-planning.md)    | Architect              | `feat(core):`        | [x] Done |
+| **#1.5** | [Add `stacktest plan` Command to CLI](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-01-config-and-planning.md)        | Implementation         | `feat(cli):`         | [x] Done |
 
 ---
 
@@ -53,12 +53,12 @@ _Detailed Plan_: [docs/phases/phase-02-provider-interface.md](file:///Users/srik
 
 | Issue ID | Task Name                                                                                                                                                    | Recommended Agent Role | Target Commit Prefix | Status   |
 | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------- | :------- |
-| **#2.1** | [Define `DeploymentProvider` and Results Interfaces](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md)    | Architect              | `feat(core):`        | [ ] Todo |
-| **#2.2** | [Implement `ProviderRegistry` Engine](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md)                   | Architect              | `feat(core):`        | [ ] Todo |
-| **#2.3** | [Implement `DynamicValueParser` and Built-in Resolvers](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md) | Implementation         | `feat(core):`        | [ ] Todo |
-| **#2.4** | [Build the Mock `FakeProvider`](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md)                         | Test                   | `feat(core):`        | [ ] Todo |
-| **#2.5** | [Implement Run Orchestrator](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md)                            | Implementation         | `feat(core):`        | [ ] Todo |
-| **#2.6** | [Connect CLI `run` Command with Console Reporter](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md)       | Implementation         | `feat(cli):`         | [ ] Todo |
+| **#2.1** | [Define `DeploymentProvider` and Results Interfaces](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md)    | Architect              | `feat(core):`        | [x] Done |
+| **#2.2** | [Implement `ProviderRegistry` Engine](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md)                   | Architect              | `feat(core):`        | [x] Done |
+| **#2.3** | [Implement `DynamicValueParser` and Built-in Resolvers](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md) | Implementation         | `feat(core):`        | [x] Done |
+| **#2.4** | [Build the Mock `FakeProvider`](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md)                         | Test                   | `feat(core):`        | [x] Done |
+| **#2.5** | [Implement Run Orchestrator](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md)                            | Implementation         | `feat(core):`        | [x] Done |
+| **#2.6** | [Connect CLI `run` Command with Console Reporter](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-02-provider-interface.md)       | Implementation         | `feat(cli):`         | [x] Done |
 
 ---
 
@@ -69,13 +69,13 @@ _Detailed Plan_: [docs/phases/phase-03-aws-cloudformation-provider.md](file:///U
 
 | Issue ID | Task Name                                                                                                                                                        | Recommended Agent Role | Target Commit Prefix                 | Status   |
 | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :----------------------------------- | :------- |
-| **#3.1** | [Initialize `provider-aws-cloudformation` Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md) | Architect              | `chore:`                             | [ ] Todo |
-| **#3.2** | [Implement AWS Credential and Region Resolver](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md)     | Safety                 | `feat(provider-aws-cloudformation):` | [ ] Todo |
-| **#3.3** | [Implement S3 Artifact Upload Manager](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md)             | Implementation         | `feat(provider-aws-cloudformation):` | [ ] Todo |
-| **#3.4** | [Implement Stack Deployer and Event Poller](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md)        | Implementation         | `feat(provider-aws-cloudformation):` | [ ] Todo |
-| **#3.5** | [Implement Event Failure Extractor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md)                | Test                   | `feat(provider-aws-cloudformation):` | [ ] Todo |
-| **#3.6** | [Implement Stack Destroyer with Safety Guardrails](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md) | Safety                 | `feat(provider-aws-cloudformation):` | [ ] Todo |
-| **#3.7** | [Add Opt-In Integration Tests](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md)                     | Test                   | `test(provider-aws-cloudformation):` | [ ] Todo |
+| **#3.1** | [Initialize `provider-aws-cloudformation` Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md) | Architect              | `chore:`                             | [x] Done |
+| **#3.2** | [Implement AWS Credential and Region Resolver](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md)     | Safety                 | `feat(provider-aws-cloudformation):` | [x] Done |
+| **#3.3** | [Implement S3 Artifact Upload Manager](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md)             | Implementation         | `feat(provider-aws-cloudformation):` | [x] Done |
+| **#3.4** | [Implement Stack Deployer and Event Poller](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md)        | Implementation         | `feat(provider-aws-cloudformation):` | [x] Done |
+| **#3.5** | [Implement Event Failure Extractor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md)                | Test                   | `feat(provider-aws-cloudformation):` | [x] Done |
+| **#3.6** | [Implement Stack Destroyer with Safety Guardrails](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md) | Safety                 | `feat(provider-aws-cloudformation):` | [x] Done |
+| **#3.7** | [Add Opt-In Integration Tests](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-03-aws-cloudformation-provider.md)                     | Test                   | `test(provider-aws-cloudformation):` | [x] Done |
 
 ---
 
