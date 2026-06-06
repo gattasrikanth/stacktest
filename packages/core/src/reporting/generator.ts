@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { type DeploymentPlan } from "../planner/planner.js";
 import { type DeploymentResult } from "../providers/types.js";
+import { writeNormalizedRunArtifacts } from "../runs/run-artifacts.js";
 
 export interface ReportSummary {
   passed: number;
@@ -863,6 +864,12 @@ export class ReportGenerator {
     fs.writeFileSync(jsonPath, json, "utf8");
     fs.writeFileSync(junitPath, junit, "utf8");
     fs.writeFileSync(htmlPath, html, "utf8");
+    writeNormalizedRunArtifacts(path.resolve(process.cwd(), ".stacktest", "runs"), {
+      projectName,
+      runId,
+      plans,
+      results,
+    });
 
     return { jsonPath, junitPath, htmlPath };
   }

@@ -1,0 +1,44 @@
+{
+  "name": "@stack-test/dashboard",
+  "version": "0.1.1",
+  "description": "StackTest local dashboard server and web UI",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/server/index.cjs",
+  "module": "./dist/server/index.js",
+  "types": "./dist/server/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/server/index.d.ts",
+      "import": "./dist/server/index.js",
+      "require": "./dist/server/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "vite build && tsup src/server/index.ts --format cjs,esm --tsconfig tsconfig.server.json --out-dir dist/server && tsc -p tsconfig.server.json --emitDeclarationOnly --declaration --declarationMap false --outDir dist/server",
+    "dev": "vite --host 127.0.0.1",
+    "test": "vitest run"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@stack-test/core": "workspace:*",
+    "chokidar": "^3.6.0",
+    "fastify": "^4.28.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "tsup": "^8.0.2",
+    "vite": "^5.4.19"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -6,6 +6,9 @@ const resultOrPromise = handleArgs(process.argv.slice(2));
 Promise.resolve(resultOrPromise)
   .then((result) => {
     console.log(result.output);
+    if ("keepAlive" in result && result.keepAlive) {
+      return;
+    }
     process.exit(result.exitCode);
   })
   .catch((err) => {

@@ -35,6 +35,7 @@ describe("CLI Argument Handling", () => {
     const res = handleArgs([]);
     expect(res.exitCode).toBe(1);
     expect(res.output).toContain("Usage:");
+    expect(res.output).toContain("stacktest dashboard");
   });
 
   it("should return success when linting a valid configuration file", () => {
@@ -99,6 +100,30 @@ tests:
     expect(res.output).toContain('Plan for project "plan-project"');
     expect(res.output).toContain("us-east-1");
     expect(res.output).toContain("us-west-2");
+  });
+
+  it("should accept a positional config path for plan command", async () => {
+    const configPath = path.join(TEMP_DIR, "stacktest-plan-positional.yaml");
+    const templatePath = path.join(TEMP_DIR, "sqs.yaml");
+
+    const configContent = `
+project:
+  name: positional-project
+providers:
+  fake:
+    regions:
+      - local
+tests:
+  basic:
+    provider: fake
+    template: sqs.yaml
+`;
+    fs.writeFileSync(configPath, configContent, "utf8");
+    fs.writeFileSync(templatePath, "Resources: {}", "utf8");
+
+    const res = handleArgs(["plan", configPath]);
+    expect(res.exitCode).toBe(0);
+    expect(res.output).toContain('Plan for project "positional-project"');
   });
 
   it("should output a JSON plan when plan command is run with --json", async () => {

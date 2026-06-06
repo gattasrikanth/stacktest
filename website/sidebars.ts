@@ -24,6 +24,7 @@ const sidebars: SidebarsConfig = {
         'core-concepts/parameters',
         'core-concepts/artifacts',
         'core-concepts/reports',
+        'core-concepts/local-dashboard',
         'core-concepts/cleanup-destroy',
       ],
     },

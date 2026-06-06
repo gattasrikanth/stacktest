@@ -15,7 +15,7 @@ Inspired by the core concepts of `taskcat`, StackTest extends infrastructure tes
 - **Provider-Agnostic Core**: Modular design decouples test planning and orchestration from cloud-specific logic.
 - **Safety First**: Destructive cleanup operations are strictly gated by ownership tagging verification to ensure StackTest never deletes your external infrastructure.
 - **Dynamic Parameter Resolution**: Inject dynamic variables (such as UUIDs, randomized passwords, project names, and region references) into deployment configurations before running tests.
-- **Rich Reporting**: Outputs comprehensive JSON reports, JUnit XML for CI integrations, and (coming soon) static local HTML dashboards.
+- **Rich Reporting**: Outputs comprehensive JSON reports, JUnit XML for CI integrations, portable HTML reports, and a local dashboard for run history and event debugging.
 
 ---
 
@@ -47,12 +47,23 @@ Execute test runs locally using a mock provider harness (zero cloud dependencies
 npx stacktest run --provider fake
 ```
 
+### Local Dashboard
+
+Inspect run history, deployment events, and raw artifacts from a local-only dashboard:
+
+```bash
+npx stacktest dashboard
+```
+
+Everything runs on your machine and reads from `.stacktest/runs`.
+
 ---
 
 ## Project Structure
 
 - `packages/core`: Core planning, dynamic resolver, and run orchestration engine.
 - `packages/cli`: Thin CLI wrapper exposing command-line interfaces.
+- `packages/dashboard`: Local dashboard server and web UI.
 - `packages/provider-aws-cloudformation`: AWS CloudFormation target deployment provider (Phase 3).
 - `docs/`: Design decisions, roadmap milestones, and phased execution backlogs.
 

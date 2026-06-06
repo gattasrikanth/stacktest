@@ -8,3 +8,7 @@ export * from "./resolver/resolver.js";
 export * from "./providers/fake.js";
 export * from "./orchestration/orchestrator.js";
 export * from "./reporting/generator.js";
+export * from "./runs/types.js";
+export * from "./runs/run-events.js";
+export * from "./runs/run-artifacts.js";
+export * from "./runs/settings.js";

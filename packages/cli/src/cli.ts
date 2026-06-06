@@ -12,6 +12,7 @@ import { AwsCdkProvider } from "@stack-test/provider-aws-cdk";
 import { KubernetesProvider } from "@stack-test/provider-kubernetes";
 import { AzureBicepProvider } from "@stack-test/provider-azure-bicep";
 import { PulumiProvider } from "@stack-test/provider-pulumi";
+import { spawn } from "child_process";
 
 // Auto-register default providers for CLI executions
 ProviderRegistry.register(new AwsCloudFormationProvider());
@@ -21,21 +22,83 @@ ProviderRegistry.register(new KubernetesProvider());
 ProviderRegistry.register(new AzureBicepProvider());
 ProviderRegistry.register(new PulumiProvider());
 
-export function handleArgs(
-  args: string[],
-): { exitCode: number; output: string } | Promise<{ exitCode: number; output: string }> {
+export type CliResult = { exitCode: number; output: string; keepAlive?: boolean };
+
+function readOption(args: string[], longName: string, shortName?: string): string | undefined {
+  const idx = args.findIndex((arg) => arg === longName || (shortName ? arg === shortName : false));
+  if (idx !== -1 && idx + 1 < args.length) {
+    return args[idx + 1];
+  }
+  return undefined;
+}
+
+function openBrowser(url: string): void {
+  const opener =
+    process.platform === "darwin" ? "open" : process.platform === "win32" ? "cmd" : "xdg-open";
+  const args = process.platform === "win32" ? ["/c", "start", "", url] : [url];
+  const child = spawn(opener, args, { detached: true, stdio: "ignore" });
+  child.unref();
+}
+
+export function handleArgs(args: string[]): CliResult | Promise<CliResult> {
   if (args.includes("--version") || args.includes("-v")) {
     return { exitCode: 0, output: `StackTest version ${VERSION}` };
   }
 
   const command = args[0];
 
+  if (command === "dashboard") {
+    const port = Number(readOption(args, "--port") || "3456");
+    const host = readOption(args, "--host") || "127.0.0.1";
+    const dataDir = readOption(args, "--dir") || ".stacktest";
+    const runsDir = readOption(args, "--runs-dir");
+    const shouldOpen = args.includes("--no-open") ? false : args.includes("--open") || true;
+    const mock = args.includes("--mock");
+    const enableActions = args.includes("--enable-actions");
+
+    return (async () => {
+      try {
+        const { startDashboardServer } = await import("@stack-test/dashboard");
+        const server = await startDashboardServer({
+          dataDir,
+          runsDir,
+          host,
+          port,
+          open: shouldOpen,
+          mock,
+          enableActions,
+        });
+        if (shouldOpen) {
+          openBrowser(server.url);
+        }
+        return {
+          exitCode: 0,
+          keepAlive: true,
+          output: [
+            `StackTest dashboard running at ${server.url}`,
+            `Reading runs from ${runsDir || `${dataDir}/runs`}`,
+            mock ? "Serving deterministic mock dashboard data." : "",
+            enableActions ? "Run launcher is parsed but disabled in this release." : "",
+          ]
+            .filter(Boolean)
+            .join("\n"),
+        };
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        const hint = message.includes("EADDRINUSE")
+          ? `\nPort ${port} is already in use. Try: stacktest dashboard --port ${port + 1}`
+          : "";
+        return {
+          exitCode: 1,
+          output: `✗ Dashboard failed to start:\n${message}${hint}`,
+        };
+      }
+    })();
+  }
+
   if (command === "lint") {
-    let configPath: string | undefined;
-    const configIdx = args.findIndex((arg) => arg === "--config" || arg === "-c");
-    if (configIdx !== -1 && configIdx + 1 < args.length) {
-      configPath = args[configIdx + 1];
-    }
+    const configPath =
+      readOption(args, "--config", "-c") || (args[1]?.startsWith("-") ? undefined : args[1]);
 
     try {
       const result = loadConfig(configPath);
@@ -53,11 +116,8 @@ export function handleArgs(
   }
 
   if (command === "plan") {
-    let configPath: string | undefined;
-    const configIdx = args.findIndex((arg) => arg === "--config" || arg === "-c");
-    if (configIdx !== -1 && configIdx + 1 < args.length) {
-      configPath = args[configIdx + 1];
-    }
+    const configPath =
+      readOption(args, "--config", "-c") || (args[1]?.startsWith("-") ? undefined : args[1]);
 
     const isJson = args.includes("--json");
 
@@ -101,20 +161,15 @@ export function handleArgs(
   }
 
   if (command === "run") {
-    let configPath: string | undefined;
-    const configIdx = args.findIndex((arg) => arg === "--config" || arg === "-c");
-    if (configIdx !== -1 && configIdx + 1 < args.length) {
-      configPath = args[configIdx + 1];
-    }
+    const configPath =
+      readOption(args, "--config", "-c") || (args[1]?.startsWith("-") ? undefined : args[1]);
 
-    let providerOverride: string | undefined;
-    const providerIdx = args.findIndex((arg) => arg === "--provider" || arg === "-p");
-    if (providerIdx !== -1 && providerIdx + 1 < args.length) {
-      providerOverride = args[providerIdx + 1];
-    }
+    const providerOverride = readOption(args, "--provider", "-p");
 
     const skipCleanup = args.includes("--skip-cleanup");
     const retainOnFailure = args.includes("--retain-on-failure");
+    const dashboard = args.includes("--dashboard");
+    const dashboardPort = Number(readOption(args, "--dashboard-port") || "3456");
 
     let concurrency: number | undefined;
     const concurrencyIdx = args.findIndex((arg) => arg === "--concurrency");
@@ -141,6 +196,7 @@ export function handleArgs(
 
       const runId = plans.length > 0 ? plans[0].runId : "N/A";
       const start = Date.now();
+      let dashboardStarted = false;
 
       const lines = [
         `StackTest Run for project "${result.config.project.name}" (run ID: ${runId})`,
@@ -194,10 +250,31 @@ export function handleArgs(
           }
         }
 
+        if (dashboard && plans.length > 0) {
+          const dashboardUrl = `http://127.0.0.1:${dashboardPort}/runs/${encodeURIComponent(runId)}`;
+          try {
+            const { startDashboardServer } = await import("@stack-test/dashboard");
+            await startDashboardServer({
+              host: "127.0.0.1",
+              port: dashboardPort,
+              open: true,
+            });
+            dashboardStarted = true;
+            openBrowser(dashboardUrl);
+            lines.push(`\nDashboard: ${dashboardUrl}`);
+          } catch (dashboardErr) {
+            const dashboardMsg =
+              dashboardErr instanceof Error ? dashboardErr.message : String(dashboardErr);
+            lines.push(`\nDashboard URL: ${dashboardUrl}`);
+            lines.push(`Warning: Dashboard server was not started: ${dashboardMsg}`);
+          }
+        }
+
         const exitCode = failedCount > 0 ? 1 : 0;
 
         return {
           exitCode,
+          keepAlive: dashboardStarted,
           output: lines.join("\n"),
         };
       })();
@@ -213,6 +290,6 @@ export function handleArgs(
   return {
     exitCode: 1,
     output:
-      "Usage:\n  stacktest --version | -v\n  stacktest lint [--config <path>]\n  stacktest plan [--config <path>] [--json]\n  stacktest run [--config <path>] [--provider <name>] [--skip-cleanup] [--retain-on-failure] [--concurrency <num>]",
+      "Usage:\n  stacktest --version | -v\n  stacktest lint [--config <path>]\n  stacktest plan [--config <path>] [--json]\n  stacktest run [--config <path>] [--provider <name>] [--skip-cleanup] [--retain-on-failure] [--concurrency <num>] [--dashboard] [--dashboard-port <num>]\n  stacktest dashboard [--dir <path>] [--runs-dir <path>] [--port <num>] [--host <addr>] [--open | --no-open] [--mock] [--enable-actions]",
   };
 }
