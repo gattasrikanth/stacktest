@@ -61,7 +61,7 @@ export function loadConfig(targetPath?: string): ConfigLoaderResult {
 
   const config = parsed.data;
 
-  // Validate that all test template files exist on disk
+  // Validate that all test template files exist on disk and resolve their absolute paths
   for (const [testName, testConfig] of Object.entries(config.tests)) {
     if (testConfig.template) {
       const templatePath = path.resolve(configDir, testConfig.template);
@@ -70,6 +70,7 @@ export function loadConfig(targetPath?: string): ConfigLoaderResult {
           `Validation failed: Test "${testName}" references a template file that does not exist at "${testConfig.template}" (resolved to "${templatePath}").`,
         );
       }
+      testConfig.template = templatePath;
     }
     if (testConfig.stages) {
       for (const stage of testConfig.stages) {
@@ -79,6 +80,7 @@ export function loadConfig(targetPath?: string): ConfigLoaderResult {
             `Validation failed: Test "${testName}" Stage "${stage.name}" references a template file that does not exist at "${stage.template}" (resolved to "${templatePath}").`,
           );
         }
+        stage.template = templatePath;
       }
     }
   }
