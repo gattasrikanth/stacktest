@@ -73,4 +73,59 @@ project:
     expect(res.exitCode).toBe(1);
     expect(res.output).toContain("Configuration validation failed");
   });
+
+  it("should output a structured text plan when plan command is run", async () => {
+    const configPath = path.join(TEMP_DIR, "stacktest-plan.yaml");
+    const templatePath = path.join(TEMP_DIR, "sqs.yaml");
+
+    const configContent = `
+project:
+  name: plan-project
+providers:
+  fake:
+    regions:
+      - us-east-1
+      - us-west-2
+tests:
+  basic:
+    provider: fake
+    template: sqs.yaml
+`;
+    fs.writeFileSync(configPath, configContent, "utf8");
+    fs.writeFileSync(templatePath, "Resources: {}", "utf8");
+
+    const res = handleArgs(["plan", "--config", configPath]);
+    expect(res.exitCode).toBe(0);
+    expect(res.output).toContain('Plan for project "plan-project"');
+    expect(res.output).toContain("us-east-1");
+    expect(res.output).toContain("us-west-2");
+  });
+
+  it("should output a JSON plan when plan command is run with --json", async () => {
+    const configPath = path.join(TEMP_DIR, "stacktest-plan-json.yaml");
+    const templatePath = path.join(TEMP_DIR, "sqs.yaml");
+
+    const configContent = `
+project:
+  name: json-project
+providers:
+  fake:
+    regions:
+      - local-region
+tests:
+  basic:
+    provider: fake
+    template: sqs.yaml
+`;
+    fs.writeFileSync(configPath, configContent, "utf8");
+    fs.writeFileSync(templatePath, "Resources: {}", "utf8");
+
+    const res = handleArgs(["plan", "--config", configPath, "--json"]);
+    expect(res.exitCode).toBe(0);
+
+    const parsed = JSON.parse(res.output);
+    expect(parsed).toBeInstanceOf(Array);
+    expect(parsed[0].projectName).toBe("json-project");
+    expect(parsed[0].region).toBe("local-region");
+  });
 });
