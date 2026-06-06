@@ -23,8 +23,12 @@ Inspired by the core concepts of `taskcat`, StackTest extends infrastructure tes
 
 ### Installation
 
+Install the CLI using npm or pnpm:
+
 ```bash
-pnpm install
+npm install --save-dev @stack-test/cli
+# or
+pnpm add -D @stack-test/cli
 ```
 
 ### Run Dry-Run Validation

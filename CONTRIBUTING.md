@@ -41,6 +41,15 @@ To prevent implementation and documentation from drifting out of sync:
 - Refer to the [Agent Documentation Sync Policy](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/agent-documentation-sync-policy.md) for full instructions, checks, and checklists.
 - Be sure to complete the Documentation Sync Checklist when submitting a Pull Request.
 
+### 4. Release Planning & Changesets
+
+We use Changesets to plan releases and bump versions. If your PR changes runtime behavior, CLI commands, APIs, or provider behavior, run:
+```bash
+pnpm changeset
+```
+Follow the prompts to add a changeset detailing the changes.
+For full details on the release process, refer to the [Releasing Guide](docs/RELEASING.md).
+
 ---
 
 ## Testing Guidelines
