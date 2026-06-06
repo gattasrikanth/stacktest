@@ -45,6 +45,13 @@ export class RunOrchestrator {
         };
       }
 
+      // Collect deployment events for reporting
+      try {
+        deployResult.events = await provider.getEvents(resolvedPlan);
+      } catch {
+        // Ignore errors when fetching events
+      }
+
       results.push(deployResult);
 
       if (!this.options.skipCleanup) {

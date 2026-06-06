@@ -79,12 +79,21 @@ _Detailed Plan_: [docs/phases/phase-03-aws-cloudformation-provider.md](file:///U
 
 ---
 
+## Phase 04: Reporting and Dashboarding
+
+**Goal**: Generate useful local JSON, JUnit XML, and beautiful interactive HTML report dashboards for test executions.  
+_Detailed Plan_: [docs/phases/phase-04-reporting.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)
+
+| Issue ID | Task Name                                                                                                                                      | Recommended Agent Role | Target Commit Prefix | Status   |
+| :------- | :--------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------- | :------- |
+| **#4.1** | [Extend Result Interfaces and Event Collection](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)     | Architect              | `feat(core):`        | [ ] Todo |
+| **#4.2** | [Implement Core Report Generator Engine](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)            | Implementation         | `feat(core):`        | [ ] Todo |
+| **#4.3** | [Build Premium HTML Dashboard Report](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)               | Implementation         | `feat(core):`        | [ ] Todo |
+| **#4.4** | [Integrate Report Generation into CLI Run Command](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)  | Implementation         | `feat(cli):`         | [ ] Todo |
+
+---
+
 ## Future Execution Phases (Post-MVP)
-
-### Phase 04: Reporting & Dashboarding
-
-- **Goal**: Generate reusable local HTML dashboards, JUnit XML fixtures for CI integration, and localized run history details.
-- **Key Deliverables**: JUnit schema formatter, static HTML/CSS reporting module.
 
 ### Phase 05: Contributor Experience
 
