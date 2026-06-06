@@ -160,7 +160,7 @@ describe("PulumiProvider Mock Tests", () => {
     expect(result.success).toBe(true);
     expect(result.status).toBe("TERMINATED");
     expect(mockExec).toHaveBeenCalledWith(
-      expect.stringContaining('pulumi destroy --yes'),
+      expect.stringContaining("pulumi destroy --yes"),
       expect.any(Function),
     );
     expect(mockExec).toHaveBeenCalledWith(

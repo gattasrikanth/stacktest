@@ -30,7 +30,10 @@ interface PulumiState {
   };
 }
 
-async function fetchPulumiEvents(projectDir: string, stackName: string): Promise<DeploymentEvent[]> {
+async function fetchPulumiEvents(
+  projectDir: string,
+  stackName: string,
+): Promise<DeploymentEvent[]> {
   try {
     const { stdout } = await execAsync(
       `pulumi stack export --stack "${stackName}" --cwd "${projectDir}"`,
@@ -111,7 +114,9 @@ export class PulumiProvider implements DeploymentProvider {
       if (stat && stat.isFile()) {
         projectDir = path.dirname(projectDir);
       }
-      const events = fs.existsSync(projectDir) ? await fetchPulumiEvents(projectDir, stackName) : [];
+      const events = fs.existsSync(projectDir)
+        ? await fetchPulumiEvents(projectDir, stackName)
+        : [];
 
       return {
         success: false,

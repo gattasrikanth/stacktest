@@ -4,10 +4,7 @@ import { type DeploymentPlan } from "@stacktest/core";
 import * as fs from "fs";
 import * as path from "path";
 
-const TEMP_DIR = path.resolve(
-  process.cwd(),
-  "packages/provider-pulumi/src/temp-integration-test",
-);
+const TEMP_DIR = path.resolve(process.cwd(), "packages/provider-pulumi/src/temp-integration-test");
 
 const runIntegrationTests = process.env.RUN_PULUMI_INTEGRATION_TESTS === "true";
 const describeOrSkip = runIntegrationTests ? describe : describe.skip;

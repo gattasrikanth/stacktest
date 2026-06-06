@@ -157,14 +157,14 @@ _Detailed Plan_: [docs/phases/phase-08-future-providers.md](file:///Users/srikan
 **Goal**: Design and implement the Kubernetes provider (`@stacktest/provider-kubernetes`) as the fourth concrete deployment backend.  
 _Detailed Plan_: [docs/phases/phase-09-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)
 
-| Issue ID | Task Name                                                                                                                                                    | Recommended Agent Role | Target Commit Prefix                 | Status   |
-| :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :----------------------------------- | :------- |
-| **#9.1** | [Initialize `provider-kubernetes` Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)                | Architect              | `chore:`                             | [x] Done |
-| **#9.2** | [Implement Kubernetes Namespace Manager](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)                 | Safety                 | `feat(provider-kubernetes):`         | [x] Done |
-| **#9.3** | [Implement Kubernetes Apply (Deploy) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)             | Implementation         | `feat(provider-kubernetes):`         | [x] Done |
-| **#9.4** | [Implement Kubernetes Delete Executor with Safety Guardrails](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md) | Safety                 | `feat(provider-kubernetes):`         | [x] Done |
-| **#9.5** | [Add Mock and Unit Tests for Kubernetes Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)          | Test                   | `test(provider-kubernetes):`         | [x] Done |
-| **#9.6** | [Add Opt-In Integration Tests for Kubernetes Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)     | Test                   | `test(provider-kubernetes):`         | [x] Done |
+| Issue ID | Task Name                                                                                                                                                        | Recommended Agent Role | Target Commit Prefix         | Status   |
+| :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :--------------------------- | :------- |
+| **#9.1** | [Initialize `provider-kubernetes` Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)                    | Architect              | `chore:`                     | [x] Done |
+| **#9.2** | [Implement Kubernetes Namespace Manager](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)                      | Safety                 | `feat(provider-kubernetes):` | [x] Done |
+| **#9.3** | [Implement Kubernetes Apply (Deploy) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)                | Implementation         | `feat(provider-kubernetes):` | [x] Done |
+| **#9.4** | [Implement Kubernetes Delete Executor with Safety Guardrails](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md) | Safety                 | `feat(provider-kubernetes):` | [x] Done |
+| **#9.5** | [Add Mock and Unit Tests for Kubernetes Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)             | Test                   | `test(provider-kubernetes):` | [x] Done |
+| **#9.6** | [Add Opt-In Integration Tests for Kubernetes Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)        | Test                   | `test(provider-kubernetes):` | [x] Done |
 
 ---
 
@@ -173,16 +173,16 @@ _Detailed Plan_: [docs/phases/phase-09-future-providers.md](file:///Users/srikan
 **Goal**: Design and implement the Azure Bicep provider (`@stacktest/provider-azure-bicep`) and the Pulumi provider (`@stacktest/provider-pulumi`) as the fifth and sixth concrete deployment backends.  
 _Detailed Plan_: [docs/phases/phase-10-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)
 
-| Issue ID  | Task Name                                                                                                                                                   | Recommended Agent Role | Target Commit Prefix                  | Status   |
-| :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------------------------ | :------- |
-| **#10.1** | [Initialize Azure Bicep Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                         | Architect              | `chore:`                              | [x] Done |
-| **#10.2** | [Implement Azure Bicep Deployer and Event Collector](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)     | Implementation         | `feat(provider-azure-bicep):`         | [x] Done |
-| **#10.3** | [Implement Azure Bicep Destroyer with Safety Guardrails](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md) | Safety                 | `feat(provider-azure-bicep):`         | [x] Done |
-| **#10.4** | [Add Tests for Azure Bicep Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                     | Test                   | `test(provider-azure-bicep):`         | [x] Done |
-| **#10.5** | [Initialize Pulumi Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                             | Architect              | `chore:`                              | [x] Done |
-| **#10.6** | [Implement Pulumi Deployer and Destroyer](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                 | Implementation         | `feat(provider-pulumi):`              | [x] Done |
-| **#10.7** | [Add Tests for Pulumi Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                          | Test                   | `test(provider-pulumi):`              | [x] Done |
-| **#10.8** | [Register Providers in CLI](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                              | Implementation         | `feat(cli):`                          | [x] Done |
+| Issue ID  | Task Name                                                                                                                                                   | Recommended Agent Role | Target Commit Prefix          | Status   |
+| :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :---------------------------- | :------- |
+| **#10.1** | [Initialize Azure Bicep Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                         | Architect              | `chore:`                      | [x] Done |
+| **#10.2** | [Implement Azure Bicep Deployer and Event Collector](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)     | Implementation         | `feat(provider-azure-bicep):` | [x] Done |
+| **#10.3** | [Implement Azure Bicep Destroyer with Safety Guardrails](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md) | Safety                 | `feat(provider-azure-bicep):` | [x] Done |
+| **#10.4** | [Add Tests for Azure Bicep Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                     | Test                   | `test(provider-azure-bicep):` | [x] Done |
+| **#10.5** | [Initialize Pulumi Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                              | Architect              | `chore:`                      | [x] Done |
+| **#10.6** | [Implement Pulumi Deployer and Destroyer](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                | Implementation         | `feat(provider-pulumi):`      | [x] Done |
+| **#10.7** | [Add Tests for Pulumi Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                          | Test                   | `test(provider-pulumi):`      | [x] Done |
+| **#10.8** | [Register Providers in CLI](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                              | Implementation         | `feat(cli):`                  | [x] Done |
 
 ---
 
