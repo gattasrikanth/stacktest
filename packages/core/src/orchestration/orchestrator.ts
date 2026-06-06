@@ -34,7 +34,7 @@ export class RunOrchestrator {
 
       try {
         deployResult = await provider.deploy(resolvedPlan);
-        deployResult.resolvedParameters = resolvedPlan.parameters;
+        deployResult.resolvedParameters = deployResult.resolvedParameters || resolvedPlan.parameters;
       } catch (err) {
         const error = err instanceof Error ? err : new Error(String(err));
         deployResult = {

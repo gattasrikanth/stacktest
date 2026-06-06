@@ -67,6 +67,15 @@ importers:
       '@aws-sdk/client-s3':
         specifier: ^3.565.0
         version: 3.1062.0
+      '@aws-sdk/client-secrets-manager':
+        specifier: ^3.565.0
+        version: 3.1062.0
+      '@aws-sdk/client-ssm':
+        specifier: ^3.565.0
+        version: 3.1062.0
+      '@aws-sdk/client-sts':
+        specifier: ^3.565.0
+        version: 3.1062.0
       '@stacktest/core':
         specifier: workspace:*
         version: link:../core
@@ -113,6 +122,18 @@ packages:
 
   '@aws-sdk/client-s3@3.1062.0':
     resolution: {integrity: sha512-fb+qr6Jql36rJwlOEgkzaC85PGZ1sQ1pTd5YlpwPbOoN54gpVBaSLsDp8GXMToymJzpDHd8GeSDalUak1W9gLw==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/client-secrets-manager@3.1062.0':
+    resolution: {integrity: sha512-flDnjyGn2V7nIkMJ2wMcqo4V+YzzcOhoMWMVAXlPxO6BefpMRSLCf3IrbrUENwODc/b0FWSUdlrdt/GZY8kFoA==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/client-ssm@3.1062.0':
+    resolution: {integrity: sha512-nB2dClsENfBMxWqYPMKzS/J0RChXmVTbTIzB08rs+7neQ6VCwuKUGEO10UkSBbD7eHKSjV5B6BdMxChmC29c7g==}
+    engines: {node: '>=20.0.0'}
+
+  '@aws-sdk/client-sts@3.1062.0':
+    resolution: {integrity: sha512-qSWy/zqgyVf4WKMANx8mPth2F+Nq4fl6I+v4g/9bN62TYGpLREda14VhzD0uJasig+4tSUeztVrGOdeqzf+ImQ==}
     engines: {node: '>=20.0.0'}
 
   '@aws-sdk/core@3.974.17':
@@ -1773,6 +1794,46 @@ snapshots:
       '@aws-sdk/credential-provider-node': 3.972.51
       '@aws-sdk/middleware-flexible-checksums': 3.974.26
       '@aws-sdk/middleware-sdk-s3': 3.972.47
+      '@aws-sdk/signature-v4-multi-region': 3.996.31
+      '@aws-sdk/types': 3.973.10
+      '@smithy/core': 3.24.6
+      '@smithy/fetch-http-handler': 5.4.6
+      '@smithy/node-http-handler': 4.7.7
+      '@smithy/types': 4.14.3
+      tslib: 2.8.1
+
+  '@aws-sdk/client-secrets-manager@3.1062.0':
+    dependencies:
+      '@aws-crypto/sha256-browser': 5.2.0
+      '@aws-crypto/sha256-js': 5.2.0
+      '@aws-sdk/core': 3.974.17
+      '@aws-sdk/credential-provider-node': 3.972.51
+      '@aws-sdk/types': 3.973.10
+      '@smithy/core': 3.24.6
+      '@smithy/fetch-http-handler': 5.4.6
+      '@smithy/node-http-handler': 4.7.7
+      '@smithy/types': 4.14.3
+      tslib: 2.8.1
+
+  '@aws-sdk/client-ssm@3.1062.0':
+    dependencies:
+      '@aws-crypto/sha256-browser': 5.2.0
+      '@aws-crypto/sha256-js': 5.2.0
+      '@aws-sdk/core': 3.974.17
+      '@aws-sdk/credential-provider-node': 3.972.51
+      '@aws-sdk/types': 3.973.10
+      '@smithy/core': 3.24.6
+      '@smithy/fetch-http-handler': 5.4.6
+      '@smithy/node-http-handler': 4.7.7
+      '@smithy/types': 4.14.3
+      tslib: 2.8.1
+
+  '@aws-sdk/client-sts@3.1062.0':
+    dependencies:
+      '@aws-crypto/sha256-browser': 5.2.0
+      '@aws-crypto/sha256-js': 5.2.0
+      '@aws-sdk/core': 3.974.17
+      '@aws-sdk/credential-provider-node': 3.972.51
       '@aws-sdk/signature-v4-multi-region': 3.996.31
       '@aws-sdk/types': 3.973.10
       '@smithy/core': 3.24.6

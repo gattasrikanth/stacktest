@@ -11,9 +11,31 @@ import {
   DescribeStackEventsCommand,
   DeleteStackCommand,
 } from "@aws-sdk/client-cloudformation";
-import { getCloudFormationClient } from "./credentials.js";
+import { getCloudFormationClient, resolveAwsCredentials } from "./credentials.js";
 import { S3ArtifactManager, generateSafeBucketName } from "./artifacts.js";
 import { extractFailureReason } from "./events.js";
+import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
+import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
+
+function parseSecretSpec(spec: string): { secretId: string; jsonKey?: string } {
+  if (spec.startsWith("arn:aws:secretsmanager:")) {
+    const parts = spec.split(":");
+    if (parts.length > 7) {
+      const jsonKey = parts[parts.length - 1];
+      const secretId = parts.slice(0, parts.length - 1).join(":");
+      return { secretId, jsonKey };
+    }
+    return { secretId: spec };
+  } else {
+    const firstColonIdx = spec.indexOf(":");
+    if (firstColonIdx !== -1) {
+      const secretId = spec.slice(0, firstColonIdx);
+      const jsonKey = spec.slice(firstColonIdx + 1);
+      return { secretId, jsonKey };
+    }
+    return { secretId: spec };
+  }
+}
 
 function formatParameters(
   params: Record<string, string | number | boolean | null>,
@@ -38,11 +60,70 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
   async deploy(plan: DeploymentPlan): Promise<DeploymentResult> {
     const start = Date.now();
     const region = plan.region;
-    const cfnClient = getCloudFormationClient(region);
+
+    let cfnClient;
+    let ssmClient;
+    let secretsClient;
+    const resolvedParameters = { ...plan.parameters };
 
     try {
+      const credentials = await resolveAwsCredentials(region, plan.providerConfig);
+      cfnClient = getCloudFormationClient(region, credentials);
+      ssmClient = new SSMClient({ region, ...(credentials ? { credentials } : {}) });
+      secretsClient = new SecretsManagerClient({ region, ...(credentials ? { credentials } : {}) });
+
+      for (const [key, value] of Object.entries(resolvedParameters)) {
+        if (typeof value === "string") {
+          if (value.startsWith("$[aws_ssm:")) {
+            const match = value.match(/^\$\[aws_ssm:(.+)\]$/);
+            if (match) {
+              const paramName = match[1];
+              const ssmRes = await ssmClient.send(
+                new GetParameterCommand({
+                  Name: paramName,
+                  WithDecryption: true,
+                })
+              );
+              if (ssmRes.Parameter?.Value === undefined) {
+                throw new Error(`SSM Parameter "${paramName}" returned no value.`);
+              }
+              resolvedParameters[key] = ssmRes.Parameter.Value;
+            }
+          } else if (value.startsWith("$[aws_secret:")) {
+            const match = value.match(/^\$\[aws_secret:(.+)\]$/);
+            if (match) {
+              const spec = match[1];
+              const { secretId, jsonKey } = parseSecretSpec(spec);
+              const secretRes = await secretsClient.send(
+                new GetSecretValueCommand({
+                  SecretId: secretId,
+                })
+              );
+              const secretString = secretRes.SecretString;
+              if (secretString === undefined) {
+                throw new Error(`Secrets Manager Secret "${secretId}" returned no SecretString value.`);
+              }
+              if (jsonKey) {
+                try {
+                  const parsed = JSON.parse(secretString);
+                  if (parsed[jsonKey] === undefined) {
+                    throw new Error(`Key "${jsonKey}" not found in secret JSON for "${secretId}".`);
+                  }
+                  resolvedParameters[key] = parsed[jsonKey];
+                } catch (jsonErr) {
+                  const msg = jsonErr instanceof Error ? jsonErr.message : String(jsonErr);
+                  throw new Error(`Failed to parse secret JSON or extract key "${jsonKey}" for "${secretId}": ${msg}`);
+                }
+              } else {
+                resolvedParameters[key] = secretString;
+              }
+            }
+          }
+        }
+      }
+
       const bucketName = generateSafeBucketName(plan.projectName, plan.region, plan.runId);
-      const artifactManager = new S3ArtifactManager(region);
+      const artifactManager = new S3ArtifactManager(region, credentials);
 
       await artifactManager.ensureBucketExists(bucketName, plan);
 
@@ -58,7 +139,7 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
         new CreateStackCommand({
           StackName: plan.deploymentName,
           TemplateURL: templateUrl,
-          Parameters: formatParameters(plan.parameters),
+          Parameters: formatParameters(resolvedParameters),
           Tags: getTags(plan),
           Capabilities: ["CAPABILITY_IAM", "CAPABILITY_NAMED_IAM", "CAPABILITY_AUTO_EXPAND"],
         }),
@@ -95,6 +176,7 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
             runId: plan.runId,
             deploymentName: plan.deploymentName,
             durationMs: Date.now() - start,
+            resolvedParameters,
           };
         }
 
@@ -113,6 +195,7 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
             deploymentName: plan.deploymentName,
             durationMs: Date.now() - start,
             error: new Error(errMsg),
+            resolvedParameters,
           };
         }
 
@@ -129,16 +212,21 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
         deploymentName: plan.deploymentName,
         durationMs: Date.now() - start,
         error,
+        resolvedParameters,
       };
+    } finally {
+      if (ssmClient) ssmClient.destroy();
+      if (secretsClient) secretsClient.destroy();
     }
   }
 
   async destroy(plan: DeploymentPlan): Promise<DeploymentResult> {
     const start = Date.now();
     const region = plan.region;
-    const cfnClient = getCloudFormationClient(region);
 
     try {
+      const credentials = await resolveAwsCredentials(region, plan.providerConfig);
+      const cfnClient = getCloudFormationClient(region, credentials);
       // 1. Describe stack to verify ownership tags before calling delete
       let stackExists = false;
       try {
@@ -255,7 +343,7 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
 
       // 3. Delete the S3 staging bucket
       const bucketName = generateSafeBucketName(plan.projectName, plan.region, plan.runId);
-      const artifactManager = new S3ArtifactManager(region);
+      const artifactManager = new S3ArtifactManager(region, credentials);
       await artifactManager.deleteBucket(bucketName, plan);
 
       return {
@@ -280,9 +368,10 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
 
   async getEvents(plan: DeploymentPlan): Promise<DeploymentEvent[]> {
     const region = plan.region;
-    const cfnClient = getCloudFormationClient(region);
 
     try {
+      const credentials = await resolveAwsCredentials(region, plan.providerConfig);
+      const cfnClient = getCloudFormationClient(region, credentials);
       const res = await cfnClient.send(
         new DescribeStackEventsCommand({
           StackName: plan.deploymentName,

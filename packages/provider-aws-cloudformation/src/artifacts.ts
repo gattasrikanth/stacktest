@@ -33,8 +33,8 @@ export function generateSafeBucketName(projectName: string, region: string, runI
 export class S3ArtifactManager {
   private client: S3Client;
 
-  constructor(private region: string) {
-    this.client = getS3Client(region);
+  constructor(private region: string, credentials?: any) {
+    this.client = getS3Client(region, credentials);
   }
 
   async ensureBucketExists(bucketName: string, plan?: DeploymentPlan): Promise<void> {
