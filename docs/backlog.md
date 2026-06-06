@@ -86,10 +86,10 @@ _Detailed Plan_: [docs/phases/phase-04-reporting.md](file:///Users/srikanth/Desk
 
 | Issue ID | Task Name                                                                                                                                      | Recommended Agent Role | Target Commit Prefix | Status   |
 | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------- | :------- |
-| **#4.1** | [Extend Result Interfaces and Event Collection](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)     | Architect              | `feat(core):`        | [ ] Todo |
-| **#4.2** | [Implement Core Report Generator Engine](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)            | Implementation         | `feat(core):`        | [ ] Todo |
-| **#4.3** | [Build Premium HTML Dashboard Report](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)               | Implementation         | `feat(core):`        | [ ] Todo |
-| **#4.4** | [Integrate Report Generation into CLI Run Command](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)  | Implementation         | `feat(cli):`         | [ ] Todo |
+| **#4.1** | [Extend Result Interfaces and Event Collection](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)    | Architect              | `feat(core):`        | [ ] Todo |
+| **#4.2** | [Implement Core Report Generator Engine](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)           | Implementation         | `feat(core):`        | [ ] Todo |
+| **#4.3** | [Build Premium HTML Dashboard Report](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md)              | Implementation         | `feat(core):`        | [ ] Todo |
+| **#4.4** | [Integrate Report Generation into CLI Run Command](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-04-reporting.md) | Implementation         | `feat(cli):`         | [ ] Todo |
 
 ---
 
