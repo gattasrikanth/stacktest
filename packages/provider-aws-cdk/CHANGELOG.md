@@ -1,0 +1,9 @@
+# @stack-test/provider-aws-cdk
+
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [735422d]
+  - @stack-test/core@0.1.1
+  - @stack-test/provider-aws-cloudformation@0.1.1
