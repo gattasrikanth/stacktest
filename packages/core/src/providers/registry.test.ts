@@ -32,9 +32,10 @@ describe("ProviderRegistry", () => {
     expect(ProviderRegistry.get("mock-prov")).toBe(mockProvider);
   });
 
-  it("should throw when trying to register a provider with an existing name", () => {
+  it("should throw when trying to register a different provider with an existing name", () => {
     ProviderRegistry.register(mockProvider);
-    expect(() => ProviderRegistry.register(mockProvider)).toThrow(
+    const otherProvider = { ...mockProvider };
+    expect(() => ProviderRegistry.register(otherProvider)).toThrow(
       'Provider "mock-prov" is already registered.',
     );
   });
