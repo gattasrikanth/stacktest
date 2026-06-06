@@ -16,7 +16,9 @@
     "@stacktest/provider-aws-cloudformation": "workspace:*",
     "@stacktest/provider-aws-cdk": "workspace:*",
     "@stacktest/provider-kubernetes": "workspace:*",
-    "@stacktest/provider-terraform": "workspace:*"
+    "@stacktest/provider-terraform": "workspace:*",
+    "@stacktest/provider-azure-bicep": "workspace:*",
+    "@stacktest/provider-pulumi": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2"
