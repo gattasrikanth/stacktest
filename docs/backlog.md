@@ -207,9 +207,9 @@ _Detailed Plan_: [docs/phases/phase-11-multi-provider-composition.md](file:///Us
 **Goal**: Optimize test runs by executing non-dependent test groups concurrently across available compute threads, while maintaining sequential execution for stages within each group.  
 _Detailed Plan_: [docs/phases/phase-12-parallel-execution-engine.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md)
 
-| Issue ID  | Task Name | Recommended Agent Role | Target Commit Prefix | Status   |
-| :-------- | :-------- | :--------------------- | :------------------- | :------- |
-| **#12.1** | [Implement Concurrency Limiter Pool](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md) | Architect | `feat(core):` | [x] Done |
-| **#12.2** | [Refactor Orchestrator for Concurrent Groups Execution](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md) | Implementation | `feat(core):` | [x] Done |
-| **#12.3** | [Integrate Concurrency CLI Flags](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md) | Implementation | `feat(cli):` | [x] Done |
-| **#12.4** | [Add Concurrency Test Suite](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md) | Test | `test(core):` | [x] Done |
+| Issue ID  | Task Name                                                                                                                                                           | Recommended Agent Role | Target Commit Prefix | Status   |
+| :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------- | :------------------- | :------- |
+| **#12.1** | [Implement Concurrency Limiter Pool](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md)                    | Architect              | `feat(core):`        | [x] Done |
+| **#12.2** | [Refactor Orchestrator for Concurrent Groups Execution](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md) | Implementation         | `feat(core):`        | [x] Done |
+| **#12.3** | [Integrate Concurrency CLI Flags](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md)                       | Implementation         | `feat(cli):`         | [x] Done |
+| **#12.4** | [Add Concurrency Test Suite](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md)                            | Test                   | `test(core):`        | [x] Done |
