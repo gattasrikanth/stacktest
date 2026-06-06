@@ -17,6 +17,10 @@ describe("CLI Argument Handling", () => {
     if (fs.existsSync(TEMP_DIR)) {
       fs.rmSync(TEMP_DIR, { recursive: true, force: true });
     }
+    const stacktestDir = path.resolve(process.cwd(), ".stacktest");
+    if (fs.existsSync(stacktestDir)) {
+      fs.rmSync(stacktestDir, { recursive: true, force: true });
+    }
   });
 
   it("should output the correct version when --version is passed", () => {
@@ -155,6 +159,25 @@ tests:
     expect(res.output).toContain("Running 1 planned deployments");
     expect(res.output).toContain("PASS  fake  us-east-1  basic");
     expect(res.output).toContain("Summary: 1 passed, 0 failed, 1 total");
+    expect(res.output).toContain("Reports generated:");
+    expect(res.output).toContain("report.json");
+    expect(res.output).toContain("junit.xml");
+    expect(res.output).toContain("report.html");
+
+    const jsonMatch = res.output.match(/JSON:\s+(.+)/);
+    expect(jsonMatch).not.toBeNull();
+    const jsonPath = jsonMatch![1].trim();
+    expect(fs.existsSync(jsonPath)).toBe(true);
+
+    const junitMatch = res.output.match(/JUnit:\s+(.+)/);
+    expect(junitMatch).not.toBeNull();
+    const junitPath = junitMatch![1].trim();
+    expect(fs.existsSync(junitPath)).toBe(true);
+
+    const htmlMatch = res.output.match(/HTML:\s+(.+)/);
+    expect(htmlMatch).not.toBeNull();
+    const htmlPath = htmlMatch![1].trim();
+    expect(fs.existsSync(htmlPath)).toBe(true);
   });
 
   it("should run a failing deployment and output error details", async () => {

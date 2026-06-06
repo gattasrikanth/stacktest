@@ -4,6 +4,7 @@ import {
   TestPlanner,
   RunOrchestrator,
   ProviderRegistry,
+  ReportGenerator,
 } from "@stacktest/core";
 import { AwsCloudFormationProvider } from "@stacktest/provider-aws-cloudformation";
 
@@ -154,6 +155,24 @@ export function handleArgs(
         lines.push(
           `\nSummary: ${passedCount} passed, ${failedCount} failed, ${plans.length} total (${totalTime}ms)`,
         );
+
+        if (plans.length > 0) {
+          try {
+            const reportPaths = await ReportGenerator.writeReports(
+              result.config.project.name,
+              runId,
+              plans,
+              runResults,
+            );
+            lines.push(`\nReports generated:`);
+            lines.push(`  JSON:  ${reportPaths.jsonPath}`);
+            lines.push(`  JUnit: ${reportPaths.junitPath}`);
+            lines.push(`  HTML:  ${reportPaths.htmlPath}`);
+          } catch (reportErr) {
+            const reportMsg = reportErr instanceof Error ? reportErr.message : String(reportErr);
+            lines.push(`\nWarning: Report generation failed: ${reportMsg}`);
+          }
+        }
 
         const exitCode = failedCount > 0 ? 1 : 0;
 
