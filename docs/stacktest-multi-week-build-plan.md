@@ -52,18 +52,18 @@ Avoid AWS-specific names in the core package.
 Good:
 
 ```ts
-DeploymentProvider
-ArtifactProvider
-TestPlanner
-RunOrchestrator
+DeploymentProvider;
+ArtifactProvider;
+TestPlanner;
+RunOrchestrator;
 ```
 
 Avoid in core:
 
 ```ts
-CloudFormationRunner
-S3ArtifactManager
-AwsStackPlanner
+CloudFormationRunner;
+S3ArtifactManager;
+AwsStackPlanner;
 ```
 
 AWS-specific logic belongs in a provider package.
