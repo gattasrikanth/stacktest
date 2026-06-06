@@ -63,11 +63,23 @@ export function loadConfig(targetPath?: string): ConfigLoaderResult {
 
   // Validate that all test template files exist on disk
   for (const [testName, testConfig] of Object.entries(config.tests)) {
-    const templatePath = path.resolve(configDir, testConfig.template);
-    if (!fs.existsSync(templatePath)) {
-      throw new Error(
-        `Validation failed: Test "${testName}" references a template file that does not exist at "${testConfig.template}" (resolved to "${templatePath}").`,
-      );
+    if (testConfig.template) {
+      const templatePath = path.resolve(configDir, testConfig.template);
+      if (!fs.existsSync(templatePath)) {
+        throw new Error(
+          `Validation failed: Test "${testName}" references a template file that does not exist at "${testConfig.template}" (resolved to "${templatePath}").`,
+        );
+      }
+    }
+    if (testConfig.stages) {
+      for (const stage of testConfig.stages) {
+        const templatePath = path.resolve(configDir, stage.template);
+        if (!fs.existsSync(templatePath)) {
+          throw new Error(
+            `Validation failed: Test "${testName}" Stage "${stage.name}" references a template file that does not exist at "${stage.template}" (resolved to "${templatePath}").`,
+          );
+        }
+      }
     }
   }
 

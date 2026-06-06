@@ -11,6 +11,7 @@ export interface DeploymentPlan {
   template: string;
   parameters: Record<string, string | number | boolean | null>;
   providerConfig?: Record<string, unknown>;
+  stageName?: string;
 }
 
 export function generateRunId(): string {
@@ -53,12 +54,18 @@ export class TestPlanner {
     const projectName = this.config.project.name;
 
     for (const [testName, testConfig] of Object.entries(this.config.tests)) {
-      const providerName = testConfig.provider;
-      const providerConfig = this.config.providers[providerName];
-
       let regions = testConfig.regions;
       if (!regions || regions.length === 0) {
-        regions = providerConfig?.regions || ["us-east-1"];
+        if (testConfig.provider) {
+          const providerConfig = this.config.providers[testConfig.provider];
+          regions = providerConfig?.regions || ["us-east-1"];
+        } else if (testConfig.stages && testConfig.stages.length > 0) {
+          const firstProvider = testConfig.stages[0].provider;
+          const providerConfig = this.config.providers[firstProvider];
+          regions = providerConfig?.regions || ["us-east-1"];
+        } else {
+          regions = ["us-east-1"];
+        }
       }
 
       for (const r of regions) {
@@ -72,22 +79,53 @@ export class TestPlanner {
           regionParams = r.parameters || {};
         }
 
-        const deploymentName = generateSafeDeploymentName(projectName, testName, regionName, runId);
+        if (testConfig.stages && testConfig.stages.length > 0) {
+          for (const stage of testConfig.stages) {
+            const providerName = stage.provider;
+            const providerConfig = this.config.providers[providerName];
+            const deploymentName = generateSafeDeploymentName(
+              projectName,
+              `${testName}-${stage.name}`,
+              regionName,
+              runId,
+            );
 
-        plans.push({
-          projectName,
-          testName,
-          providerName,
-          region: regionName,
-          runId,
-          deploymentName,
-          template: testConfig.template,
-          parameters: {
-            ...(testConfig.parameters || {}),
-            ...regionParams,
-          },
-          providerConfig: providerConfig || {},
-        });
+            plans.push({
+              projectName,
+              testName,
+              providerName,
+              region: regionName,
+              runId,
+              deploymentName,
+              template: stage.template,
+              parameters: {
+                ...(stage.parameters || {}),
+                ...regionParams,
+              },
+              providerConfig: providerConfig || {},
+              stageName: stage.name,
+            });
+          }
+        } else if (testConfig.provider && testConfig.template) {
+          const providerName = testConfig.provider;
+          const providerConfig = this.config.providers[providerName];
+          const deploymentName = generateSafeDeploymentName(projectName, testName, regionName, runId);
+
+          plans.push({
+            projectName,
+            testName,
+            providerName,
+            region: regionName,
+            runId,
+            deploymentName,
+            template: testConfig.template,
+            parameters: {
+              ...(testConfig.parameters || {}),
+              ...regionParams,
+            },
+            providerConfig: providerConfig || {},
+          });
+        }
       }
     }
 

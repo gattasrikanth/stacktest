@@ -17,6 +17,7 @@ export interface DeploymentResult {
   error?: Error;
   events?: DeploymentEvent[];
   resolvedParameters?: Record<string, unknown>;
+  outputs?: Record<string, unknown>;
 }
 
 export interface DeploymentProvider {

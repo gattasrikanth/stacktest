@@ -14,63 +14,124 @@ export class RunOrchestrator {
   async execute(plans: DeploymentPlan[]): Promise<DeploymentResult[]> {
     const results: DeploymentResult[] = [];
 
+    // Group plans by: `${runId}-${testName}-${region}`
+    const groups: Map<string, DeploymentPlan[]> = new Map();
     for (const plan of plans) {
-      const provider = ProviderRegistry.get(plan.providerName);
+      const key = `${plan.runId}-${plan.testName}-${plan.region}`;
+      if (!groups.has(key)) {
+        groups.set(key, []);
+      }
+      groups.get(key)!.push(plan);
+    }
 
-      const context = {
-        projectName: plan.projectName,
-        testName: plan.testName,
-        providerName: plan.providerName,
-        region: plan.region,
-        runId: plan.runId,
-      };
+    // Process each group
+    for (const [, groupPlans] of groups.entries()) {
+      const stageOutputs: Record<string, Record<string, unknown>> = {};
+      const deployedPlans: { plan: DeploymentPlan; result: DeploymentResult }[] = [];
+      let groupFailed = false;
 
-      const resolvedPlan: DeploymentPlan = {
-        ...plan,
-        parameters: resolveParameters(plan.parameters, context),
-      };
+      // Deploy phase
+      for (const plan of groupPlans) {
+        if (groupFailed) {
+          results.push({
+            success: false,
+            status: "SKIPPED",
+            runId: plan.runId,
+            deploymentName: plan.deploymentName,
+            durationMs: 0,
+            error: new Error(`Skipped because a previous stage failed.`),
+          });
+          continue;
+        }
 
-      let deployResult: DeploymentResult;
+        const provider = ProviderRegistry.get(plan.providerName);
 
-      try {
-        deployResult = await provider.deploy(resolvedPlan);
-        deployResult.resolvedParameters =
-          deployResult.resolvedParameters || resolvedPlan.parameters;
-      } catch (err) {
-        const error = err instanceof Error ? err : new Error(String(err));
-        deployResult = {
-          success: false,
-          status: "CREATE_FAILED",
+        const context = {
+          projectName: plan.projectName,
+          testName: plan.testName,
+          providerName: plan.providerName,
+          region: plan.region,
           runId: plan.runId,
-          deploymentName: plan.deploymentName,
-          durationMs: 0,
-          error,
-          resolvedParameters: resolvedPlan.parameters,
+          stageOutputs,
         };
+
+        let resolvedPlan: DeploymentPlan;
+        try {
+          resolvedPlan = {
+            ...plan,
+            parameters: resolveParameters(plan.parameters, context),
+          };
+        } catch (err) {
+          const error = err instanceof Error ? err : new Error(String(err));
+          const deployResult = {
+            success: false,
+            status: "RESOLVE_FAILED",
+            runId: plan.runId,
+            deploymentName: plan.deploymentName,
+            durationMs: 0,
+            error,
+          };
+          results.push(deployResult);
+          groupFailed = true;
+          continue;
+        }
+
+        let deployResult: DeploymentResult;
+        const start = Date.now();
+        try {
+          deployResult = await provider.deploy(resolvedPlan);
+          deployResult.resolvedParameters =
+            deployResult.resolvedParameters || resolvedPlan.parameters;
+          deployResult.durationMs = Date.now() - start;
+        } catch (err) {
+          const error = err instanceof Error ? err : new Error(String(err));
+          deployResult = {
+            success: false,
+            status: "CREATE_FAILED",
+            runId: plan.runId,
+            deploymentName: plan.deploymentName,
+            durationMs: Date.now() - start,
+            error,
+            resolvedParameters: resolvedPlan.parameters,
+          };
+        }
+
+        // Collect deployment events for reporting
+        try {
+          deployResult.events = await provider.getEvents(resolvedPlan);
+        } catch {
+          // Ignore errors when fetching events
+        }
+
+        results.push(deployResult);
+        deployedPlans.push({ plan: resolvedPlan, result: deployResult });
+
+        if (!deployResult.success) {
+          groupFailed = true;
+        } else if (plan.stageName && deployResult.outputs) {
+          stageOutputs[plan.stageName] = deployResult.outputs;
+        }
       }
 
-      // Collect deployment events for reporting
-      try {
-        deployResult.events = await provider.getEvents(resolvedPlan);
-      } catch {
-        // Ignore errors when fetching events
-      }
-
-      results.push(deployResult);
-
+      // Cleanup phase (in reverse order of deployed stages)
       if (!this.options.skipCleanup) {
-        const skipDestroy = this.options.retainOnFailure && !deployResult.success;
-        if (!skipDestroy) {
-          try {
-            await provider.destroy(resolvedPlan);
-          } catch (err) {
-            const error = err instanceof Error ? err : new Error(String(err));
-            console.error(`Failed to destroy deployment "${plan.deploymentName}":`, error.message);
+        for (let i = deployedPlans.length - 1; i >= 0; i--) {
+          const { plan, result } = deployedPlans[i];
+          const provider = ProviderRegistry.get(plan.providerName);
+          const skipDestroy = this.options.retainOnFailure && !result.success;
+
+          if (!skipDestroy) {
+            try {
+              await provider.destroy(plan);
+            } catch (err) {
+              const error = err instanceof Error ? err : new Error(String(err));
+              console.error(`Failed to destroy deployment "${plan.deploymentName}":`, error.message);
+            }
+          } else {
+            console.log(
+              `[Retain-on-failure] Skipping cleanup for failed deployment: ${plan.deploymentName}`,
+            );
           }
-        } else {
-          console.log(
-            `[Retain-on-failure] Skipping cleanup for failed deployment: ${plan.deploymentName}`,
-          );
         }
       }
     }

@@ -174,6 +174,14 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
 
         if (successStatus.includes(status)) {
           active = false;
+          const outputs: Record<string, string> = {};
+          if (stack.Outputs) {
+            for (const out of stack.Outputs) {
+              if (out.OutputKey) {
+                outputs[out.OutputKey] = out.OutputValue || "";
+              }
+            }
+          }
           return {
             success: true,
             status,
@@ -181,6 +189,7 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
             deploymentName: plan.deploymentName,
             durationMs: Date.now() - start,
             resolvedParameters,
+            outputs,
           };
         }
 

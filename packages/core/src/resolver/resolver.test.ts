@@ -71,4 +71,56 @@ describe("Dynamic Value Resolver", () => {
     expect(resolved.Bool).toBe(true);
     expect(resolved.Null).toBeNull();
   });
+
+  it("should resolve stage output parameters successfully", () => {
+    const stageOutputs = {
+      "infra-net": {
+        VpcId: "vpc-999",
+        CidrBlock: "10.0.0.0/16",
+      },
+    };
+
+    const localContext = {
+      ...context,
+      stageOutputs,
+    };
+
+    const params = {
+      TargetVpc: "$[stage:infra-net:VpcId]",
+      Block: "$[output:infra-net:CidrBlock]",
+    };
+
+    const resolved = resolveParameters(params, localContext);
+    expect(resolved.TargetVpc).toBe("vpc-999");
+    expect(resolved.Block).toBe("10.0.0.0/16");
+  });
+
+  it("should throw an error if stage outputs are not available", () => {
+    const params = {
+      TargetVpc: "$[stage:missing-stage:VpcId]",
+    };
+
+    expect(() => resolveParameters(params, context)).toThrow(
+      /Stage "missing-stage" outputs are not available/,
+    );
+  });
+
+  it("should throw an error if output key is not found in stage outputs", () => {
+    const stageOutputs = {
+      "infra-net": {},
+    };
+
+    const localContext = {
+      ...context,
+      stageOutputs,
+    };
+
+    const params = {
+      TargetVpc: "$[stage:infra-net:MissingKey]",
+    };
+
+    expect(() => resolveParameters(params, localContext)).toThrow(
+      /Output key "MissingKey" not found in stage "infra-net"/,
+    );
+  });
 });

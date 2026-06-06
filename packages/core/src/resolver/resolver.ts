@@ -19,9 +19,10 @@ export function resolveValue(
     providerName: string;
     region: string;
     runId: string;
+    stageOutputs?: Record<string, Record<string, unknown>>;
   },
 ): string {
-  const regex = /\$\[(stacktest_[a-zA-Z0-9_]+)\]/g;
+  const regex = /\$\[([a-zA-Z0-9_:-]+)\]/g;
 
   return value.replace(regex, (match, token) => {
     if (token === "stacktest_project_name") return context.projectName;
@@ -40,6 +41,22 @@ export function resolveValue(
       return generateRandomPassword(len);
     }
 
+    if (token.startsWith("stage:") || token.startsWith("output:")) {
+      const parts = token.split(":");
+      if (parts.length === 3) {
+        const stageName = parts[1];
+        const outputKey = parts[2];
+        const stageOuts = context.stageOutputs?.[stageName];
+        if (!stageOuts) {
+          throw new Error(`Stage "${stageName}" outputs are not available.`);
+        }
+        if (stageOuts[outputKey] === undefined) {
+          throw new Error(`Output key "${outputKey}" not found in stage "${stageName}".`);
+        }
+        return String(stageOuts[outputKey]);
+      }
+    }
+
     throw new Error(`Unknown dynamic value: "${match}"`);
   });
 }
@@ -52,6 +69,7 @@ export function resolveParameters(
     providerName: string;
     region: string;
     runId: string;
+    stageOutputs?: Record<string, Record<string, unknown>>;
   },
 ): Record<string, string | number | boolean | null> {
   const resolved: Record<string, string | number | boolean | null> = {};

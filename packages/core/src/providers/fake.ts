@@ -28,12 +28,28 @@ export class FakeProvider implements DeploymentProvider {
       };
     }
 
+    const outputs: Record<string, unknown> = {};
+    if (plan.parameters.SimulateOutputs) {
+      try {
+        const parsed = typeof plan.parameters.SimulateOutputs === "string"
+          ? JSON.parse(plan.parameters.SimulateOutputs)
+          : plan.parameters.SimulateOutputs;
+        Object.assign(outputs, parsed);
+      } catch {
+        // Ignore JSON parse errors
+      }
+    } else {
+      outputs["VpcId"] = "vpc-fake123";
+      outputs["SubnetId"] = "subnet-fake456";
+    }
+
     return {
       success: true,
       status: "CREATE_COMPLETE",
       runId: plan.runId,
       deploymentName: plan.deploymentName,
       durationMs,
+      outputs,
     };
   }
 
