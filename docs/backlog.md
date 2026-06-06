@@ -111,11 +111,11 @@ _Detailed Plan_: [docs/phases/phase-05-contributor.md](file:///Users/srikanth/De
 **Goal**: Expand AWS CloudFormation capabilities with dynamic IAM Role Assumption, SSM Parameter Store and Secrets Manager dynamic parameter resolvers, region-specific configuration overrides, and a `--retain-on-failure` debugging option.  
 _Detailed Plan_: [docs/phases/phase-06-advanced-aws.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md)
 
-| Issue ID | Task Name                                                                                                                                           | Recommended Agent Role | Target Commit Prefix                 | Status   |
-| :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :----------------------------------- | :------- |
-| **#6.1** | [Implement AWS IAM Role Assumption](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md)                   | Safety                 | `feat(provider-aws-cloudformation):` | [x] Done |
-| **#6.2** | [Implement SSM and Secrets Manager Dynamic Resolvers](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md) | Implementation         | `feat(core):`                        | [x] Done |
-| **#6.3** | [Support Region-Specific Parameter Overrides](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md)         | Architect              | `feat(core):`                        | [x] Done |
+| Issue ID | Task Name                                                                                                                                                  | Recommended Agent Role | Target Commit Prefix                 | Status   |
+| :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :----------------------------------- | :------- |
+| **#6.1** | [Implement AWS IAM Role Assumption](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md)                         | Safety                 | `feat(provider-aws-cloudformation):` | [x] Done |
+| **#6.2** | [Implement SSM and Secrets Manager Dynamic Resolvers](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md)       | Implementation         | `feat(core):`                        | [x] Done |
+| **#6.3** | [Support Region-Specific Parameter Overrides](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md)               | Architect              | `feat(core):`                        | [x] Done |
 | **#6.4** | [Add `--retain-on-failure` Option to Orchestration and CLI](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-06-advanced-aws.md) | Implementation         | `feat(cli):`                         | [x] Done |
 
 ---

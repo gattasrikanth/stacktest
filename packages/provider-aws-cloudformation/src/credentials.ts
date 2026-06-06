@@ -9,7 +9,10 @@ export interface AwsCredentials {
   expiration?: Date;
 }
 
-export function getCloudFormationClient(region: string, credentials?: AwsCredentials): CloudFormationClient {
+export function getCloudFormationClient(
+  region: string,
+  credentials?: AwsCredentials,
+): CloudFormationClient {
   return new CloudFormationClient({
     region,
     ...(credentials ? { credentials } : {}),
@@ -25,7 +28,7 @@ export function getS3Client(region: string, credentials?: AwsCredentials): S3Cli
 
 export async function resolveAwsCredentials(
   region: string,
-  providerConfig?: Record<string, any>,
+  providerConfig?: Record<string, unknown>,
 ): Promise<AwsCredentials | undefined> {
   const roleArn = providerConfig?.roleArn;
   if (!roleArn) {

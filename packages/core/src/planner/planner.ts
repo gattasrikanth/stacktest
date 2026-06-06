@@ -10,7 +10,7 @@ export interface DeploymentPlan {
   deploymentName: string;
   template: string;
   parameters: Record<string, string | number | boolean | null>;
-  providerConfig?: Record<string, any>;
+  providerConfig?: Record<string, unknown>;
 }
 
 export function generateRunId(): string {

@@ -330,9 +330,13 @@ describe("AwsCloudFormationProvider Deployment", () => {
       SecretString: "secret-token-123",
     });
 
-    secretsMock.on(GetSecretValueCommand, { SecretId: "arn:aws:secretsmanager:us-east-1:123456789012:secret:db-creds-xyz" }).resolves({
-      SecretString: '{"username":"admin","password":"password123"}',
-    });
+    secretsMock
+      .on(GetSecretValueCommand, {
+        SecretId: "arn:aws:secretsmanager:us-east-1:123456789012:secret:db-creds-xyz",
+      })
+      .resolves({
+        SecretString: '{"username":"admin","password":"password123"}',
+      });
 
     const tempFile = path.join(TEMP_DIR, "secret-test.yaml");
     fs.writeFileSync(tempFile, "Resources: {}", "utf8");
@@ -347,7 +351,8 @@ describe("AwsCloudFormationProvider Deployment", () => {
       template: "packages/provider-aws-cloudformation/src/temp-deploy-test/secret-test.yaml",
       parameters: {
         ApiKey: "$[aws_secret:my-api-key]",
-        DbPassword: "$[aws_secret:arn:aws:secretsmanager:us-east-1:123456789012:secret:db-creds-xyz:password]",
+        DbPassword:
+          "$[aws_secret:arn:aws:secretsmanager:us-east-1:123456789012:secret:db-creds-xyz:password]",
       },
     };
 

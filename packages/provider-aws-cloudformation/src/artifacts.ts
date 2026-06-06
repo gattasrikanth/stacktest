@@ -13,7 +13,7 @@ import {
   DeleteObjectsCommand,
   DeleteBucketCommand,
 } from "@aws-sdk/client-s3";
-import { getS3Client } from "./credentials.js";
+import { getS3Client, type AwsCredentials } from "./credentials.js";
 import { type DeploymentPlan } from "@stacktest/core";
 
 export function generateSafeBucketName(projectName: string, region: string, runId: string): string {
@@ -33,7 +33,10 @@ export function generateSafeBucketName(projectName: string, region: string, runI
 export class S3ArtifactManager {
   private client: S3Client;
 
-  constructor(private region: string, credentials?: any) {
+  constructor(
+    private region: string,
+    credentials?: AwsCredentials,
+  ) {
     this.client = getS3Client(region, credentials);
   }
 

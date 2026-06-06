@@ -82,7 +82,7 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
                 new GetParameterCommand({
                   Name: paramName,
                   WithDecryption: true,
-                })
+                }),
               );
               if (ssmRes.Parameter?.Value === undefined) {
                 throw new Error(`SSM Parameter "${paramName}" returned no value.`);
@@ -97,11 +97,13 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
               const secretRes = await secretsClient.send(
                 new GetSecretValueCommand({
                   SecretId: secretId,
-                })
+                }),
               );
               const secretString = secretRes.SecretString;
               if (secretString === undefined) {
-                throw new Error(`Secrets Manager Secret "${secretId}" returned no SecretString value.`);
+                throw new Error(
+                  `Secrets Manager Secret "${secretId}" returned no SecretString value.`,
+                );
               }
               if (jsonKey) {
                 try {
@@ -112,7 +114,9 @@ export class AwsCloudFormationProvider implements DeploymentProvider {
                   resolvedParameters[key] = parsed[jsonKey];
                 } catch (jsonErr) {
                   const msg = jsonErr instanceof Error ? jsonErr.message : String(jsonErr);
-                  throw new Error(`Failed to parse secret JSON or extract key "${jsonKey}" for "${secretId}": ${msg}`);
+                  throw new Error(
+                    `Failed to parse secret JSON or extract key "${jsonKey}" for "${secretId}": ${msg}`,
+                  );
                 }
               } else {
                 resolvedParameters[key] = secretString;

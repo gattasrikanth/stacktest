@@ -34,7 +34,8 @@ export class RunOrchestrator {
 
       try {
         deployResult = await provider.deploy(resolvedPlan);
-        deployResult.resolvedParameters = deployResult.resolvedParameters || resolvedPlan.parameters;
+        deployResult.resolvedParameters =
+          deployResult.resolvedParameters || resolvedPlan.parameters;
       } catch (err) {
         const error = err instanceof Error ? err : new Error(String(err));
         deployResult = {
@@ -67,7 +68,9 @@ export class RunOrchestrator {
             console.error(`Failed to destroy deployment "${plan.deploymentName}":`, error.message);
           }
         } else {
-          console.log(`[Retain-on-failure] Skipping cleanup for failed deployment: ${plan.deploymentName}`);
+          console.log(
+            `[Retain-on-failure] Skipping cleanup for failed deployment: ${plan.deploymentName}`,
+          );
         }
       }
     }
