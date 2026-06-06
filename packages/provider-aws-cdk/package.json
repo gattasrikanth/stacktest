@@ -1,6 +1,6 @@
 {
   "name": "@stack-test/provider-aws-cdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AWS CDK provider for StackTest",
   "license": "MIT",
   "type": "module",

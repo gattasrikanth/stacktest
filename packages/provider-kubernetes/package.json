@@ -1,6 +1,6 @@
 {
   "name": "@stack-test/provider-kubernetes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Kubernetes provider for StackTest",
   "license": "MIT",
   "type": "module",
