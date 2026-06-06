@@ -8,10 +8,12 @@ import {
 } from "@stacktest/core";
 import { AwsCloudFormationProvider } from "@stacktest/provider-aws-cloudformation";
 import { TerraformProvider } from "@stacktest/provider-terraform";
+import { AwsCdkProvider } from "@stacktest/provider-aws-cdk";
 
 // Auto-register default providers for CLI executions
 ProviderRegistry.register(new AwsCloudFormationProvider());
 ProviderRegistry.register(new TerraformProvider());
+ProviderRegistry.register(new AwsCdkProvider());
 
 export function handleArgs(
   args: string[],

@@ -23,10 +23,6 @@ describeOrSkip("Terraform Provider Live Integration Tests", () => {
     if (fs.existsSync(TEMP_DIR)) {
       fs.rmSync(TEMP_DIR, { recursive: true, force: true });
     }
-    const stacktestDir = path.resolve(process.cwd(), ".stacktest");
-    if (fs.existsSync(stacktestDir)) {
-      fs.rmSync(stacktestDir, { recursive: true, force: true });
-    }
   });
 
   it("should deploy a real local null_resource configuration and destroy it cleanly", async () => {

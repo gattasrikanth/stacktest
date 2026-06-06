@@ -22,10 +22,6 @@ describe("TerraformProvider Mock Tests", () => {
     if (fs.existsSync(TEMP_DIR)) {
       fs.rmSync(TEMP_DIR, { recursive: true, force: true });
     }
-    const stacktestDir = path.resolve(process.cwd(), ".stacktest");
-    if (fs.existsSync(stacktestDir)) {
-      fs.rmSync(stacktestDir, { recursive: true, force: true });
-    }
   });
 
   beforeEach(() => {
