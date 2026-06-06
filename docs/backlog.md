@@ -93,12 +93,20 @@ _Detailed Plan_: [docs/phases/phase-04-reporting.md](file:///Users/srikanth/Desk
 
 ---
 
+## Phase 05: Contributor Experience
+
+**Goal**: Make it seamless and safe for external developers to contribute to the StackTest project, write and register custom deployment providers, run monorepo workflows locally, and maintain core decoupling through ADRs.  
+_Detailed Plan_: [docs/phases/phase-05-contributor.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-05-contributor.md)
+
+| Issue ID | Task Name                                                                                                                                              | Recommended Agent Role | Target Commit Prefix | Status   |
+| :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------- | :------- |
+| **#5.1** | [Create Local Development and Provider Authoring Guides](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-05-contributor.md) | Documentation          | `docs:`              | [ ] Todo |
+| **#5.2** | [Set Up GitHub Issue and PR Templates](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-05-contributor.md)                   | Documentation          | `chore:`             | [ ] Todo |
+| **#5.3** | [Document Architecture Decision Record (ADR 0001)](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-05-contributor.md)       | Architect              | `docs:`              | [ ] Todo |
+
+---
+
 ## Future Execution Phases (Post-MVP)
-
-### Phase 05: Contributor Experience
-
-- **Goal**: Clean up custom registry APIs to allow third-party developers to package and publish independent provider modules easily.
-- **Key Deliverables**: Custom provider documentation, plugin initialization guidelines, package generators.
 
 ### Phase 06: Advanced AWS Compatibility
 
