@@ -5,6 +5,7 @@ import { resolveParameters } from "../resolver/resolver.js";
 
 export interface OrchestratorOptions {
   skipCleanup?: boolean;
+  retainOnFailure?: boolean;
 }
 
 export class RunOrchestrator {
@@ -33,6 +34,7 @@ export class RunOrchestrator {
 
       try {
         deployResult = await provider.deploy(resolvedPlan);
+        deployResult.resolvedParameters = resolvedPlan.parameters;
       } catch (err) {
         const error = err instanceof Error ? err : new Error(String(err));
         deployResult = {
@@ -42,6 +44,7 @@ export class RunOrchestrator {
           deploymentName: plan.deploymentName,
           durationMs: 0,
           error,
+          resolvedParameters: resolvedPlan.parameters,
         };
       }
 
@@ -55,11 +58,16 @@ export class RunOrchestrator {
       results.push(deployResult);
 
       if (!this.options.skipCleanup) {
-        try {
-          await provider.destroy(resolvedPlan);
-        } catch (err) {
-          const error = err instanceof Error ? err : new Error(String(err));
-          console.error(`Failed to destroy deployment "${plan.deploymentName}":`, error.message);
+        const skipDestroy = this.options.retainOnFailure && !deployResult.success;
+        if (!skipDestroy) {
+          try {
+            await provider.destroy(resolvedPlan);
+          } catch (err) {
+            const error = err instanceof Error ? err : new Error(String(err));
+            console.error(`Failed to destroy deployment "${plan.deploymentName}":`, error.message);
+          }
+        } else {
+          console.log(`[Retain-on-failure] Skipping cleanup for failed deployment: ${plan.deploymentName}`);
         }
       }
     }

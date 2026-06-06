@@ -209,4 +209,30 @@ tests:
     expect(res.output).toContain("Simulated deployment failure");
     expect(res.output).toContain("Summary: 0 passed, 1 failed, 1 total");
   });
+
+  it("should accept --retain-on-failure option without crashing", async () => {
+    const configPath = path.join(TEMP_DIR, "stacktest-run-retain.yaml");
+    const templatePath = path.join(TEMP_DIR, "sqs.yaml");
+
+    const configContent = `
+project:
+  name: run-retain-project
+providers:
+  fake:
+    regions:
+      - us-east-1
+tests:
+  basic:
+    provider: fake
+    template: sqs.yaml
+`;
+    fs.writeFileSync(configPath, configContent, "utf8");
+    fs.writeFileSync(templatePath, "Resources: {}", "utf8");
+
+    const resultOrPromise = handleArgs(["run", "--config", configPath, "--retain-on-failure"]);
+    const res = await Promise.resolve(resultOrPromise);
+
+    expect(res.exitCode).toBe(0);
+    expect(res.output).toContain("Running 1 planned deployments");
+  });
 });

@@ -16,6 +16,7 @@ export interface DeploymentResult {
   durationMs: number;
   error?: Error;
   events?: DeploymentEvent[];
+  resolvedParameters?: Record<string, any>;
 }
 
 export interface DeploymentProvider {

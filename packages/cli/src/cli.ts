@@ -104,6 +104,7 @@ export function handleArgs(
     }
 
     const skipCleanup = args.includes("--skip-cleanup");
+    const retainOnFailure = args.includes("--retain-on-failure");
 
     try {
       const result = loadConfig(configPath);
@@ -117,7 +118,7 @@ export function handleArgs(
         }));
       }
 
-      const orchestrator = new RunOrchestrator({ skipCleanup });
+      const orchestrator = new RunOrchestrator({ skipCleanup, retainOnFailure });
 
       const runId = plans.length > 0 ? plans[0].runId : "N/A";
       const start = Date.now();
@@ -193,6 +194,6 @@ export function handleArgs(
   return {
     exitCode: 1,
     output:
-      "Usage:\n  stacktest --version | -v\n  stacktest lint [--config <path>]\n  stacktest plan [--config <path>] [--json]\n  stacktest run [--config <path>] [--provider <name>] [--skip-cleanup]",
+      "Usage:\n  stacktest --version | -v\n  stacktest lint [--config <path>]\n  stacktest plan [--config <path>] [--json]\n  stacktest run [--config <path>] [--provider <name>] [--skip-cleanup] [--retain-on-failure]",
   };
 }
