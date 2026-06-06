@@ -125,19 +125,35 @@ _Detailed Plan_: [docs/phases/phase-06-advanced-aws.md](file:///Users/srikanth/D
 **Goal**: Design and implement the HashiCorp Terraform provider (`@stacktest/provider-terraform`) as the second concrete deployment backend to validate the framework's decoupled, provider-agnostic core.  
 _Detailed Plan_: [docs/phases/phase-07-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)
 
+| Issue ID | Task Name                                                                                                                                                        | Recommended Agent Role | Target Commit Prefix        | Status   |
+| :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :-------------------------- | :------- |
+| **#7.1** | [Initialize `provider-terraform` Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)                     | Architect              | `chore:`                    | [x] Done |
+| **#7.2** | [Implement Terraform Workspace and Init Manager](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)              | Implementation         | `feat(provider-terraform):` | [x] Done |
+| **#7.3** | [Implement Terraform Apply (Deploy) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)                 | Implementation         | `feat(provider-terraform):` | [x] Done |
+| **#7.4** | [Implement Terraform Destroy Executor with Safety Guardrails](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md) | Safety                 | `feat(provider-terraform):` | [x] Done |
+| **#7.5** | [Add Mock and Unit Tests for Terraform Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)              | Test                   | `test(provider-terraform):` | [x] Done |
+| **#7.6** | [Add Opt-In Integration Tests for Terraform Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)         | Test                   | `test(provider-terraform):` | [x] Done |
+
+---
+
+## Phase 08: AWS CDK Provider Integration
+
+**Goal**: Design and implement the AWS CDK provider (`@stacktest/provider-aws-cdk`) as the third concrete deployment backend to support testing CDK applications.  
+_Detailed Plan_: [docs/phases/phase-08-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)
+
 | Issue ID | Task Name                                                                                                                                              | Recommended Agent Role | Target Commit Prefix                 | Status   |
 | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :----------------------------------- | :------- |
-| **#7.1** | [Initialize `provider-terraform` Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)           | Architect              | `chore:`                             | [x] Done |
-| **#7.2** | [Implement Terraform Workspace and Init Manager](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)    | Implementation         | `feat(provider-terraform):`          | [x] Done |
-| **#7.3** | [Implement Terraform Apply (Deploy) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)       | Implementation         | `feat(provider-terraform):`          | [x] Done |
-| **#7.4** | [Implement Terraform Destroy Executor with Safety Guardrails](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md) | Safety                 | `feat(provider-terraform):`          | [x] Done |
-| **#7.5** | [Add Mock and Unit Tests for Terraform Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)    | Test                   | `test(provider-terraform):`          | [x] Done |
-| **#7.6** | [Add Opt-In Integration Tests for Terraform Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md) | Test                   | `test(provider-terraform):`          | [x] Done |
+| **#8.1** | [Initialize `provider-aws-cdk` Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)               | Architect              | `chore:`                             | [x] Done |
+| **#8.2** | [Implement CDK Synth Manager](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)                       | Implementation         | `feat(provider-aws-cdk):`            | [x] Done |
+| **#8.3** | [Implement CDK Deploy (Wrapper) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)           | Implementation         | `feat(provider-aws-cdk):`            | [x] Done |
+| **#8.4** | [Implement CDK Destroy (Wrapper) Executor](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)          | Safety                 | `feat(provider-aws-cdk):`            | [x] Done |
+| **#8.5** | [Add Mock and Unit Tests for CDK Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)          | Test                   | `test(provider-aws-cdk):`            | [x] Done |
+| **#8.6** | [Add Opt-In Integration Tests for CDK Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)     | Test                   | `test(provider-aws-cdk):`            | [x] Done |
 
 ---
 
 ## Future Execution Phases (Post-MVP)
 
-### Phase 08: Future Providers (CDK, Azure Bicep, Pulumi, Kubernetes)
+### Phase 09: Future Providers (Azure Bicep, Pulumi, Kubernetes)
 
-- **Goal**: Add support for additional infrastructure backends such as AWS CDK synthesized templates, Azure Resource Manager (ARM/Bicep), Pulumi, and Kubernetes manifests / Helm charts.
+- **Goal**: Add support for additional infrastructure backends such as Azure Resource Manager (ARM/Bicep), Pulumi, and Kubernetes manifests / Helm charts.
