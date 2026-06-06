@@ -4,3 +4,4 @@ export * from "./config/loader.js";
 export * from "./planner/planner.js";
 export * from "./providers/types.js";
 export * from "./providers/registry.js";
+export * from "./resolver/resolver.js";
