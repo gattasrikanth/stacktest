@@ -2,6 +2,8 @@
 
 First off, thank you for considering contributing to StackTest! We want to make contributing to this project as easy and safe as possible.
 
+Refer to the [CI Troubleshooting and Resolution Runbook](docs/contributing/ci-troubleshooting-runbook.md) for detailed instructions on debugging and resolving failing GitHub Actions runs.
+
 ---
 
 ## Development Workflow
