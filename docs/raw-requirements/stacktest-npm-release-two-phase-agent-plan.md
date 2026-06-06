@@ -175,11 +175,7 @@ Use this shape as the baseline, adapted per package:
       "require": "./dist/index.js"
     }
   },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
+  "files": ["dist", "README.md", "LICENSE"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gattasrikanth/stacktest.git",
@@ -240,7 +236,7 @@ The package README should be short and npm-friendly.
 
 Minimum `packages/cli/README.md` content:
 
-```md
+````md
 # @stack-test/cli
 
 Command-line interface for StackTest, a provider-agnostic infrastructure testing framework.
@@ -250,6 +246,7 @@ Command-line interface for StackTest, a provider-agnostic infrastructure testing
 ```bash
 npm install --save-dev @stack-test/cli
 ```
+````
 
 ## Usage
 
@@ -262,7 +259,8 @@ npx stacktest run --provider fake
 ## Documentation
 
 https://gattasrikanth.github.io/stacktest/
-```
+
+````
 
 Minimum `packages/core/README.md` content:
 
@@ -272,7 +270,7 @@ Minimum `packages/core/README.md` content:
 Core planning, configuration, dynamic parameter resolution, and orchestration primitives for StackTest.
 
 Most users should install `@stack-test/cli` instead of using this package directly.
-```
+````
 
 Provider READMEs should clearly mark maturity:
 
@@ -754,7 +752,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: "24"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -818,8 +816,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
 
       - name: Ensure npm supports trusted publishing
@@ -885,7 +883,7 @@ for (const pkg of sortedPackages) {
   }
 
   const tarball = await pnpmPack(pkg.dir, artifactsDir);
-  await npmPublishTarball(tarball, { access: 'public' });
+  await npmPublishTarball(tarball, { access: "public" });
 }
 ```
 
@@ -938,7 +936,7 @@ website/docs/contributing/releasing.md
 
 Minimum content:
 
-```md
+````md
 # Releasing StackTest
 
 1. Every user-facing PR should include a changeset.
@@ -955,7 +953,9 @@ npm view @stack-test/cli version
 npm install --save-dev @stack-test/cli
 npx stacktest --help
 ```
-```
+````
+
+````
 
 ---
 
@@ -967,7 +967,7 @@ npx stacktest --help
 
 ```bash
 pnpm changeset
-```
+````
 
 2. Merge feature PR to `main`.
 3. Changesets workflow opens `chore: version packages` PR.
@@ -1128,7 +1128,7 @@ StackTest v0.1.0
 
 Release notes:
 
-```md
+````md
 Initial public npm release of StackTest under the `@stack-test` npm organization scope.
 
 Published packages:
@@ -1148,7 +1148,9 @@ Install:
 npm install --save-dev @stack-test/cli
 npx stacktest --help
 ```
-```
+````
+
+````
 
 ---
 
@@ -1160,7 +1162,7 @@ After Phase 1:
 npm install --save-dev @stack-test/cli
 npx stacktest plan
 npx stacktest run --provider fake
-```
+````
 
 After Phase 2:
 

@@ -36,8 +36,8 @@ jobs:
       - name: Validate before creating version PR
         run: |
           pnpm lint
-          pnpm test
           pnpm build
+          pnpm test
           pnpm docs:check
 
       - name: Create Version Packages PR
