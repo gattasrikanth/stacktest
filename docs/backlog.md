@@ -168,8 +168,26 @@ _Detailed Plan_: [docs/phases/phase-09-future-providers.md](file:///Users/srikan
 
 ---
 
+## Phase 10: Future Providers (Azure Bicep and Pulumi)
+
+**Goal**: Design and implement the Azure Bicep provider (`@stacktest/provider-azure-bicep`) and the Pulumi provider (`@stacktest/provider-pulumi`) as the fifth and sixth concrete deployment backends.  
+_Detailed Plan_: [docs/phases/phase-10-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)
+
+| Issue ID  | Task Name                                                                                                                                                   | Recommended Agent Role | Target Commit Prefix                  | Status   |
+| :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------------------------ | :------- |
+| **#10.1** | [Initialize Azure Bicep Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                         | Architect              | `chore:`                              | [x] Done |
+| **#10.2** | [Implement Azure Bicep Deployer and Event Collector](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)     | Implementation         | `feat(provider-azure-bicep):`         | [x] Done |
+| **#10.3** | [Implement Azure Bicep Destroyer with Safety Guardrails](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md) | Safety                 | `feat(provider-azure-bicep):`         | [x] Done |
+| **#10.4** | [Add Tests for Azure Bicep Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                     | Test                   | `test(provider-azure-bicep):`         | [x] Done |
+| **#10.5** | [Initialize Pulumi Package](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                             | Architect              | `chore:`                              | [x] Done |
+| **#10.6** | [Implement Pulumi Deployer and Destroyer](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                 | Implementation         | `feat(provider-pulumi):`              | [x] Done |
+| **#10.7** | [Add Tests for Pulumi Provider](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                          | Test                   | `test(provider-pulumi):`              | [x] Done |
+| **#10.8** | [Register Providers in CLI](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)                              | Implementation         | `feat(cli):`                          | [x] Done |
+
+---
+
 ## Future Execution Phases (Post-MVP)
 
-### Phase 10: Future Providers (Azure Bicep, Pulumi)
+### Phase 11: Multi-Provider Composition
 
-- **Goal**: Add support for additional infrastructure backends such as Azure Resource Manager (ARM/Bicep) and Pulumi.
+- **Goal**: Support composite orchestrations where one test suite references multiple distinct provider stages.
