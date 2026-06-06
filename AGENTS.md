@@ -25,9 +25,12 @@ To ensure efficient execution and prevent drift or redundant work, agents must a
 - An agent should not modify unrelated files outside the target issue's scope.
 - Agents must verify work by executing local linting, building, and testing commands prior to declaring a task done.
 
-### 2. Task Tracking & Commits
-- Progress must be recorded in the local task tracker file: [task.md](file:////Users/srikanth/.gemini/antigravity-ide/brain/4128f26e-e017-437e-8537-0b5c93c49d16/task.md).
-- Commits must use the structured Git prefixing format (e.g. `feat(core):`, `chore:`, `test:`).
+### 2. Task Tracking, Commits, and Documentation Sync
+- Progress must be recorded in the active workspace session's local task tracker file (e.g., `task.md` in the session's artifact directory, or `.agent/task-tracker.md`).
+- Each task entry in the tracker must follow the structure defined in the [Agent Documentation Sync Policy](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/agent-documentation-sync-policy.md) and include:
+  - **Docs reviewed**
+  - **Docs updated** (or **Reason** if no documentation updates were needed)
+- Commits must use the structured Git prefixing format (e.g., `feat(core):`, `chore:`, `test:`, `docs:`).
 - Commits should be made immediately after completing an issue's scope. Do not combine multiple unrelated issue completions into single commits.
 
 ### 3. Rate Limits & Token Budget Management
@@ -41,3 +44,8 @@ When completing a turn, the agent must output a structured handoff report contai
 - **Tests added / run**: Verification status.
 - **Known limitations / concerns**: Any outstanding issues or caveats.
 - **Next recommended task**: The next logical step from the backlog.
+
+### 5. Documentation Sync Policy
+- Agents must strictly follow the repository's [Agent Documentation Sync Policy](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/agent-documentation-sync-policy.md).
+- Before committing, agents must check for documentation drift across all relevant files (such as `README.md`, `AGENTS.md`, `CONTRIBUTING.md`, and other guides in the `docs` directory).
+- If code behavior, APIs, configuration, database schemas, CLI commands, or validation rules change, documentation must be updated accordingly before a task is marked complete.

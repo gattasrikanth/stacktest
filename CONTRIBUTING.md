@@ -34,6 +34,13 @@ We use structured prefixes to make git history legible:
 - `docs:` - Editing guides, decision records, or architectural text.
 - `fix:` - Addressing code bugs or error conditions.
 
+### 3. Documentation Sync Requirement
+
+To prevent implementation and documentation from drifting out of sync:
+- Contributors (including human developers and AI agents) must review and update relevant documentation for any behavioral, configuration, API, CLI, or testing changes.
+- Refer to the [Agent Documentation Sync Policy](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/agent-documentation-sync-policy.md) for full instructions, checks, and checklists.
+- Be sure to complete the Documentation Sync Checklist when submitting a Pull Request.
+
 ---
 
 ## Testing Guidelines

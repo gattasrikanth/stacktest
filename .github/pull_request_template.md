@@ -24,3 +24,12 @@ Resolves # (issue number)
 ## Safety Validation
 - [ ] Verified that any destructive actions (like stack deletions) strictly enforce metadata tag checks.
 - [ ] No AWS or other cloud credentials/keys have been hardcoded or checked into git.
+
+## Documentation Sync Checklist
+- [ ] I reviewed the relevant documentation.
+- [ ] I updated documentation for behavior, API, config, schema, UI, setup, testing, or deployment changes.
+- [ ] If no documentation update was needed, I recorded the reason.
+- [ ] I verified that documented commands and examples are still accurate.
+- [ ] I avoided documenting planned behavior as implemented behavior.
+- [ ] I updated the local task tracker or implementation notes.
+
