@@ -1,46 +1,100 @@
 import type {ReactNode} from 'react';
 import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
+  icon: string;
   description: ReactNode;
+  docLink?: string;
+  linkLabel?: string;
 };
 
 const FeatureList: FeatureItem[] = [
   {
     title: 'Provider-Agnostic Core',
+    icon: '🔌',
     description: (
       <>
-        Decoupled test planning and orchestration allows running tests across CloudFormation, Terraform, AWS CDK, Pulumi, Kubernetes, and Azure Bicep.
+        Decoupled planning allows running the exact same test suites across CloudFormation, Terraform, AWS CDK, Pulumi, Kubernetes, and Azure Bicep.
       </>
     ),
+    docLink: '/docs/core-concepts/providers',
+    linkLabel: 'Learn about providers',
   },
   {
-    title: 'Safety First',
+    title: 'Safe Cleanup by Design',
+    icon: '🛡️',
     description: (
       <>
-        Destructive cleanup operations strictly validate ownership tagging before resource destruction, guaranteeing StackTest never affects external infrastructure.
+        Strict ownership tag verification ensures StackTest only destroys resources it created, leaving existing infrastructure completely untouched.
       </>
     ),
+    docLink: '/docs/core-concepts/cleanup-destroy',
+    linkLabel: 'See safety details',
   },
   {
-    title: 'Rich Execution Reports',
+    title: 'Dynamic Parameters',
+    icon: '🎛️',
     description: (
       <>
-        Outputs detailed execution summaries including raw JSON reports, standard JUnit XML for CI integrations, and beautiful standalone interactive HTML dashboards.
+        Inject dynamic runtime variables, generate unique resource names, and override parameters dynamically per region and test run.
       </>
     ),
+    docLink: '/docs/core-concepts/parameters',
+    linkLabel: 'Explore parameters',
+  },
+  {
+    title: 'CI-Friendly Reporting',
+    icon: '📊',
+    description: (
+      <>
+        Generate raw JSON for custom tools, standard JUnit XML for CI/CD pipeline integration, and beautiful interactive HTML dashboards.
+      </>
+    ),
+    docLink: '/docs/core-concepts/reports',
+    linkLabel: 'Read about reports',
+  },
+  {
+    title: 'Local-First Development',
+    icon: '💻',
+    description: (
+      <>
+        Test infrastructure directly from your local terminal or IDE with instant feedback loop before pushing code to remote branches.
+      </>
+    ),
+    docLink: '/docs/getting-started/installation',
+    linkLabel: 'Install CLI tool',
+  },
+  {
+    title: 'Agent-Friendly Docs',
+    icon: '🤖',
+    description: (
+      <>
+        Pre-packaged configuration rules, strict YAML schemas, and AI-focused guidelines designed to make coding agents extremely productive.
+      </>
+    ),
+    docLink: '/docs/ai/agent-guide',
+    linkLabel: 'Read Agent guidelines',
   },
 ];
 
-function Feature({title, description}: FeatureItem) {
+function Feature({title, icon, description, docLink, linkLabel}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center padding-horiz--md" style={{ marginTop: '2rem' }}>
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+    <div className={clsx('col col--4', styles.featureCol)}>
+      <div className={styles.featureCard}>
+        <div className={styles.iconContainer}>{icon}</div>
+        <div className={styles.cardContent}>
+          <Heading as="h3" className={styles.featureTitle}>{title}</Heading>
+          <p className={styles.featureDescription}>{description}</p>
+          {docLink && (
+            <Link className={styles.featureLink} to={docLink}>
+              {linkLabel || 'Read more'} &rarr;
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -48,11 +102,16 @@ function Feature({title, description}: FeatureItem) {
 
 export default function HomepageFeatures(): ReactNode {
   return (
-    <section className={styles.features}>
+    <section className={styles.featuresSection}>
       <div className="container">
+        <div className={styles.sectionHeader}>
+          <span className={styles.sectionEyebrow}>Core Capabilities</span>
+          <Heading as="h2" className={styles.sectionTitle}>Built for robust infrastructure delivery</Heading>
+          <p className={styles.sectionSubtitle}>Everything you need to validate stacks and keep cloud environments tidy.</p>
+        </div>
         <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
+          {FeatureList.map((props) => (
+            <Feature key={props.title} {...props} />
           ))}
         </div>
       </div>

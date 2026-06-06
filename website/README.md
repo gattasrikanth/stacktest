@@ -1,41 +1,56 @@
-# Website
+# StackTest Documentation Website
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+This directory contains the documentation portal and product landing page for StackTest, built using [Docusaurus](https://docusaurus.io/) with TypeScript, dark-mode styling, and SEO best practices.
 
 ## Installation
 
+From the monorepo root directory, install all workspace dependencies using `pnpm`:
+
 ```bash
-yarn
+pnpm install
 ```
 
 ## Local Development
 
-```bash
-yarn start
-```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-## Build
+Start the local development server:
 
 ```bash
-yarn build
+pnpm --filter website start
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+This starts a hot-reloading development server (by default at [http://localhost:3000](http://localhost:3000) or another open port).
 
-## Deployment
+## Code Validation
 
-Using SSH:
+Before committing website changes or opening a pull request, run the following validation scripts:
+
+### Typechecking
+Verify TypeScript types:
 
 ```bash
-USE_SSH=true yarn deploy
+pnpm --filter website typecheck
 ```
 
-Not using SSH:
+### Production Build
+Test the production optimization bundle build:
 
 ```bash
-GIT_USER=<Your GitHub username> yarn deploy
+pnpm --filter website build
 ```
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+This will run Docusaurus' production build compiler. Note that broken relative links or invalid markdown link targets will throw errors and fail the build.
+
+### Serve Build locally
+To serve and preview the compiled static site locally:
+
+```bash
+pnpm --filter website serve
+```
+
+## Troubleshooting
+
+If you encounter stale layout bugs, MDX parse errors, or cached build inconsistencies, clear the Docusaurus cache:
+
+```bash
+pnpm --filter website clear
+```

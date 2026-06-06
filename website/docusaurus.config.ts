@@ -18,7 +18,11 @@ const config: Config = {
   projectName: 'stacktest',
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'throw',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'throw',
+    },
+  },
 
   i18n: {
     defaultLocale: 'en',
@@ -50,7 +54,7 @@ const config: Config = {
       title: 'StackTest',
       logo: {
         alt: 'StackTest Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       items: [
         {
