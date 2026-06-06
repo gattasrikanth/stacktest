@@ -17,6 +17,7 @@
     "publish:local:first-release": "node scripts/npm-publish-local.mjs"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.0",
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
