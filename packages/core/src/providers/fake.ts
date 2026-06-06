@@ -31,9 +31,10 @@ export class FakeProvider implements DeploymentProvider {
     const outputs: Record<string, unknown> = {};
     if (plan.parameters.SimulateOutputs) {
       try {
-        const parsed = typeof plan.parameters.SimulateOutputs === "string"
-          ? JSON.parse(plan.parameters.SimulateOutputs)
-          : plan.parameters.SimulateOutputs;
+        const parsed =
+          typeof plan.parameters.SimulateOutputs === "string"
+            ? JSON.parse(plan.parameters.SimulateOutputs)
+            : plan.parameters.SimulateOutputs;
         Object.assign(outputs, parsed);
       } catch {
         // Ignore JSON parse errors

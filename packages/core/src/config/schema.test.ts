@@ -132,7 +132,7 @@ describe("StackTest Config Schema Validation", () => {
       project: { name: "demo-project" },
       providers: {
         "aws-cloudformation": { regions: ["us-east-1"] },
-        "kubernetes": { regions: ["local"] },
+        kubernetes: { regions: ["local"] },
       },
       tests: {
         compositeTest: {
@@ -191,9 +191,7 @@ describe("StackTest Config Schema Validation", () => {
         compositeTest: {
           provider: "fake",
           template: "temp.yaml",
-          stages: [
-            { name: "stage1", provider: "fake", template: "temp.yaml" },
-          ],
+          stages: [{ name: "stage1", provider: "fake", template: "temp.yaml" }],
         },
       },
     };

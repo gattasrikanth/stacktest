@@ -191,19 +191,25 @@ _Detailed Plan_: [docs/phases/phase-10-future-providers.md](file:///Users/srikan
 **Goal**: Support composite orchestrations where one test suite references multiple distinct provider stages sequentially, propagating stage outputs dynamically to downstream parameters.  
 _Detailed Plan_: [docs/phases/phase-11-multi-provider-composition.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md)
 
-| Issue ID  | Task Name                                                                                                                                                                        | Recommended Agent Role | Target Commit Prefix | Status   |
-| :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------- | :------- |
-| **#11.1** | [Extend Config Schemas for Stages and Outputs](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md)                       | Architect              | `feat(core):`        | [x] Done |
-| **#11.2** | [Implement Output Resolution in Parameters Resolver](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md)               | Implementation         | `feat(core):`        | [x] Done |
-| **#11.3** | [Update planning matrix to support multi-stage plans](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md)              | Architect              | `feat(core):`        | [x] Done |
-| **#11.4** | [Refactor RunOrchestrator for sequential deploy & reverse cleanup](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md) | Implementation         | `feat(core):`        | [x] Done |
-| **#11.5** | [Populate outputs in AWS CFN and Terraform providers](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md)              | Implementation         | `feat(provider):`    | [x] Done |
-| **#11.6** | [Add Unit and Integration Tests for composition](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md)                   | Test                   | `test(core):`        | [x] Done |
+| Issue ID  | Task Name                                                                                                                                                                                                                               | Recommended Agent Role | Target Commit Prefix | Status   |
+| :-------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------- | :------- |
+| **#11.1** | [Extend Config Schemas for Stages and Outputs](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md)                                                                             | Architect              | `feat(core):`        | [x] Done |
+| **#11.2** | [Implement Output Resolution in Parameters Resolver](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md)                                                                       | Implementation         | `feat(core):`        | [x] Done |
+| **#11.3** | [Update planning matrix to support multi-stage plans](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md)                                                                      | Architect              | `feat(core):`        | [x] Done |
+| **#11.4** | [Refactor RunOrchestrator for sequential deploy & reverse cleanup](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md)                                                         | Implementation         | `feat(core):`        | [x] Done |
+| **#11.5** | [Populate outputs in AWS CFN and Terraform providers](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md) | Implementation         | `feat(provider):`    | [x] Done |
+| **#11.6** | [Add Unit and Integration Tests for composition](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-11-multi-provider-composition.md)                                                                           | Test                   | `test(core):`        | [x] Done |
 
 ---
 
-## Future Execution Phases (Post-MVP)
+## Phase 12: Parallel Execution Engine
 
-### Phase 12: Parallel Execution Engine
+**Goal**: Optimize test runs by executing non-dependent test groups concurrently across available compute threads, while maintaining sequential execution for stages within each group.  
+_Detailed Plan_: [docs/phases/phase-12-parallel-execution-engine.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md)
 
-- **Goal**: Optimize test runs by executing non-dependent stages and test configurations concurrently across available compute threads.
+| Issue ID  | Task Name | Recommended Agent Role | Target Commit Prefix | Status   |
+| :-------- | :-------- | :--------------------- | :------------------- | :------- |
+| **#12.1** | [Implement Concurrency Limiter Pool](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md) | Architect | `feat(core):` | [x] Done |
+| **#12.2** | [Refactor Orchestrator for Concurrent Groups Execution](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md) | Implementation | `feat(core):` | [x] Done |
+| **#12.3** | [Integrate Concurrency CLI Flags](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md) | Implementation | `feat(cli):` | [x] Done |
+| **#12.4** | [Add Concurrency Test Suite](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-12-parallel-execution-engine.md) | Test | `test(core):` | [x] Done |

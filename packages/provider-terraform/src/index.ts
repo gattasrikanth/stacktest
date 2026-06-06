@@ -89,7 +89,9 @@ export class TerraformProvider implements DeploymentProvider {
       // Fetch outputs
       const outputs: Record<string, unknown> = {};
       try {
-        const { stdout: outputsJson } = await execAsync("terraform output -json", { cwd: workspaceDir });
+        const { stdout: outputsJson } = await execAsync("terraform output -json", {
+          cwd: workspaceDir,
+        });
         const parsed = JSON.parse(outputsJson);
         for (const [key, val] of Object.entries(parsed)) {
           outputs[key] = (val as { value: unknown }).value;

@@ -109,7 +109,12 @@ export class TestPlanner {
         } else if (testConfig.provider && testConfig.template) {
           const providerName = testConfig.provider;
           const providerConfig = this.config.providers[providerName];
-          const deploymentName = generateSafeDeploymentName(projectName, testName, regionName, runId);
+          const deploymentName = generateSafeDeploymentName(
+            projectName,
+            testName,
+            regionName,
+            runId,
+          );
 
           plans.push({
             projectName,

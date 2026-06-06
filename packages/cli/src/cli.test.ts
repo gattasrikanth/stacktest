@@ -231,4 +231,33 @@ tests:
     expect(res.exitCode).toBe(0);
     expect(res.output).toContain("Running 1 planned deployments");
   });
+
+  it("should accept --concurrency option and run successfully", async () => {
+    const configPath = path.join(TEMP_DIR, "stacktest-run-concurrency.yaml");
+    const templatePath = path.join(TEMP_DIR, "sqs.yaml");
+
+    const configContent = `
+project:
+  name: run-concurrency-project
+providers:
+  fake:
+    regions:
+      - us-east-1
+      - us-east-2
+tests:
+  basic:
+    provider: fake
+    template: sqs.yaml
+`;
+    fs.writeFileSync(configPath, configContent, "utf8");
+    fs.writeFileSync(templatePath, "Resources: {}", "utf8");
+
+    const resultOrPromise = handleArgs(["run", "--config", configPath, "--concurrency", "2"]);
+    const res = await Promise.resolve(resultOrPromise);
+
+    expect(res.exitCode).toBe(0);
+    expect(res.output).toContain("Running 2 planned deployments");
+    expect(res.output).toContain("PASS  fake  us-east-1  basic");
+    expect(res.output).toContain("PASS  fake  us-east-2  basic");
+  });
 });

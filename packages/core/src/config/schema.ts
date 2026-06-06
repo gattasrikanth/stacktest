@@ -41,7 +41,9 @@ export const TestConfigSchema = z
           z.string().min(1),
           z.object({
             region: z.string().min(1, "Region name cannot be empty"),
-            parameters: z.record(z.union([z.string(), z.number(), z.boolean(), z.null()])).optional(),
+            parameters: z
+              .record(z.union([z.string(), z.number(), z.boolean(), z.null()]))
+              .optional(),
           }),
         ]),
       )
@@ -54,14 +56,16 @@ export const TestConfigSchema = z
     if (!hasSingle && !hasStages) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Test suite must either define a provider and template, or define a list of sequential stages.",
+        message:
+          "Test suite must either define a provider and template, or define a list of sequential stages.",
       });
     }
 
     if (hasSingle && hasStages) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Test suite cannot define both a top-level provider/template and a list of sequential stages.",
+        message:
+          "Test suite cannot define both a top-level provider/template and a list of sequential stages.",
       });
     }
 

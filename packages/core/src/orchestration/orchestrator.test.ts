@@ -247,4 +247,160 @@ describe("RunOrchestrator", () => {
     expect(deployOrder).toEqual(["stage1", "stage2"]);
     expect(destroyOrder).toEqual(["stage2", "stage1"]);
   });
+
+  it("should enforce concurrency limit on parallel groups", async () => {
+    let activeExecutions = 0;
+    let maxActiveExecutions = 0;
+
+    const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const concurrentProvider: DeploymentProvider = {
+      name: "concurrent-prov",
+      deploy: async (plan: DeploymentPlan): Promise<DeploymentResult> => {
+        activeExecutions++;
+        if (activeExecutions > maxActiveExecutions) {
+          maxActiveExecutions = activeExecutions;
+        }
+        await delay(50);
+        activeExecutions--;
+        return {
+          success: true,
+          status: "CREATE_COMPLETE",
+          runId: plan.runId,
+          deploymentName: plan.deploymentName,
+          durationMs: 50,
+        };
+      },
+      destroy: async (plan: DeploymentPlan): Promise<DeploymentResult> => ({
+        success: true,
+        status: "DELETE_COMPLETE",
+        runId: plan.runId,
+        deploymentName: plan.deploymentName,
+        durationMs: 5,
+      }),
+      getEvents: async () => [],
+    };
+
+    ProviderRegistry.register(concurrentProvider);
+
+    const plans: DeploymentPlan[] = [
+      {
+        projectName: "demo",
+        testName: "test-a",
+        providerName: "concurrent-prov",
+        region: "us-east-1",
+        runId: "st-run-conc-1",
+        deploymentName: "dep-a",
+        template: "t.yaml",
+        parameters: {},
+      },
+      {
+        projectName: "demo",
+        testName: "test-b",
+        providerName: "concurrent-prov",
+        region: "us-east-2",
+        runId: "st-run-conc-1",
+        deploymentName: "dep-b",
+        template: "t.yaml",
+        parameters: {},
+      },
+      {
+        projectName: "demo",
+        testName: "test-c",
+        providerName: "concurrent-prov",
+        region: "us-west-1",
+        runId: "st-run-conc-1",
+        deploymentName: "dep-c",
+        template: "t.yaml",
+        parameters: {},
+      },
+    ];
+
+    const orchestrator2 = new RunOrchestrator({ concurrency: 2 });
+    await orchestrator2.execute(plans);
+    expect(maxActiveExecutions).toBe(2);
+
+    activeExecutions = 0;
+    maxActiveExecutions = 0;
+
+    const orchestrator1 = new RunOrchestrator({ concurrency: 1 });
+    await orchestrator1.execute(plans);
+    expect(maxActiveExecutions).toBe(1);
+  });
+
+  it("should execute stages within the same group sequentially while executing separate groups concurrently", async () => {
+    const startTimes: Record<string, number> = {};
+    const endTimes: Record<string, number> = {};
+    const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const mixedProvider: DeploymentProvider = {
+      name: "mixed-prov",
+      deploy: async (plan: DeploymentPlan): Promise<DeploymentResult> => {
+        startTimes[plan.deploymentName] = Date.now();
+        await delay(50);
+        endTimes[plan.deploymentName] = Date.now();
+        return {
+          success: true,
+          status: "CREATE_COMPLETE",
+          runId: plan.runId,
+          deploymentName: plan.deploymentName,
+          durationMs: 50,
+        };
+      },
+      destroy: async (plan: DeploymentPlan): Promise<DeploymentResult> => ({
+        success: true,
+        status: "DELETE_COMPLETE",
+        runId: plan.runId,
+        deploymentName: plan.deploymentName,
+        durationMs: 5,
+      }),
+      getEvents: async () => [],
+    };
+
+    ProviderRegistry.register(mixedProvider);
+
+    const plans: DeploymentPlan[] = [
+      {
+        projectName: "demo",
+        testName: "group-1",
+        providerName: "mixed-prov",
+        region: "us-east-1",
+        runId: "st-run-mixed-1",
+        deploymentName: "g1-stage1",
+        template: "t.yaml",
+        parameters: {},
+        stageName: "stage1",
+      },
+      {
+        projectName: "demo",
+        testName: "group-1",
+        providerName: "mixed-prov",
+        region: "us-east-1",
+        runId: "st-run-mixed-1",
+        deploymentName: "g1-stage2",
+        template: "t.yaml",
+        parameters: {},
+        stageName: "stage2",
+      },
+      {
+        projectName: "demo",
+        testName: "group-2",
+        providerName: "mixed-prov",
+        region: "us-east-1",
+        runId: "st-run-mixed-1",
+        deploymentName: "g2-stage1",
+        template: "t.yaml",
+        parameters: {},
+        stageName: "stage1",
+      },
+    ];
+
+    const orchestrator = new RunOrchestrator({ concurrency: 2 });
+    await orchestrator.execute(plans);
+
+    expect(startTimes["g1-stage2"]).toBeGreaterThanOrEqual(endTimes["g1-stage1"]);
+
+    const startDiff = Math.abs(startTimes["g1-stage1"] - startTimes["g2-stage1"]);
+    expect(startDiff).toBeLessThan(35);
+  });
 });

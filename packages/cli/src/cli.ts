@@ -116,6 +116,15 @@ export function handleArgs(
     const skipCleanup = args.includes("--skip-cleanup");
     const retainOnFailure = args.includes("--retain-on-failure");
 
+    let concurrency: number | undefined;
+    const concurrencyIdx = args.findIndex((arg) => arg === "--concurrency");
+    if (concurrencyIdx !== -1 && concurrencyIdx + 1 < args.length) {
+      const parsed = parseInt(args[concurrencyIdx + 1], 10);
+      if (!isNaN(parsed) && parsed > 0) {
+        concurrency = parsed;
+      }
+    }
+
     try {
       const result = loadConfig(configPath);
       const planner = new TestPlanner(result.config);
@@ -128,7 +137,7 @@ export function handleArgs(
         }));
       }
 
-      const orchestrator = new RunOrchestrator({ skipCleanup, retainOnFailure });
+      const orchestrator = new RunOrchestrator({ skipCleanup, retainOnFailure, concurrency });
 
       const runId = plans.length > 0 ? plans[0].runId : "N/A";
       const start = Date.now();
@@ -204,6 +213,6 @@ export function handleArgs(
   return {
     exitCode: 1,
     output:
-      "Usage:\n  stacktest --version | -v\n  stacktest lint [--config <path>]\n  stacktest plan [--config <path>] [--json]\n  stacktest run [--config <path>] [--provider <name>] [--skip-cleanup] [--retain-on-failure]",
+      "Usage:\n  stacktest --version | -v\n  stacktest lint [--config <path>]\n  stacktest plan [--config <path>] [--json]\n  stacktest run [--config <path>] [--provider <name>] [--skip-cleanup] [--retain-on-failure] [--concurrency <num>]",
   };
 }
