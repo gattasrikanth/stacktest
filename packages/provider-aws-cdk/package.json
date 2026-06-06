@@ -1,11 +1,14 @@
 {
-  "name": "@stacktest/cli",
+  "name": "@stacktest/provider-aws-cdk",
   "version": "0.1.0",
-  "description": "StackTest command line interface",
+  "description": "AWS CDK provider wrapper for StackTest",
   "type": "module",
   "main": "./dist/index.js",
-  "bin": {
-    "stacktest": "./dist/index.js"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts",
@@ -13,9 +16,7 @@
   },
   "dependencies": {
     "@stacktest/core": "workspace:*",
-    "@stacktest/provider-aws-cloudformation": "workspace:*",
-    "@stacktest/provider-aws-cdk": "workspace:*",
-    "@stacktest/provider-terraform": "workspace:*"
+    "@stacktest/provider-aws-cloudformation": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2"
