@@ -100,9 +100,9 @@ _Detailed Plan_: [docs/phases/phase-05-contributor.md](file:///Users/srikanth/De
 
 | Issue ID | Task Name                                                                                                                                              | Recommended Agent Role | Target Commit Prefix | Status   |
 | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------- | :------------------- | :------- |
-| **#5.1** | [Create Local Development and Provider Authoring Guides](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-05-contributor.md) | Documentation          | `docs:`              | [ ] Todo |
-| **#5.2** | [Set Up GitHub Issue and PR Templates](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-05-contributor.md)                   | Documentation          | `chore:`             | [ ] Todo |
-| **#5.3** | [Document Architecture Decision Record (ADR 0001)](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-05-contributor.md)       | Architect              | `docs:`              | [ ] Todo |
+| **#5.1** | [Create Local Development and Provider Authoring Guides](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-05-contributor.md) | Documentation          | `docs:`              | [x] Done |
+| **#5.2** | [Set Up GitHub Issue and PR Templates](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-05-contributor.md)                   | Documentation          | `chore:`             | [x] Done |
+| **#5.3** | [Document Architecture Decision Record (ADR 0001)](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-05-contributor.md)       | Architect              | `docs:`              | [x] Done |
 
 ---
 
