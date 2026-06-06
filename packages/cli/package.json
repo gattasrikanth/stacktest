@@ -12,7 +12,8 @@
     "dev": "tsup src/index.ts --format esm --dts --watch"
   },
   "dependencies": {
-    "@stacktest/core": "workspace:*"
+    "@stacktest/core": "workspace:*",
+    "@stacktest/provider-aws-cloudformation": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2"

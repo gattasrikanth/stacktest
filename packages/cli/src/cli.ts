@@ -1,4 +1,14 @@
-import { VERSION, loadConfig, TestPlanner, RunOrchestrator } from "@stacktest/core";
+import {
+  VERSION,
+  loadConfig,
+  TestPlanner,
+  RunOrchestrator,
+  ProviderRegistry,
+} from "@stacktest/core";
+import { AwsCloudFormationProvider } from "@stacktest/provider-aws-cloudformation";
+
+// Auto-register AWS provider for CLI executions
+ProviderRegistry.register(new AwsCloudFormationProvider());
 
 export function handleArgs(
   args: string[],

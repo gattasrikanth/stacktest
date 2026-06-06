@@ -1,0 +1,26 @@
+{
+  "name": "@stacktest/provider-aws-cloudformation",
+  "version": "0.1.0",
+  "description": "AWS CloudFormation provider for StackTest",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts",
+    "dev": "tsup src/index.ts --format esm --dts --watch"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cloudformation": "^3.565.0",
+    "@aws-sdk/client-s3": "^3.565.0",
+    "@stacktest/core": "workspace:*"
+  },
+  "devDependencies": {
+    "aws-sdk-client-mock": "^4.0.0",
+    "tsup": "^8.0.2"
+  }
+}
