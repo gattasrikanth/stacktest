@@ -1,6 +1,8 @@
-import { VERSION, loadConfig, TestPlanner } from "@stacktest/core";
+import { VERSION, loadConfig, TestPlanner, RunOrchestrator } from "@stacktest/core";
 
-export function handleArgs(args: string[]): { exitCode: number; output: string } {
+export function handleArgs(
+  args: string[],
+): { exitCode: number; output: string } | Promise<{ exitCode: number; output: string }> {
   if (args.includes("--version") || args.includes("-v")) {
     return { exitCode: 0, output: `StackTest version ${VERSION}` };
   }
@@ -77,9 +79,91 @@ export function handleArgs(args: string[]): { exitCode: number; output: string }
     }
   }
 
+  if (command === "run") {
+    let configPath: string | undefined;
+    const configIdx = args.findIndex((arg) => arg === "--config" || arg === "-c");
+    if (configIdx !== -1 && configIdx + 1 < args.length) {
+      configPath = args[configIdx + 1];
+    }
+
+    let providerOverride: string | undefined;
+    const providerIdx = args.findIndex((arg) => arg === "--provider" || arg === "-p");
+    if (providerIdx !== -1 && providerIdx + 1 < args.length) {
+      providerOverride = args[providerIdx + 1];
+    }
+
+    const skipCleanup = args.includes("--skip-cleanup");
+
+    try {
+      const result = loadConfig(configPath);
+      const planner = new TestPlanner(result.config);
+      let plans = planner.generatePlan();
+
+      if (providerOverride) {
+        plans = plans.map((plan) => ({
+          ...plan,
+          providerName: providerOverride,
+        }));
+      }
+
+      const orchestrator = new RunOrchestrator({ skipCleanup });
+
+      const runId = plans.length > 0 ? plans[0].runId : "N/A";
+      const start = Date.now();
+
+      const lines = [
+        `StackTest Run for project "${result.config.project.name}" (run ID: ${runId})`,
+        `Running ${plans.length} planned deployments...\n`,
+      ];
+
+      return (async () => {
+        const runResults = await orchestrator.execute(plans);
+
+        let passedCount = 0;
+        let failedCount = 0;
+
+        for (const res of runResults) {
+          const matchingPlan = plans.find((p) => p.deploymentName === res.deploymentName);
+          const pName = matchingPlan?.providerName || "unknown";
+          const reg = matchingPlan?.region || "unknown";
+          const tName = matchingPlan?.testName || "unknown";
+
+          if (res.success) {
+            passedCount++;
+            lines.push(`PASS  ${pName}  ${reg}  ${tName} (${res.durationMs}ms)`);
+          } else {
+            failedCount++;
+            lines.push(`FAIL  ${pName}  ${reg}  ${tName} (${res.durationMs}ms)`);
+            if (res.error) {
+              lines.push(`  Error: ${res.error.message}`);
+            }
+          }
+        }
+
+        const totalTime = Date.now() - start;
+        lines.push(
+          `\nSummary: ${passedCount} passed, ${failedCount} failed, ${plans.length} total (${totalTime}ms)`,
+        );
+
+        const exitCode = failedCount > 0 ? 1 : 0;
+
+        return {
+          exitCode,
+          output: lines.join("\n"),
+        };
+      })();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      return {
+        exitCode: 1,
+        output: `✗ Run execution failed:\n${message}`,
+      };
+    }
+  }
+
   return {
     exitCode: 1,
     output:
-      "Usage:\n  stacktest --version | -v\n  stacktest lint [--config <path>]\n  stacktest plan [--config <path>] [--json]",
+      "Usage:\n  stacktest --version | -v\n  stacktest lint [--config <path>]\n  stacktest plan [--config <path>] [--json]\n  stacktest run [--config <path>] [--provider <name>] [--skip-cleanup]",
   };
 }

@@ -128,4 +128,62 @@ tests:
     expect(parsed[0].projectName).toBe("json-project");
     expect(parsed[0].region).toBe("local-region");
   });
+
+  it("should run a successful deployment and output summary results", async () => {
+    const configPath = path.join(TEMP_DIR, "stacktest-run-success.yaml");
+    const templatePath = path.join(TEMP_DIR, "sqs.yaml");
+
+    const configContent = `
+project:
+  name: run-success-project
+providers:
+  fake:
+    regions:
+      - us-east-1
+tests:
+  basic:
+    provider: fake
+    template: sqs.yaml
+`;
+    fs.writeFileSync(configPath, configContent, "utf8");
+    fs.writeFileSync(templatePath, "Resources: {}", "utf8");
+
+    const resultOrPromise = handleArgs(["run", "--config", configPath]);
+    const res = await Promise.resolve(resultOrPromise);
+
+    expect(res.exitCode).toBe(0);
+    expect(res.output).toContain("Running 1 planned deployments");
+    expect(res.output).toContain("PASS  fake  us-east-1  basic");
+    expect(res.output).toContain("Summary: 1 passed, 0 failed, 1 total");
+  });
+
+  it("should run a failing deployment and output error details", async () => {
+    const configPath = path.join(TEMP_DIR, "stacktest-run-fail.yaml");
+    const templatePath = path.join(TEMP_DIR, "sqs.yaml");
+
+    const configContent = `
+project:
+  name: run-fail-project
+providers:
+  fake:
+    regions:
+      - us-east-1
+tests:
+  basic:
+    provider: fake
+    template: sqs.yaml
+    parameters:
+      SimulateFailure: "true"
+`;
+    fs.writeFileSync(configPath, configContent, "utf8");
+    fs.writeFileSync(templatePath, "Resources: {}", "utf8");
+
+    const resultOrPromise = handleArgs(["run", "--config", configPath]);
+    const res = await Promise.resolve(resultOrPromise);
+
+    expect(res.exitCode).toBe(1);
+    expect(res.output).toContain("FAIL  fake  us-east-1  basic");
+    expect(res.output).toContain("Simulated deployment failure");
+    expect(res.output).toContain("Summary: 0 passed, 1 failed, 1 total");
+  });
 });
