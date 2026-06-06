@@ -59,3 +59,10 @@ Subsequent package updates and releases are automated using Changesets and npm T
    gh release create v0.1.1 --generate-notes --target main
    ```
    Publishing the GitHub Release triggers the OIDC-based Trusted Publishing workflow which publishes the updated packages to npm automatically without long-lived NPM tokens.
+
+> [!TIP]
+> If you need to dry-run package packing locally before triggering a release, you can run:
+>
+> ```bash
+> pnpm pack:dry-run
+> ```
