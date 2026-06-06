@@ -4,7 +4,7 @@ import {
   type DeploymentResult,
   type DeploymentEvent,
   type DeploymentPlan,
-} from "@stacktest/core";
+} from "@stack-test/core";
 import {
   CreateStackCommand,
   DescribeStacksCommand,

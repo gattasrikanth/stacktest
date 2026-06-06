@@ -1,8 +1,8 @@
-[**@stacktest/core**](../README.md)
+[**@stack-test/core**](../README.md)
 
 ***
 
-[@stacktest/core](../README.md) / ProviderConfigSchema
+[@stack-test/core](../README.md) / ProviderConfigSchema
 
 # Variable: ProviderConfigSchema
 

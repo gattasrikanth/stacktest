@@ -1,26 +1,64 @@
 {
-  "name": "@stacktest/cli",
+  "name": "@stack-test/cli",
   "version": "0.1.0",
   "description": "StackTest command line interface",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "bin": {
     "stacktest": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts",
-    "dev": "tsup src/index.ts --format esm --dts --watch"
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
-    "@stacktest/core": "workspace:*",
-    "@stacktest/provider-aws-cloudformation": "workspace:*",
-    "@stacktest/provider-aws-cdk": "workspace:*",
-    "@stacktest/provider-kubernetes": "workspace:*",
-    "@stacktest/provider-terraform": "workspace:*",
-    "@stacktest/provider-azure-bicep": "workspace:*",
-    "@stacktest/provider-pulumi": "workspace:*"
+    "@stack-test/core": "workspace:*",
+    "@stack-test/provider-aws-cloudformation": "workspace:*",
+    "@stack-test/provider-aws-cdk": "workspace:*",
+    "@stack-test/provider-kubernetes": "workspace:*",
+    "@stack-test/provider-terraform": "workspace:*",
+    "@stack-test/provider-azure-bicep": "workspace:*",
+    "@stack-test/provider-pulumi": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gattasrikanth/stacktest.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://gattasrikanth.github.io/stacktest/",
+  "bugs": {
+    "url": "https://github.com/gattasrikanth/stacktest/issues"
+  },
+  "keywords": [
+    "infrastructure-testing",
+    "iac",
+    "testing",
+    "stacktest",
+    "cli"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

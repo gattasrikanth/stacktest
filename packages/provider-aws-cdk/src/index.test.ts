@@ -3,14 +3,14 @@ import { exec } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 import { AwsCdkProvider } from "./index.js";
-import { AwsCloudFormationProvider } from "@stacktest/provider-aws-cloudformation";
-import { type DeploymentPlan } from "@stacktest/core";
+import { AwsCloudFormationProvider } from "@stack-test/provider-aws-cloudformation";
+import { type DeploymentPlan } from "@stack-test/core";
 
 vi.mock("child_process", () => ({
   exec: vi.fn(),
 }));
 
-vi.mock("@stacktest/provider-aws-cloudformation", () => {
+vi.mock("@stack-test/provider-aws-cloudformation", () => {
   return {
     AwsCloudFormationProvider: vi.fn().mockImplementation(() => ({
       deploy: vi.fn().mockResolvedValue({

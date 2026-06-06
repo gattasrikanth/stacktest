@@ -1,6 +1,6 @@
 # Providers
 
-A **Provider** is a concrete deployment backend plugin. Providers implement the standard `DeploymentProvider` interface defined in `@stacktest/core`.
+A **Provider** is a concrete deployment backend plugin. Providers implement the standard `DeploymentProvider` interface defined in `@stack-test/core`.
 
 Built-in providers include:
 - `aws-cloudformation`: Deploys CloudFormation templates using the AWS SDK.

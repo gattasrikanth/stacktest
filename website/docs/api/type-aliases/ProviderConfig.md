@@ -1,8 +1,8 @@
-[**@stacktest/core**](../README.md)
+[**@stack-test/core**](../README.md)
 
 ***
 
-[@stacktest/core](../README.md) / ProviderConfig
+[@stack-test/core](../README.md) / ProviderConfig
 
 # Type Alias: ProviderConfig
 

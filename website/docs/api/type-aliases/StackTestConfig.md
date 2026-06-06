@@ -1,8 +1,8 @@
-[**@stacktest/core**](../README.md)
+[**@stack-test/core**](../README.md)
 
 ***
 
-[@stacktest/core](../README.md) / StackTestConfig
+[@stack-test/core](../README.md) / StackTestConfig
 
 # Type Alias: StackTestConfig
 

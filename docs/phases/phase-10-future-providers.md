@@ -2,7 +2,7 @@
 
 ## Goal
 
-Design and implement the Azure Bicep provider (`@stacktest/provider-azure-bicep`) and the Pulumi provider (`@stacktest/provider-pulumi`) as the fifth and sixth concrete deployment backends. These providers validate the complete platform-agnostic capability of the StackTest framework across public clouds (Azure) and modern Infrastructure-as-Code (IaC) programmatic workflows (Pulumi).
+Design and implement the Azure Bicep provider (`@stack-test/provider-azure-bicep`) and the Pulumi provider (`@stack-test/provider-pulumi`) as the fifth and sixth concrete deployment backends. These providers validate the complete platform-agnostic capability of the StackTest framework across public clouds (Azure) and modern Infrastructure-as-Code (IaC) programmatic workflows (Pulumi).
 
 ---
 
@@ -10,7 +10,7 @@ Design and implement the Azure Bicep provider (`@stacktest/provider-azure-bicep`
 
 ### Azure Bicep Provider Package
 
-- **Package**: `@stacktest/provider-azure-bicep` under `packages/provider-azure-bicep`.
+- **Package**: `@stack-test/provider-azure-bicep` under `packages/provider-azure-bicep`.
 - **Resource Group Isolation Manager**: Generates a run-isolated resource group (e.g. `st-${runId}-${testName}`) inside Azure, ensuring concurrent test runs do not conflict.
 - **Bicep Deployer**: Executes `az deployment group create` using Bicep templates and collects resource lifecycle events.
 - **Resource Group Cleanup**: Deletes the run-isolated resource group, ensuring cascading garbage collection of all deployed resources.
@@ -18,7 +18,7 @@ Design and implement the Azure Bicep provider (`@stacktest/provider-azure-bicep`
 
 ### Pulumi Provider Package
 
-- **Package**: `@stacktest/provider-pulumi` under `packages/provider-pulumi`.
+- **Package**: `@stack-test/provider-pulumi` under `packages/provider-pulumi`.
 - **Local State Backend Configuration**: Automatically runs `pulumi login --local` to initialize a local, zero-dependency storage system.
 - **Stack Isolation**: Creates a run-specific Pulumi stack (e.g., `st-${runId}-${testName}`) inside the template target directory.
 - **Pulumi Deployer & Destroyer**: Wrapper executing `pulumi up --yes` and `pulumi destroy --yes` to manage resources.
@@ -30,7 +30,7 @@ Design and implement the Azure Bicep provider (`@stacktest/provider-azure-bicep`
 
 ### Issue 10.1: Initialize Azure Bicep Package
 
-- **Description**: Initialize the `@stacktest/provider-azure-bicep` package structure, `package.json`, TypeScript configuration, and `tsup` build configurations.
+- **Description**: Initialize the `@stack-test/provider-azure-bicep` package structure, `package.json`, TypeScript configuration, and `tsup` build configurations.
 - **Target Commit**: `chore: initialize provider-azure-bicep package`
 - **Recommended Agent Role**: Architect
 
@@ -54,7 +54,7 @@ Design and implement the Azure Bicep provider (`@stacktest/provider-azure-bicep`
 
 ### Issue 10.5: Initialize Pulumi Package
 
-- **Description**: Initialize the `@stacktest/provider-pulumi` package structure, config files, and build script.
+- **Description**: Initialize the `@stack-test/provider-pulumi` package structure, config files, and build script.
 - **Target Commit**: `chore: initialize provider-pulumi package`
 - **Recommended Agent Role**: Architect
 

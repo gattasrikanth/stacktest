@@ -5,13 +5,13 @@ import {
   RunOrchestrator,
   ProviderRegistry,
   ReportGenerator,
-} from "@stacktest/core";
-import { AwsCloudFormationProvider } from "@stacktest/provider-aws-cloudformation";
-import { TerraformProvider } from "@stacktest/provider-terraform";
-import { AwsCdkProvider } from "@stacktest/provider-aws-cdk";
-import { KubernetesProvider } from "@stacktest/provider-kubernetes";
-import { AzureBicepProvider } from "@stacktest/provider-azure-bicep";
-import { PulumiProvider } from "@stacktest/provider-pulumi";
+} from "@stack-test/core";
+import { AwsCloudFormationProvider } from "@stack-test/provider-aws-cloudformation";
+import { TerraformProvider } from "@stack-test/provider-terraform";
+import { AwsCdkProvider } from "@stack-test/provider-aws-cdk";
+import { KubernetesProvider } from "@stack-test/provider-kubernetes";
+import { AzureBicepProvider } from "@stack-test/provider-azure-bicep";
+import { PulumiProvider } from "@stack-test/provider-pulumi";
 
 // Auto-register default providers for CLI executions
 ProviderRegistry.register(new AwsCloudFormationProvider());

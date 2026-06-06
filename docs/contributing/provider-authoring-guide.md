@@ -6,10 +6,10 @@ This guide explains how to write and register a custom `DeploymentProvider` in S
 
 ## 1. The Provider Contract
 
-Every provider in StackTest must implement the `DeploymentProvider` interface defined in `@stacktest/core`:
+Every provider in StackTest must implement the `DeploymentProvider` interface defined in `@stack-test/core`:
 
 ```typescript
-import { type DeploymentPlan, type DeploymentResult, type DeploymentEvent } from "@stacktest/core";
+import { type DeploymentPlan, type DeploymentResult, type DeploymentEvent } from "@stack-test/core";
 
 export interface DeploymentProvider {
   /**
@@ -50,7 +50,7 @@ import {
   type DeploymentPlan,
   type DeploymentResult,
   type DeploymentEvent,
-} from "@stacktest/core";
+} from "@stack-test/core";
 
 export class MyCustomProvider implements DeploymentProvider {
   readonly name = "my-custom-provider";
@@ -166,7 +166,7 @@ Destructive cleanup methods (`destroy`) must enforce the following safety rules:
 To activate your provider for run execution pipelines, register it with the `ProviderRegistry` class:
 
 ```typescript
-import { ProviderRegistry } from "@stacktest/core";
+import { ProviderRegistry } from "@stack-test/core";
 import { MyCustomProvider } from "./my-provider.js";
 
 // Register custom provider instance

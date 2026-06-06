@@ -1,8 +1,8 @@
-[**@stacktest/core**](../README.md)
+[**@stack-test/core**](../README.md)
 
 ***
 
-[@stacktest/core](../README.md) / DeploymentEvent
+[@stack-test/core](../README.md) / DeploymentEvent
 
 # Interface: DeploymentEvent
 

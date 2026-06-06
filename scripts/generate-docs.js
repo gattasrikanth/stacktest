@@ -100,7 +100,7 @@ console.log('✓ Config schema docs generated.');
 
 console.log('Running TypeDoc for programmatic API docs...');
 try {
-  execSync('npx typedoc --plugin typedoc-plugin-markdown --out website/docs/api packages/core/src/index.ts --name "@stacktest/core" --tsconfig packages/core/tsconfig.json --disableSources true --readme none --skipErrorChecking', { stdio: 'inherit' });
+  execSync('npx typedoc --plugin typedoc-plugin-markdown --out website/docs/api packages/core/src/index.ts --name "@stack-test/core" --tsconfig packages/core/tsconfig.json --disableSources true --readme none --skipErrorChecking', { stdio: 'inherit' });
   console.log('✓ Programmatic API docs generated.');
 } catch (err) {
   console.error('Failed to run TypeDoc:', err.message);

@@ -21,7 +21,7 @@ Expand the AWS CloudFormation provider capabilities with advanced enterprise-gra
 
 ### Issue 6.2: Implement SSM and Secrets Manager Dynamic Resolvers
 
-- **Description**: Add dynamic value parser plugins in `@stacktest/core` that query AWS SSM Parameter Store (`$[aws_ssm:...]`) and Secrets Manager (`$[aws_secret:...]`) at runtime using real/mock AWS clients.
+- **Description**: Add dynamic value parser plugins in `@stack-test/core` that query AWS SSM Parameter Store (`$[aws_ssm:...]`) and Secrets Manager (`$[aws_secret:...]`) at runtime using real/mock AWS clients.
 - **Target Commit**: `feat(core): resolve ssm parameters and secrets manager values`
 - **Recommended Agent Role**: Implementation
 

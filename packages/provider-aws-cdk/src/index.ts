@@ -7,8 +7,8 @@ import {
   type DeploymentResult,
   type DeploymentEvent,
   type DeploymentPlan,
-} from "@stacktest/core";
-import { AwsCloudFormationProvider } from "@stacktest/provider-aws-cloudformation";
+} from "@stack-test/core";
+import { AwsCloudFormationProvider } from "@stack-test/provider-aws-cloudformation";
 
 const execAsync = promisify(exec);
 

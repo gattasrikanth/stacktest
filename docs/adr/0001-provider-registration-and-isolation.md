@@ -22,15 +22,15 @@ We need a design that keeps the core package completely provider-agnostic while 
 
 ## 2. Decision
 
-We establish strict logical boundaries between `@stacktest/core` and concrete providers using an **interface-registry pattern**:
+We establish strict logical boundaries between `@stack-test/core` and concrete providers using an **interface-registry pattern**:
 
-1. **Agnostic Core Boundary**: `@stacktest/core` defines the `DeploymentProvider` interface. Core logic (planners, variable resolvers, orchestrators) depends _only_ on this interface, never on platform-specific clients or SDKs.
+1. **Agnostic Core Boundary**: `@stack-test/core` defines the `DeploymentProvider` interface. Core logic (planners, variable resolvers, orchestrators) depends _only_ on this interface, never on platform-specific clients or SDKs.
 2. **Provider Modularity**: Each concrete provider is implemented in a separate workspace package (e.g., `packages/provider-aws-cloudformation` or as a standalone third-party npm library).
 3. **Dynamic Registry Engine**: Core provides a static `ProviderRegistry` class.
 4. **Auto-Registration**: Concrete provider packages register their instances with the registry when imported:
 
    ```typescript
-   import { ProviderRegistry } from "@stacktest/core";
+   import { ProviderRegistry } from "@stack-test/core";
    import { MyProvider } from "./my-provider.js";
 
    ProviderRegistry.register(new MyProvider());

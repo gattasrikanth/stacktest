@@ -14,7 +14,7 @@ import {
   DeleteBucketCommand,
 } from "@aws-sdk/client-s3";
 import { getS3Client, type AwsCredentials } from "./credentials.js";
-import { type DeploymentPlan } from "@stacktest/core";
+import { type DeploymentPlan } from "@stack-test/core";
 
 export function generateSafeBucketName(projectName: string, region: string, runId: string): string {
   const sanitize = (val: string) => val.toLowerCase().replace(/[^a-z0-9]/g, "");

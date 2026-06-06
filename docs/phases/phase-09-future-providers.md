@@ -2,11 +2,11 @@
 
 ## Goal
 
-Design and implement the Kubernetes provider (`@stacktest/provider-kubernetes`) as the fourth concrete deployment backend. This provider will allow users to deploy, monitor, and clean up Kubernetes YAML manifests inside dynamically created, isolated namespaces using local `kubectl` command execution.
+Design and implement the Kubernetes provider (`@stack-test/provider-kubernetes`) as the fourth concrete deployment backend. This provider will allow users to deploy, monitor, and clean up Kubernetes YAML manifests inside dynamically created, isolated namespaces using local `kubectl` command execution.
 
 ## Deliverables
 
-- **Kubernetes Provider Package**: A new package `@stacktest/provider-kubernetes` under `packages/provider-kubernetes` registered in the monorepo workspace.
+- **Kubernetes Provider Package**: A new package `@stack-test/provider-kubernetes` under `packages/provider-kubernetes` registered in the monorepo workspace.
 - **Namespace Isolation Manager**: Core namespace builder executing `kubectl create namespace <name>` to isolate deployment runs.
 - **Kubernetes Apply (Deploy)**: Executor executing `kubectl apply -f <template> -n <namespace>` and monitoring resource rollout status.
 - **Kubernetes Clean (Cleanup)**: Executor performing safety tag/namespace deletions that automatically tears down all child resources.
@@ -18,7 +18,7 @@ Design and implement the Kubernetes provider (`@stacktest/provider-kubernetes`) 
 
 ### Issue 9.1: Initialize `provider-kubernetes` Package
 
-- **Description**: Initialize the `@stacktest/provider-kubernetes` package structure. Set up `package.json`, TypeScript configuration, and compiler build script using `tsup`.
+- **Description**: Initialize the `@stack-test/provider-kubernetes` package structure. Set up `package.json`, TypeScript configuration, and compiler build script using `tsup`.
 - **Target Commit**: `chore: initialize provider-kubernetes package`
 - **Recommended Agent Role**: Architect
 
@@ -56,7 +56,7 @@ Design and implement the Kubernetes provider (`@stacktest/provider-kubernetes`) 
 
 ## Acceptance Criteria
 
-- The `@stacktest/provider-kubernetes` package registers cleanly under the workspace.
+- The `@stack-test/provider-kubernetes` package registers cleanly under the workspace.
 - Executing `stacktest run --provider kubernetes` is supported.
 - Manifests apply cleanly inside run-isolated namespaces.
 - Deleting namespaces cleans up all resources without orphans.

@@ -1,8 +1,8 @@
-[**@stacktest/core**](../README.md)
+[**@stack-test/core**](../README.md)
 
 ***
 
-[@stacktest/core](../README.md) / TestStageConfigSchema
+[@stack-test/core](../README.md) / TestStageConfigSchema
 
 # Variable: TestStageConfigSchema
 

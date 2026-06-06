@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { AwsCloudFormationProvider } from "./index.js";
-import { type DeploymentPlan } from "@stacktest/core";
+import { type DeploymentPlan } from "@stack-test/core";
 import * as fs from "fs";
 import * as path from "path";
 import { DescribeStacksCommand } from "@aws-sdk/client-cloudformation";

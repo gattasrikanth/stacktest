@@ -2,11 +2,11 @@
 
 ## Goal
 
-Design and implement the HashiCorp Terraform provider (`@stacktest/provider-terraform`) as the second concrete deployment backend. This will validate that the framework's core planning, resolution, orchestration, and reporting engines are fully provider-agnostic, and support directory-based infrastructure-as-code deployments.
+Design and implement the HashiCorp Terraform provider (`@stack-test/provider-terraform`) as the second concrete deployment backend. This will validate that the framework's core planning, resolution, orchestration, and reporting engines are fully provider-agnostic, and support directory-based infrastructure-as-code deployments.
 
 ## Deliverables
 
-- **Terraform Provider Package**: A new package `@stacktest/provider-terraform` under `packages/provider-terraform` registered in the monorepo workspace.
+- **Terraform Provider Package**: A new package `@stack-test/provider-terraform` under `packages/provider-terraform` registered in the monorepo workspace.
 - **Terraform Workspace and Initialization**: Dynamic workspace directory management that runs `terraform init` locally to prepare providers and modules.
 - **Terraform Apply (Deploy)**: Map planned parameters to Terraform input variables (`-var` flags or temporary `.tfvars` files) and run `terraform apply -auto-approve`.
 - **Terraform Destroy (Cleanup)**: Execution of `terraform destroy -auto-approve` inside the managed workspace to tear down resources.
@@ -18,7 +18,7 @@ Design and implement the HashiCorp Terraform provider (`@stacktest/provider-terr
 
 ### Issue 7.1: Initialize `provider-terraform` Package
 
-- **Description**: Initialize the `@stacktest/provider-terraform` workspace package structure. Set up `package.json`, TypeScript configuration, and compiler build script using `tsup`.
+- **Description**: Initialize the `@stack-test/provider-terraform` workspace package structure. Set up `package.json`, TypeScript configuration, and compiler build script using `tsup`.
 - **Target Commit**: `chore: initialize provider-terraform package`
 - **Recommended Agent Role**: Architect
 
@@ -56,7 +56,7 @@ Design and implement the HashiCorp Terraform provider (`@stacktest/provider-terr
 
 ## Acceptance Criteria
 
-- The `@stacktest/provider-terraform` package registers cleanly under the workspace.
+- The `@stack-test/provider-terraform` package registers cleanly under the workspace.
 - Executing `stacktest run --provider terraform` is supported.
 - Workspace parameters map successfully to Terraform variables.
 - StackTest ownership and state scoping prevent unintended resource deletes.

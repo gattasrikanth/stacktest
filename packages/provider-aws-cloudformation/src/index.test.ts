@@ -20,7 +20,7 @@ import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-sec
 import * as fs from "fs";
 import * as path from "path";
 import { AwsCloudFormationProvider } from "./index.js";
-import { type DeploymentPlan } from "@stacktest/core";
+import { type DeploymentPlan } from "@stack-test/core";
 
 const s3Mock = mockClient(S3Client);
 const cfnMock = mockClient(CloudFormationClient);

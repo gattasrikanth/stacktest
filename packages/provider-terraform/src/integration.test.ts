@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { TerraformProvider } from "./index.js";
-import { type DeploymentPlan } from "@stacktest/core";
+import { type DeploymentPlan } from "@stack-test/core";
 import * as fs from "fs";
 import * as path from "path";
 

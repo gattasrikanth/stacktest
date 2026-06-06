@@ -1,26 +1,56 @@
 {
-  "name": "@stacktest/core",
+  "name": "@stack-test/core",
   "version": "0.1.0",
   "description": "StackTest core planning and orchestration engine",
+  "license": "MIT",
+  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "yaml": "^2.4.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "tsup": "^8.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gattasrikanth/stacktest.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://gattasrikanth.github.io/stacktest/",
+  "bugs": {
+    "url": "https://github.com/gattasrikanth/stacktest/issues"
+  },
+  "keywords": [
+    "infrastructure-testing",
+    "iac",
+    "testing",
+    "stacktest",
+    "core"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

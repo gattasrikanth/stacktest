@@ -10,16 +10,16 @@ StackTest requires **Node.js v20 or later** and a package manager such as `pnpm`
 
 ## Installing the CLI
 
-To add `@stacktest/cli` to your local project:
+To add `@stack-test/cli` to your local project:
 
 ```bash
-pnpm add -D @stacktest/cli @stacktest/core
+pnpm add -D @stack-test/cli @stack-test/core
 ```
 
 Or using npm:
 
 ```bash
-npm install --save-dev @stacktest/cli @stacktest/core
+npm install --save-dev @stack-test/cli @stack-test/core
 ```
 
 ## Running without Installation

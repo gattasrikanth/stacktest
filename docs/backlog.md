@@ -122,7 +122,7 @@ _Detailed Plan_: [docs/phases/phase-06-advanced-aws.md](file:///Users/srikanth/D
 
 ## Phase 07: Terraform Provider Integration
 
-**Goal**: Design and implement the HashiCorp Terraform provider (`@stacktest/provider-terraform`) as the second concrete deployment backend to validate the framework's decoupled, provider-agnostic core.  
+**Goal**: Design and implement the HashiCorp Terraform provider (`@stack-test/provider-terraform`) as the second concrete deployment backend to validate the framework's decoupled, provider-agnostic core.  
 _Detailed Plan_: [docs/phases/phase-07-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-07-future-providers.md)
 
 | Issue ID | Task Name                                                                                                                                                        | Recommended Agent Role | Target Commit Prefix        | Status   |
@@ -138,7 +138,7 @@ _Detailed Plan_: [docs/phases/phase-07-future-providers.md](file:///Users/srikan
 
 ## Phase 08: AWS CDK Provider Integration
 
-**Goal**: Design and implement the AWS CDK provider (`@stacktest/provider-aws-cdk`) as the third concrete deployment backend to support testing CDK applications.  
+**Goal**: Design and implement the AWS CDK provider (`@stack-test/provider-aws-cdk`) as the third concrete deployment backend to support testing CDK applications.  
 _Detailed Plan_: [docs/phases/phase-08-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-08-future-providers.md)
 
 | Issue ID | Task Name                                                                                                                                          | Recommended Agent Role | Target Commit Prefix      | Status   |
@@ -154,7 +154,7 @@ _Detailed Plan_: [docs/phases/phase-08-future-providers.md](file:///Users/srikan
 
 ## Phase 09: Kubernetes Provider Integration
 
-**Goal**: Design and implement the Kubernetes provider (`@stacktest/provider-kubernetes`) as the fourth concrete deployment backend.  
+**Goal**: Design and implement the Kubernetes provider (`@stack-test/provider-kubernetes`) as the fourth concrete deployment backend.  
 _Detailed Plan_: [docs/phases/phase-09-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-09-future-providers.md)
 
 | Issue ID | Task Name                                                                                                                                                        | Recommended Agent Role | Target Commit Prefix         | Status   |
@@ -170,7 +170,7 @@ _Detailed Plan_: [docs/phases/phase-09-future-providers.md](file:///Users/srikan
 
 ## Phase 10: Future Providers (Azure Bicep and Pulumi)
 
-**Goal**: Design and implement the Azure Bicep provider (`@stacktest/provider-azure-bicep`) and the Pulumi provider (`@stacktest/provider-pulumi`) as the fifth and sixth concrete deployment backends.  
+**Goal**: Design and implement the Azure Bicep provider (`@stack-test/provider-azure-bicep`) and the Pulumi provider (`@stack-test/provider-pulumi`) as the fifth and sixth concrete deployment backends.  
 _Detailed Plan_: [docs/phases/phase-10-future-providers.md](file:///Users/srikanth/Desktop/Personal/Github/stacktest/docs/phases/phase-10-future-providers.md)
 
 | Issue ID  | Task Name                                                                                                                                                   | Recommended Agent Role | Target Commit Prefix          | Status   |

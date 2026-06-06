@@ -1,24 +1,57 @@
 {
-  "name": "@stacktest/provider-aws-cdk",
+  "name": "@stack-test/provider-aws-cdk",
   "version": "0.1.0",
-  "description": "AWS CDK provider wrapper for StackTest",
+  "description": "AWS CDK provider for StackTest",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts",
-    "dev": "tsup src/index.ts --format esm --dts --watch"
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
-    "@stacktest/core": "workspace:*",
-    "@stacktest/provider-aws-cloudformation": "workspace:*"
+    "@stack-test/core": "workspace:*",
+    "@stack-test/provider-aws-cloudformation": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gattasrikanth/stacktest.git",
+    "directory": "packages/provider-aws-cdk"
+  },
+  "homepage": "https://gattasrikanth.github.io/stacktest/",
+  "bugs": {
+    "url": "https://github.com/gattasrikanth/stacktest/issues"
+  },
+  "keywords": [
+    "infrastructure-testing",
+    "iac",
+    "testing",
+    "stacktest",
+    "aws",
+    "cdk"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

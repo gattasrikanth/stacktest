@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { extractFailureReason } from "./events.js";
-import { type DeploymentEvent } from "@stacktest/core";
+import { type DeploymentEvent } from "@stack-test/core";
 
 describe("Event Failure Extractor", () => {
   it("should return undefined if no resource failures are found", () => {

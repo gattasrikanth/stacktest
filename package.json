@@ -12,7 +12,9 @@
     "docs:dev": "pnpm --dir website start",
     "docs:build": "pnpm --dir website build",
     "docs:generate": "node scripts/generate-docs.js",
-    "docs:check": "pnpm docs:generate && git diff --exit-code website/docs/cli website/docs/schema website/docs/api && pnpm docs:build"
+    "docs:check": "pnpm docs:generate && git diff --exit-code website/docs/cli website/docs/schema website/docs/api && pnpm docs:build",
+    "pack:dry-run": "node scripts/npm-pack-dry-run.mjs",
+    "publish:local:first-release": "node scripts/npm-publish-local.mjs"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",

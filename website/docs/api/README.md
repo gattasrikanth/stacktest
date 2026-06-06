@@ -1,8 +1,8 @@
-**@stacktest/core**
+**@stack-test/core**
 
 ***
 
-# @stacktest/core
+# @stack-test/core
 
 ## Classes
 

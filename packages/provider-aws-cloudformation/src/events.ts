@@ -1,4 +1,4 @@
-import { type DeploymentEvent } from "@stacktest/core";
+import { type DeploymentEvent } from "@stack-test/core";
 
 export function extractFailureReason(events: DeploymentEvent[]): string | undefined {
   const failures = events.filter((e) => {

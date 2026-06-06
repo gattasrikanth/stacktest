@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import * as fs from "fs";
 import * as path from "path";
 import { handleArgs } from "./cli.js";
-import { VERSION } from "@stacktest/core";
+import { VERSION } from "@stack-test/core";
 
 const TEMP_DIR = path.resolve(process.cwd(), "packages/cli/src/temp-cli-dir");
 

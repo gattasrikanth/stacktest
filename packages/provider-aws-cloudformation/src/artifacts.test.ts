@@ -13,7 +13,7 @@ import {
 import * as fs from "fs";
 import * as path from "path";
 import { S3ArtifactManager, generateSafeBucketName } from "./artifacts.js";
-import { type DeploymentPlan } from "@stacktest/core";
+import { type DeploymentPlan } from "@stack-test/core";
 
 const s3Mock = mockClient(S3Client);
 const TEMP_DIR = path.resolve(

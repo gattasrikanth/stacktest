@@ -2,11 +2,11 @@
 
 ## Goal
 
-Design and implement the AWS CDK provider (`@stacktest/provider-aws-cdk`) as the third concrete deployment backend. This provider will allow users to test CDK applications by executing `cdk synth` to generate CloudFormation templates and delegating deployment/cleanup operations to the existing `@stacktest/provider-aws-cloudformation` package.
+Design and implement the AWS CDK provider (`@stack-test/provider-aws-cdk`) as the third concrete deployment backend. This provider will allow users to test CDK applications by executing `cdk synth` to generate CloudFormation templates and delegating deployment/cleanup operations to the existing `@stack-test/provider-aws-cloudformation` package.
 
 ## Deliverables
 
-- **AWS CDK Provider Package**: A new package `@stacktest/provider-aws-cdk` under `packages/provider-aws-cdk` registered in the monorepo workspace.
+- **AWS CDK Provider Package**: A new package `@stack-test/provider-aws-cdk` under `packages/provider-aws-cdk` registered in the monorepo workspace.
 - **CDK Synth Manager**: Core synthesis executor checking for `cdk` CLI availability, running `cdk synth -o <dir>`, and retrieving synthesized templates.
 - **CDK Deployer wrapper**: Orchestrator executing the synthesis, then utilizing `AwsCloudFormationProvider` to deploy the output template to AWS.
 - **CDK Destroyer wrapper**: Wrapper executing `AwsCloudFormationProvider.destroy` to tear down the infrastructure safely.
@@ -18,7 +18,7 @@ Design and implement the AWS CDK provider (`@stacktest/provider-aws-cdk`) as the
 
 ### Issue 8.1: Initialize `provider-aws-cdk` Package
 
-- **Description**: Initialize the `@stacktest/provider-aws-cdk` package structure. Set up `package.json`, TypeScript configuration, and compiler build script using `tsup`.
+- **Description**: Initialize the `@stack-test/provider-aws-cdk` package structure. Set up `package.json`, TypeScript configuration, and compiler build script using `tsup`.
 - **Target Commit**: `chore: initialize provider-aws-cdk package`
 - **Recommended Agent Role**: Architect
 
@@ -56,7 +56,7 @@ Design and implement the AWS CDK provider (`@stacktest/provider-aws-cdk`) as the
 
 ## Acceptance Criteria
 
-- The `@stacktest/provider-aws-cdk` package registers cleanly under the workspace.
+- The `@stack-test/provider-aws-cdk` package registers cleanly under the workspace.
 - Executing `stacktest run --provider aws-cdk` is supported.
 - CDK apps synthesize successfully at runtime.
 - Synthesized stacks are deployed and destroyed safely using AWS CloudFormation credentials.

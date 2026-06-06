@@ -1,23 +1,56 @@
 {
-  "name": "@stacktest/provider-azure-bicep",
+  "name": "@stack-test/provider-azure-bicep",
   "version": "0.1.0",
   "description": "Azure Bicep provider for StackTest",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts",
-    "dev": "tsup src/index.ts --format esm --dts --watch"
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
-    "@stacktest/core": "workspace:*"
+    "@stack-test/core": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gattasrikanth/stacktest.git",
+    "directory": "packages/provider-azure-bicep"
+  },
+  "homepage": "https://gattasrikanth.github.io/stacktest/",
+  "bugs": {
+    "url": "https://github.com/gattasrikanth/stacktest/issues"
+  },
+  "keywords": [
+    "infrastructure-testing",
+    "iac",
+    "testing",
+    "stacktest",
+    "azure",
+    "bicep"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

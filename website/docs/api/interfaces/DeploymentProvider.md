@@ -1,8 +1,8 @@
-[**@stacktest/core**](../README.md)
+[**@stack-test/core**](../README.md)
 
 ***
 
-[@stacktest/core](../README.md) / DeploymentProvider
+[@stack-test/core](../README.md) / DeploymentProvider
 
 # Interface: DeploymentProvider
 
