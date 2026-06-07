@@ -103,19 +103,19 @@ Shows a table/card list of historical runs.
 
 Columns:
 
-| Field | Description |
-|---|---|
-| Run ID | Example: `st-20260606-6e0feb` |
-| Scenario / Project | Example: `aws-basic-sandbox` |
-| Provider | Example: `aws-cloudformation` |
-| Regions | Example: `us-east-1` |
-| Status | Passed / Failed / Running / Cancelled |
-| Started | Local timestamp |
-| Duration | Example: `66.75s` |
-| Total Tests | Count |
-| Passed | Count |
-| Failed | Count |
-| Actions | Open / Reveal Folder / Copy Run ID |
+| Field              | Description                           |
+| ------------------ | ------------------------------------- |
+| Run ID             | Example: `st-20260606-6e0feb`         |
+| Scenario / Project | Example: `aws-basic-sandbox`          |
+| Provider           | Example: `aws-cloudformation`         |
+| Regions            | Example: `us-east-1`                  |
+| Status             | Passed / Failed / Running / Cancelled |
+| Started            | Local timestamp                       |
+| Duration           | Example: `66.75s`                     |
+| Total Tests        | Count                                 |
+| Passed             | Count                                 |
+| Failed             | Count                                 |
+| Actions            | Open / Reveal Folder / Copy Run ID    |
 
 Filters:
 
@@ -254,16 +254,16 @@ stacktest dashboard \
 
 Recommended options:
 
-| Option | Default | Description |
-|---|---:|---|
-| `--dir` | `.stacktest` | StackTest data directory |
-| `--runs-dir` | `.stacktest/runs` | Override run folder location |
-| `--port` | `3456` | Local server port |
-| `--host` | `127.0.0.1` | Bind address. Must default to localhost only |
-| `--open` | `true` | Open browser automatically |
-| `--no-open` | `false` | Do not open browser |
-| `--mock` | `false` | Serve deterministic mock data for docs/screenshots |
-| `--enable-actions` | `false` | Allow dashboard to launch tests locally |
+| Option             |           Default | Description                                        |
+| ------------------ | ----------------: | -------------------------------------------------- |
+| `--dir`            |      `.stacktest` | StackTest data directory                           |
+| `--runs-dir`       | `.stacktest/runs` | Override run folder location                       |
+| `--port`           |            `3456` | Local server port                                  |
+| `--host`           |       `127.0.0.1` | Bind address. Must default to localhost only       |
+| `--open`           |            `true` | Open browser automatically                         |
+| `--no-open`        |           `false` | Do not open browser                                |
+| `--mock`           |           `false` | Serve deterministic mock data for docs/screenshots |
+| `--enable-actions` |           `false` | Allow dashboard to launch tests locally            |
 
 Security requirement:
 
@@ -392,22 +392,22 @@ Each line is one event:
 
 Recommended event types:
 
-| Event Type | Purpose |
-|---|---|
-| `run_started` | New run started |
-| `run_config_loaded` | Config resolved |
-| `deployment_started` | Deployment started |
-| `deployment_event` | Provider-specific resource event |
-| `assertion_started` | Test assertion started |
-| `assertion_passed` | Assertion passed |
-| `assertion_failed` | Assertion failed |
-| `cleanup_started` | Cleanup started |
-| `cleanup_event` | Cleanup resource event |
-| `cleanup_completed` | Cleanup finished |
-| `run_failed` | Run failed |
-| `run_completed` | Run completed |
-| `warning` | Non-fatal warning |
-| `log` | Generic log event |
+| Event Type           | Purpose                          |
+| -------------------- | -------------------------------- |
+| `run_started`        | New run started                  |
+| `run_config_loaded`  | Config resolved                  |
+| `deployment_started` | Deployment started               |
+| `deployment_event`   | Provider-specific resource event |
+| `assertion_started`  | Test assertion started           |
+| `assertion_passed`   | Assertion passed                 |
+| `assertion_failed`   | Assertion failed                 |
+| `cleanup_started`    | Cleanup started                  |
+| `cleanup_event`      | Cleanup resource event           |
+| `cleanup_completed`  | Cleanup finished                 |
+| `run_failed`         | Run failed                       |
+| `run_completed`      | Run completed                    |
+| `warning`            | Non-fatal warning                |
+| `log`                | Generic log event                |
 
 ### 6.7 Backward Compatibility
 
@@ -485,19 +485,19 @@ http://127.0.0.1:3456/api
 
 Endpoints:
 
-| Method | Route | Purpose |
-|---|---|---|
-| GET | `/api/health` | Server health |
-| GET | `/api/runs` | List runs |
-| GET | `/api/runs/:runId` | Get run detail |
-| GET | `/api/runs/:runId/events` | Get all events |
-| GET | `/api/runs/:runId/events/stream` | SSE stream for live events |
-| GET | `/api/runs/:runId/artifacts` | List artifact files |
-| GET | `/api/runs/:runId/artifacts/file?path=` | Read artifact file |
-| GET | `/api/settings` | Read local dashboard settings |
-| PUT | `/api/settings` | Update local dashboard settings |
-| POST | `/api/actions/run` | Future: launch test, disabled unless `--enable-actions` |
-| POST | `/api/actions/reveal` | Reveal run folder in OS file explorer |
+| Method | Route                                   | Purpose                                                 |
+| ------ | --------------------------------------- | ------------------------------------------------------- |
+| GET    | `/api/health`                           | Server health                                           |
+| GET    | `/api/runs`                             | List runs                                               |
+| GET    | `/api/runs/:runId`                      | Get run detail                                          |
+| GET    | `/api/runs/:runId/events`               | Get all events                                          |
+| GET    | `/api/runs/:runId/events/stream`        | SSE stream for live events                              |
+| GET    | `/api/runs/:runId/artifacts`            | List artifact files                                     |
+| GET    | `/api/runs/:runId/artifacts/file?path=` | Read artifact file                                      |
+| GET    | `/api/settings`                         | Read local dashboard settings                           |
+| PUT    | `/api/settings`                         | Update local dashboard settings                         |
+| POST   | `/api/actions/run`                      | Future: launch test, disabled unless `--enable-actions` |
+| POST   | `/api/actions/reveal`                   | Reveal run folder in OS file explorer                   |
 
 ### 7.4 SSE Event Stream
 
@@ -769,7 +769,7 @@ StackTest writes normalized local run artifacts under .stacktest/runs. The dashb
 
 Add a small feature block:
 
-```markdown
+````markdown
 ### Local Dashboard
 
 StackTest includes a local-first dashboard for test history, live run progress, and deployment event debugging.
@@ -777,9 +777,11 @@ StackTest includes a local-first dashboard for test history, live run progress, 
 ```bash
 stacktest dashboard
 ```
+````
 
 Everything runs on your machine and reads from `.stacktest/runs`.
-```
+
+````
 
 ---
 
@@ -798,7 +800,7 @@ website/static/img/dashboard/
   dashboard-run-detail-failed.png
   dashboard-live-run.png
   dashboard-artifacts.png
-```
+````
 
 If the docs site uses another static asset folder, follow existing conventions.
 
@@ -925,16 +927,16 @@ Add Playwright tests for:
 
 ### 12.5 Manual Test Matrix
 
-| Scenario | Expected Result |
-|---|---|
-| No `.stacktest/runs` folder | Dashboard opens with empty state |
-| Existing old run folders | Dashboard shows best-effort cards |
-| New normalized run folder | Full detail page works |
-| Active run writing events | UI updates live |
-| Failed run | Error reason highlighted |
-| Large events file | UI remains responsive |
-| Port already in use | CLI prints helpful error and suggests `--port` |
-| Browser auto-open disabled | CLI prints URL only |
+| Scenario                    | Expected Result                                |
+| --------------------------- | ---------------------------------------------- |
+| No `.stacktest/runs` folder | Dashboard opens with empty state               |
+| Existing old run folders    | Dashboard shows best-effort cards              |
+| New normalized run folder   | Full detail page works                         |
+| Active run writing events   | UI updates live                                |
+| Failed run                  | Error reason highlighted                       |
+| Large events file           | UI remains responsive                          |
+| Port already in use         | CLI prints helpful error and suggests `--port` |
+| Browser auto-open disabled  | CLI prints URL only                            |
 
 ---
 
@@ -1245,18 +1247,23 @@ Handoff note should include:
 # Dashboard Feature Handoff
 
 ## Completed
+
 - ...
 
 ## Current State
+
 - ...
 
 ## Tests Run
+
 - ...
 
 ## Known Issues
+
 - ...
 
 ## Next Recommended Step
+
 - ...
 ```
 

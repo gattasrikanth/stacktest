@@ -146,13 +146,23 @@ export function createRunEvents(
 export function writeNormalizedRunArtifacts(
   runsRoot: string,
   options: WriteNormalizedRunArtifactsOptions,
-): { manifestPath: string; summaryPath: string; eventsPath: string; deploymentsPath: string; assertionsPath: string } {
+): {
+  manifestPath: string;
+  summaryPath: string;
+  eventsPath: string;
+  deploymentsPath: string;
+  assertionsPath: string;
+} {
   const runDir = path.resolve(runsRoot, options.runId);
   fs.mkdirSync(runDir, { recursive: true });
 
   const endedAt = options.endedAt || new Date().toISOString();
   const startedAt =
-    options.startedAt || new Date(new Date(endedAt).getTime() - options.results.reduce((sum, result) => sum + result.durationMs, 0)).toISOString();
+    options.startedAt ||
+    new Date(
+      new Date(endedAt).getTime() -
+        options.results.reduce((sum, result) => sum + result.durationMs, 0),
+    ).toISOString();
   const summary = createRunSummary(options.runId, options.plans, options.results);
   const manifest: RunManifest = {
     schemaVersion: "1.0",
@@ -179,14 +189,20 @@ export function writeNormalizedRunArtifacts(
 
   writeJsonFile(manifestPath, manifest);
   writeJsonFile(summaryPath, summary);
-  fs.writeFileSync(eventsPath, events.map((event) => JSON.stringify(event)).join("\n") + "\n", "utf8");
+  fs.writeFileSync(
+    eventsPath,
+    events.map((event) => JSON.stringify(event)).join("\n") + "\n",
+    "utf8",
+  );
   writeJsonFile(deploymentsPath, summary.deployments);
   writeJsonFile(assertionsPath, []);
 
   return { manifestPath, summaryPath, eventsPath, deploymentsPath, assertionsPath };
 }
 
-function inferStatusFromReport(report: { summary?: { failed?: number } } | undefined): DashboardRunStatus {
+function inferStatusFromReport(
+  report: { summary?: { failed?: number } } | undefined,
+): DashboardRunStatus {
   if (!report?.summary) {
     return "UNKNOWN";
   }
@@ -265,7 +281,9 @@ export function readRunDetail(runsRoot: string, runId: string): DashboardRunDeta
   }
 
   const manifest = readJsonFile<RunManifest>(path.join(runDir, "manifest.json"));
-  const summary = readJsonFile<RunSummary>(path.join(runDir, manifest?.summaryPath || "summary.json"));
+  const summary = readJsonFile<RunSummary>(
+    path.join(runDir, manifest?.summaryPath || "summary.json"),
+  );
   const report = readJsonFile<{
     projectName?: string;
     runId?: string;
@@ -276,12 +294,17 @@ export function readRunDetail(runsRoot: string, runId: string): DashboardRunDeta
   const events = readEventsFile(path.join(runDir, manifest?.eventsPath || "events.jsonl"));
 
   const deployments =
-    summary?.deployments || report?.deployments?.map((deployment) => normalizeReportDeployment(deployment)) || [];
+    summary?.deployments ||
+    report?.deployments?.map((deployment) => normalizeReportDeployment(deployment)) ||
+    [];
   const status = manifest?.status || summary?.status || inferStatusFromReport(report);
   const totals = summary?.totals || {
     tests: report?.summary?.total || deployments.length,
-    passed: report?.summary?.passed || deployments.filter((deployment) => deployment.success).length,
-    failed: report?.summary?.failed || deployments.filter((deployment) => deployment.success === false).length,
+    passed:
+      report?.summary?.passed || deployments.filter((deployment) => deployment.success).length,
+    failed:
+      report?.summary?.failed ||
+      deployments.filter((deployment) => deployment.success === false).length,
     skipped: deployments.filter((deployment) => deployment.status === "SKIPPED").length,
   };
 
@@ -289,7 +312,9 @@ export function readRunDetail(runsRoot: string, runId: string): DashboardRunDeta
     runId: manifest?.runId || report?.runId || runId,
     scenarioName: manifest?.scenarioName || report?.projectName || "unknown",
     provider: manifest?.provider || deployments[0]?.provider || "unknown",
-    regions: manifest?.regions || Array.from(new Set(deployments.map((deployment) => deployment.region).filter(Boolean))),
+    regions:
+      manifest?.regions ||
+      Array.from(new Set(deployments.map((deployment) => deployment.region).filter(Boolean))),
     status,
     startedAt: manifest?.startedAt || report?.timestamp,
     endedAt: manifest?.endedAt,
@@ -349,7 +374,9 @@ export function buildArtifactTree(runDir: string): ArtifactTreeNode[] {
           size: fs.statSync(absolutePath).size,
         };
       })
-      .sort((a, b) => (a.type === b.type ? a.name.localeCompare(b.name) : a.type === "directory" ? -1 : 1));
+      .sort((a, b) =>
+        a.type === b.type ? a.name.localeCompare(b.name) : a.type === "directory" ? -1 : 1,
+      );
   }
 
   return walk(root);

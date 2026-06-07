@@ -40,7 +40,7 @@ npx stacktest plan [--config <path>] [--json]
 ### Run Tests (`run`)
 Launches the test suite deployments.
 ```bash
-npx stacktest run [--config <path>] [--provider <name>] [--skip-cleanup] [--retain-on-failure] [--concurrency <num>]
+npx stacktest run [--config <path>] [--provider <name>] [--skip-cleanup] [--retain-on-failure] [--concurrency <num>] [--dashboard] [--dashboard-port <num>]
 ```
 - `--provider fake`: Runs mock local deployments without hitting real clouds.
 - `--skip-cleanup`: Prevents automatic teardown of stacks after execution.

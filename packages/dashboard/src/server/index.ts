@@ -88,66 +88,72 @@ export function createDashboardServer(options: DashboardServerOptions = {}): Fas
     return readEventsFile(eventsPath);
   });
 
-  app.get<{ Params: { runId: string } }>("/api/runs/:runId/events/stream", async (request, reply) => {
-    reply.raw.writeHead(200, {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-    });
-
-    const send = (event: unknown): void => {
-      reply.raw.write(`event: stacktest-event\n`);
-      reply.raw.write(`data: ${JSON.stringify(event)}\n\n`);
-    };
-
-    const eventsPath = path.join(runsDir, request.params.runId, "events.jsonl");
-    const initialEvents = options.mock
-      ? mockRuns.find((candidate) => candidate.runId === request.params.runId)?.events || []
-      : readEventsFile(eventsPath);
-    initialEvents.forEach(send);
-
-    if (options.mock) {
-      const timer = setTimeout(() => {
-        send({
-          schemaVersion: "1.0",
-          eventId: "evt-live-mock",
-          runId: request.params.runId,
-          timestamp: "2026-06-06T23:04:40.000Z",
-          type: "deployment_event",
-          status: "CREATE_COMPLETE",
-          message: "Mock live event completed",
-        });
-      }, 250);
-      request.raw.on("close", () => clearTimeout(timer));
-      return reply;
-    }
-
-    let offset = fs.existsSync(eventsPath) ? fs.statSync(eventsPath).size : 0;
-    let buffer = "";
-    const watcher = chokidar.watch(eventsPath, { ignoreInitial: true, awaitWriteFinish: { stabilityThreshold: 75, pollInterval: 25 } });
-    watcher.on("change", () => {
-      if (!fs.existsSync(eventsPath)) return;
-      const stat = fs.statSync(eventsPath);
-      if (stat.size < offset) offset = 0;
-      const stream = fs.createReadStream(eventsPath, { start: offset, end: stat.size });
-      offset = stat.size;
-      stream.on("data", (chunk) => {
-        buffer += chunk.toString("utf8");
-        const lines = buffer.split(/\r?\n/);
-        buffer = lines.pop() || "";
-        for (const line of lines) {
-          if (!line.trim()) continue;
-          try {
-            send(JSON.parse(line));
-          } catch {
-            buffer = `${line}\n${buffer}`;
-          }
-        }
+  app.get<{ Params: { runId: string } }>(
+    "/api/runs/:runId/events/stream",
+    async (request, reply) => {
+      reply.raw.writeHead(200, {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
       });
-    });
-    request.raw.on("close", () => void watcher.close());
-    return reply;
-  });
+
+      const send = (event: unknown): void => {
+        reply.raw.write(`event: stacktest-event\n`);
+        reply.raw.write(`data: ${JSON.stringify(event)}\n\n`);
+      };
+
+      const eventsPath = path.join(runsDir, request.params.runId, "events.jsonl");
+      const initialEvents = options.mock
+        ? mockRuns.find((candidate) => candidate.runId === request.params.runId)?.events || []
+        : readEventsFile(eventsPath);
+      initialEvents.forEach(send);
+
+      if (options.mock) {
+        const timer = setTimeout(() => {
+          send({
+            schemaVersion: "1.0",
+            eventId: "evt-live-mock",
+            runId: request.params.runId,
+            timestamp: "2026-06-06T23:04:40.000Z",
+            type: "deployment_event",
+            status: "CREATE_COMPLETE",
+            message: "Mock live event completed",
+          });
+        }, 250);
+        request.raw.on("close", () => clearTimeout(timer));
+        return reply;
+      }
+
+      let offset = fs.existsSync(eventsPath) ? fs.statSync(eventsPath).size : 0;
+      let buffer = "";
+      const watcher = chokidar.watch(eventsPath, {
+        ignoreInitial: true,
+        awaitWriteFinish: { stabilityThreshold: 75, pollInterval: 25 },
+      });
+      watcher.on("change", () => {
+        if (!fs.existsSync(eventsPath)) return;
+        const stat = fs.statSync(eventsPath);
+        if (stat.size < offset) offset = 0;
+        const stream = fs.createReadStream(eventsPath, { start: offset, end: stat.size });
+        offset = stat.size;
+        stream.on("data", (chunk) => {
+          buffer += chunk.toString("utf8");
+          const lines = buffer.split(/\r?\n/);
+          buffer = lines.pop() || "";
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            try {
+              send(JSON.parse(line));
+            } catch {
+              buffer = `${line}\n${buffer}`;
+            }
+          }
+        });
+      });
+      request.raw.on("close", () => void watcher.close());
+      return reply;
+    },
+  );
 
   app.get<{ Params: { runId: string } }>("/api/runs/:runId/artifacts", async (request, reply) => {
     if (options.mock) {
@@ -163,7 +169,9 @@ export function createDashboardServer(options: DashboardServerOptions = {}): Fas
     async (request, reply) => {
       const artifactPath = request.query.path || "";
       if (options.mock) {
-        return reply.type(artifactPath.endsWith(".json") ? "application/json" : "text/plain").send(getMockFile(artifactPath));
+        return reply
+          .type(artifactPath.endsWith(".json") ? "application/json" : "text/plain")
+          .send(getMockFile(artifactPath));
       }
       try {
         const runDir = path.join(runsDir, request.params.runId);
@@ -190,16 +198,20 @@ export function createDashboardServer(options: DashboardServerOptions = {}): Fas
   app.get("/*", async (request, reply) => {
     const dist = webDistDir();
     const requestPath = request.url.split("?")[0] || "/";
-    const candidate = requestPath === "/" ? path.join(dist, "index.html") : path.join(dist, requestPath);
+    const candidate =
+      requestPath === "/" ? path.join(dist, "index.html") : path.join(dist, requestPath);
     const resolved = path.resolve(candidate);
-    const filePath = resolved.startsWith(dist) && fs.existsSync(resolved) && fs.statSync(resolved).isFile()
-      ? resolved
-      : path.join(dist, "index.html");
+    const filePath =
+      resolved.startsWith(dist) && fs.existsSync(resolved) && fs.statSync(resolved).isFile()
+        ? resolved
+        : path.join(dist, "index.html");
 
     if (!fs.existsSync(filePath)) {
       return reply
         .type("text/html; charset=utf-8")
-        .send("<!doctype html><title>StackTest Dashboard</title><main>Dashboard assets have not been built.</main>");
+        .send(
+          "<!doctype html><title>StackTest Dashboard</title><main>Dashboard assets have not been built.</main>",
+        );
     }
 
     return reply.type(contentTypeFor(filePath)).send(fs.readFileSync(filePath));

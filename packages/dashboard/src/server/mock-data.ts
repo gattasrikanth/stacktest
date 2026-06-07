@@ -69,8 +69,20 @@ export const mockRuns: DashboardRunDetail[] = [
       },
     ],
     events: [
-      event("st-20260606-6e0feb", "evt-001", "2026-06-06T22:50:29.000Z", "CREATE_IN_PROGRESS", "Resource creation started"),
-      event("st-20260606-6e0feb", "evt-002", "2026-06-06T22:51:32.000Z", "CREATE_COMPLETE", "Resource creation complete"),
+      event(
+        "st-20260606-6e0feb",
+        "evt-001",
+        "2026-06-06T22:50:29.000Z",
+        "CREATE_IN_PROGRESS",
+        "Resource creation started",
+      ),
+      event(
+        "st-20260606-6e0feb",
+        "evt-002",
+        "2026-06-06T22:51:32.000Z",
+        "CREATE_COMPLETE",
+        "Resource creation complete",
+      ),
     ],
     artifactFiles: artifacts,
   },
@@ -103,8 +115,20 @@ export const mockRuns: DashboardRunDetail[] = [
       },
     ],
     events: [
-      event("st-20260606-8f9db5", "evt-001", "2026-06-06T21:14:12.000Z", "CREATE_IN_PROGRESS", "S3 policy creation started"),
-      event("st-20260606-8f9db5", "evt-002", "2026-06-06T21:14:59.000Z", "CREATE_FAILED", "Bucket policy validation failed"),
+      event(
+        "st-20260606-8f9db5",
+        "evt-001",
+        "2026-06-06T21:14:12.000Z",
+        "CREATE_IN_PROGRESS",
+        "S3 policy creation started",
+      ),
+      event(
+        "st-20260606-8f9db5",
+        "evt-002",
+        "2026-06-06T21:14:59.000Z",
+        "CREATE_FAILED",
+        "Bucket policy validation failed",
+      ),
     ],
     artifactFiles: artifacts,
   },
@@ -139,7 +163,13 @@ export const mockRuns: DashboardRunDetail[] = [
       },
     ],
     events: [
-      event("st-20260606-live01", "evt-001", "2026-06-06T23:04:04.000Z", "CREATE_IN_PROGRESS", "West region VPC creation started"),
+      event(
+        "st-20260606-live01",
+        "evt-001",
+        "2026-06-06T23:04:04.000Z",
+        "CREATE_IN_PROGRESS",
+        "West region VPC creation started",
+      ),
     ],
     artifactFiles: artifacts,
   },
@@ -167,8 +197,20 @@ export const mockRuns: DashboardRunDetail[] = [
       },
     ],
     events: [
-      event("st-20260605-333e11", "evt-001", "2026-06-05T18:22:04.000Z", "DELETE_IN_PROGRESS", "Cleanup started"),
-      event("st-20260605-333e11", "evt-002", "2026-06-05T18:22:24.000Z", "DELETE_COMPLETE", "Cleanup completed"),
+      event(
+        "st-20260605-333e11",
+        "evt-001",
+        "2026-06-05T18:22:04.000Z",
+        "DELETE_IN_PROGRESS",
+        "Cleanup started",
+      ),
+      event(
+        "st-20260605-333e11",
+        "evt-002",
+        "2026-06-05T18:22:24.000Z",
+        "DELETE_COMPLETE",
+        "Cleanup completed",
+      ),
     ],
     artifactFiles: artifacts,
   },
@@ -192,7 +234,11 @@ export function mockRunList(): DashboardRunListItem[] {
 
 export function getMockFile(filePath: string): string {
   if (filePath.endsWith(".json")) {
-    return JSON.stringify({ mock: true, filePath, generatedAt: "2026-06-06T00:00:00.000Z" }, null, 2);
+    return JSON.stringify(
+      { mock: true, filePath, generatedAt: "2026-06-06T00:00:00.000Z" },
+      null,
+      2,
+    );
   }
   return "StackTest mock artifact log\nCREATE_IN_PROGRESS SandboxQueue\nCREATE_COMPLETE SandboxQueue\n";
 }

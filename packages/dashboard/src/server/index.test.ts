@@ -15,11 +15,23 @@ describe("dashboard server", () => {
         projectName: "server-test",
         runId: "st-one",
         summary: { total: 1, passed: 1, failed: 0, durationMs: 10 },
-        deployments: [{ testName: "basic", provider: "fake", region: "local", status: "CREATE_COMPLETE", success: true }],
+        deployments: [
+          {
+            testName: "basic",
+            provider: "fake",
+            region: "local",
+            status: "CREATE_COMPLETE",
+            success: true,
+          },
+        ],
       }),
       "utf8",
     );
-    fs.writeFileSync(path.join(TEST_DIR, "runs", "st-one", "events.jsonl"), '{"schemaVersion":"1.0","eventId":"evt-1","runId":"st-one","timestamp":"2026-06-06T00:00:00.000Z","type":"run_started"}\n', "utf8");
+    fs.writeFileSync(
+      path.join(TEST_DIR, "runs", "st-one", "events.jsonl"),
+      '{"schemaVersion":"1.0","eventId":"evt-1","runId":"st-one","timestamp":"2026-06-06T00:00:00.000Z","type":"run_started"}\n',
+      "utf8",
+    );
   });
 
   afterEach(() => {
@@ -68,7 +80,10 @@ describe("dashboard server", () => {
   });
 
   it("keeps actions disabled", async () => {
-    const app = createDashboardServer({ runsDir: path.join(TEST_DIR, "runs"), enableActions: true });
+    const app = createDashboardServer({
+      runsDir: path.join(TEST_DIR, "runs"),
+      enableActions: true,
+    });
 
     const response = await app.inject({ method: "POST", url: "/api/actions/run", payload: {} });
 

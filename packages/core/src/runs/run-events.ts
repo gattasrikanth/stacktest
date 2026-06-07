@@ -39,7 +39,10 @@ export function createRunEvent(
   eventId: string,
   type: DashboardRunEvent["type"],
   timestamp: string,
-  fields: Omit<Partial<DashboardRunEvent>, "schemaVersion" | "runId" | "eventId" | "type" | "timestamp"> = {},
+  fields: Omit<
+    Partial<DashboardRunEvent>,
+    "schemaVersion" | "runId" | "eventId" | "type" | "timestamp"
+  > = {},
 ): DashboardRunEvent {
   return {
     schemaVersion: "1.0",
